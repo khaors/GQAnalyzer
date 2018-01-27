@@ -16,7 +16,10 @@ This function returns
 Function to estimate the end members of a solution
 }
 \seealso{
-Other mixing functions: \code{\link{m3_mixing_model}}
+Other mixing functions: \code{\link{carrera_mixing_model}},
+  \code{\link{constrained_lm}},
+  \code{\link{m3_mixing_model}},
+  \code{\link{uncertainty_m3_mixing_model}}
 }
 \author{
 Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
