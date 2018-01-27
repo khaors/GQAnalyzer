@@ -14,4 +14,6 @@ Imports:
   ggplot2,
   dplyr,  
   tidyr, 
-  magrittr
+  magrittr,
+  MASS, 
+  pracma
