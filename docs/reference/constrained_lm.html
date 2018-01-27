@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>select_end_members — select_end_members • GQAnalyzer</title>
+<title>constrained_lm — constrained_lm • GQAnalyzer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -75,33 +75,43 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>select_end_members</h1>
+    <h1>constrained_lm</h1>
     </div>
 
     
-    <p>Function to estimate the end members of a solution</p>
+    <p>Constrained least-squares function. The constraint included ensures that the sum of the
+estimated coefficients is equal to 1 and the coefficients are positive.</p>
     
 
-    <pre class="usage"><span class='fu'>select_end_members</span>(<span class='no'>gdata</span>)</pre>
+    <pre class="usage"><span class='fu'>constrained_lm</span>(<span class='no'>y</span>, <span class='no'>X</span>, <span class='kw'>tol</span> <span class='kw'>=</span> <span class='fl'>1e-12</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>gdata</th>
-      <td><p>A geochemical_dataset object</p></td>
+      <th>y</th>
+      <td><p>A column matrix with the y values</p></td>
+    </tr>
+    <tr>
+      <th>X</th>
+      <td><p>The design matrix of the problem</p></td>
+    </tr>
+    <tr>
+      <th>tol</th>
+      <td><p>A numeric value with the tolerance specified to avoid numerical instability
+during the solution of the least-squares problem.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>This function returns</p>
+    <p>This function returns a numeric vector with the values of the estimated coeffcicients.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p>Other mixing functions: <code><a href='carrera_mixing_model.html'>carrera_mixing_model</a></code>,
-  <code><a href='constrained_lm.html'>constrained_lm</a></code>,
   <code><a href='m3_mixing_model.html'>m3_mixing_model</a></code>,
+  <code><a href='select_end_members.html'>select_end_members</a></code>,
   <code><a href='uncertainty_m3_mixing_model.html'>uncertainty_m3_mixing_model</a></code></p>
     
 

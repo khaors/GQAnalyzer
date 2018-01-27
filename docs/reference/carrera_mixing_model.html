@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>select_end_members — select_end_members • GQAnalyzer</title>
+<title>carrera_mixing_model — carrera_mixing_model • GQAnalyzer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -75,33 +75,37 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>select_end_members</h1>
+    <h1>carrera_mixing_model</h1>
     </div>
 
     
-    <p>Function to estimate the end members of a solution</p>
+    <p>Function to estimate mixing ratios with uncertain end.members</p>
     
 
-    <pre class="usage"><span class='fu'>select_end_members</span>(<span class='no'>gdata</span>)</pre>
+    <pre class="usage"><span class='fu'>carrera_mixing_model</span>(<span class='no'>gdata.gd</span>, <span class='no'>end.members.gd</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>gdata</th>
-      <td><p>A geochemical_dataset object</p></td>
+      <th>gdata.gd</th>
+      <td><p>A geochemical_dataset</p></td>
+    </tr>
+    <tr>
+      <th>end.members.gd</th>
+      <td><p>A geochemical_dataset</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>This function returns</p>
+    <p>A numeric vector</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other mixing functions: <code><a href='carrera_mixing_model.html'>carrera_mixing_model</a></code>,
-  <code><a href='constrained_lm.html'>constrained_lm</a></code>,
+    <p>Other mixing functions: <code><a href='constrained_lm.html'>constrained_lm</a></code>,
   <code><a href='m3_mixing_model.html'>m3_mixing_model</a></code>,
+  <code><a href='select_end_members.html'>select_end_members</a></code>,
   <code><a href='uncertainty_m3_mixing_model.html'>uncertainty_m3_mixing_model</a></code></p>
     
 
@@ -118,7 +122,7 @@
 
     <h2>Author</h2>
     
-Oscar Garcia-Cabrejo, <a href='mailto:khaors@gmail.com'>khaors@gmail.com</a>
+Oscar Garcia-Cabrejo <a href='mailto:khaors@gmail.com'>khaors@gmail.com</a>
 
   </div>
 </div>

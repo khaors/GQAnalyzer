@@ -32,10 +32,9 @@ dbSidebar <- dashboardSidebar(
   #uiOutput("selectSlotName"),
   sidebarMenu(
     menuItem("Home", tabName = "home", icon = icon("home")),
-    menuItem("Data", tabName = "data", icon = icon("table")),
-    menuItem("Filter Data", tabName = "filter", icon = icon("filter")),
+    menuItem("Create Project", tabName = "data", icon = icon("table")),
     menuItem("Transform Data", tabName = "transformation", icon = icon("key")),
-    menuItem("Graphical Inversion", tabName = "manual", icon = icon("hand-spock-o")),
+    menuItem("EDA", tabName = "manual", icon = icon("bar-chart")),
     menuItem("Automatic Inversion", tabName = "automatic", icon = icon("fighter-jet")),
     #menuItem("Reports", tabName = "reports", icon = icon("cogs")),
     menuItem("Model Diagnostic", tabName = "diagnostic", icon = icon("wrench")),
@@ -47,10 +46,10 @@ dbSidebar <- dashboardSidebar(
 #########################################################################################
 homeTab <- tabItem(
   tabName = "home",
-  h1("UPTSE-V: Vertical Electrical Sounding Analyst"),
+  h1("GQAnalyzer: Groundwater Quality Analyzer"),
   fluidRow(
     tags$em(
-      "Copyright (c) 2017 Oscar Garcia-Cabrejo <khaors@gmail.com>",
+      "Copyright (c) 2018 Oscar Garcia-Cabrejo <khaors@gmail.com>",
       br(),
       br(),
       "Permission to use, copy, modify, and distribute this software for any
@@ -69,7 +68,7 @@ homeTab <- tabItem(
     br(),br(),
     box(
       h2("Information"),
-      "This interface allows users to load, plot and analyze VES acquired using Schlumberger arrays.",
+      "This interface allows users to load, plot and analyze Groundwater Quality data routinely collected in hydrogeological studies.",
       "This tool is primarily meant to support the teaching of Hydrogeology at School of Geological ",
       "Engineering, UPTC - Sogamoso, Boyaca, Colombia. Although the main target is only for educational",
       "purposes, this tool can be used by other users to analyze their VES but the accuracy ",
@@ -83,33 +82,33 @@ homeTab <- tabItem(
       ". ",
       br(),br(),
       "The source code is available on ",
-      tags$a(href="https://github.com/khaors/rves", "GitHub. "),
+      tags$a(href="https://github.com/khaors/GQAnalyzer", "GitHub. "),
       "Contact the developer, Oscar Garcia-Cabrejo, via e-mail at khaors@gmail.com for
       questions or feedback."
     ),
     box(
       h2("Instructions"),
-      "1. Load the results of the VES using the Data Tab on the right.",
+      "1. Load Groundwater chemical composition using the Data Tab and create a Project
+      on the right.",
       br(),br(),
-      "2. If required, use the Filter Tab to remove noise in the apparent resistivity measurements ",
-      "using different methodologies including smoothing spline, kernel polynomial regression, ",
-      "and wavelet thresholding.",
+      "2. If required, use the Transformation Tab to apply a transformation to the Groundwater composition ",
+      "in order to uncover hidden features, improve regression analysis and or define new  ",
+      "variables to improve your analysis.",
       br(), br(),
-      "3. Use the Transformation Tab to apply different resistivity-depth transformation to your ",
-      "resistivity measurements. These transformation approaches can be conceived as heuristic ",
-      "inversion methodologies and can be used in cases when a more realisitic initial solution is ",
-      "needed for the automatic inversion routines or a fast multilayer model is required.",
+      "3. Use the EDA Tab (Exploratory Data Analysis), Univariate Analysis (histograms, QQ plots),",
+      "Multivariate Analysis(principal components), Cluster Analysis (Hierarchical, K-means)",
       br(),br(),
-      "4. Use the Graphical Inversion Tab to define a model using your 'Geophysical Skill'.",
+      "4. Use the Scatterplots Tab to create plots to help in the identification of hydrogeochemical ",
+      "processes controlling the Groundwater composition",
       br(),br(),
-      "5. Use the Automatic Inversion Tab to estimate the real resistivities and thicknesses using ",
-      "different optimization techniques. The convential approach is based on linear inverse theory ",
-      "and is called Nonlinear Least-Squares method. There are other methods to find the resitivities and ",
-      "thicknesses based on optimization theory. These methods include Simulated Annealing, Genetic ",
-      "Algorithms, Particle Swarm Optimization, Differential Evoluation, among others",
+      "5. Use the Ternary Diagram Tab",
       br(),br(),
-      "6. Evaluate the estimated model on the Model Diagnostic Tab and be more confident about the ",
-      "estimated parameters."
+      "6. Use the Piper Diagram Tabl",
+      br(),br(),
+      "7. Use the Durov Plot Tab",
+      br(),br(),
+      "8. Uses the Multirectangular Plot Tab",
+      br(),br()
     )
 
     )
@@ -119,13 +118,19 @@ homeTab <- tabItem(
 #########################################################################################
 dataTab <- tabItem(
   tabName = "data",
-  h2("Import VES Data"),
+  h2("Create GQAnalyzer Project"),
   br(),
   br(),
   fluidRow(
     tags$em("This tab is to import data. VES data must be in a text file and you can use
             all the options below to make sure that you can import your data.")
     ),
+  br(),
+  br(),
+  textInput('project.name', 'Project Name', value = ""),
+  br(),
+  br(),
+  checkboxInput('import.data', 'Import Data', value = FALSE),
   br(),
   br(),
   checkboxInput('header', ' Header?', TRUE),
@@ -155,7 +160,7 @@ dataTab <- tabItem(
 #########################################################################################
 filterTab <- tabItem(
   tabName = "filter",
-  h3("VES Filtering"),
+  h3("Filtering"),
   br(),
   fluidRow(
     tags$em("On this tab you can apply different smoothing techniques to the measured
@@ -190,7 +195,7 @@ filterTab <- tabItem(
 #########################################################################################
 transformationTab <- tabItem(
   tabName = "transformation",
-  h3("Resistivity-Depth Transformation"),
+  h3("Transformation and Filtering"),
   br(),
   fluidRow(
     tags$em("On this tab you can transform your apparent resistivity data measured at a
@@ -374,7 +379,7 @@ reportsTab <- tabItem(
 )
 #
 userInterface <- dashboardPage(
-  skin = "blue",
+  skin = "green",
   # DASHBOARD HEADER
   dbHeader,
   # DASHBOARD SIDEBAR
@@ -385,7 +390,6 @@ userInterface <- dashboardPage(
     tabItems(
       homeTab ,
       dataTab,
-      filterTab,
       transformationTab,
       manualTab,
       automaticTab, #,reportsTab
