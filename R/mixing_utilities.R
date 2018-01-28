@@ -66,13 +66,15 @@ m3_mixing_model <- function(gdata, end.members){
   beginp <- nrow(samples.conc)+1
   endp <- nsamples
   end.members.pca <- res.pca.def[beginp:endp,]
-  end.members.mat <- t(end.members.pca)
   end.members.pchull <- chull(end.members.pca[,1], end.members.pca[,2])
+  n.chull <- length(end.members.pchull)
   end.members.chull <- end.members.pca[end.members.pchull,1:2]
   end.members.chull <- rbind(end.members.chull, end.members.chull[1,])
   end.members.chull.df <- as.data.frame(end.members.chull)
-  end.members.chull.df$Type <- c(seq(1,n.endmembers, 1), 1)
+  end.members.chull.df$Type <- c(seq(1,n.chull, 1), 1)
   names(end.members.chull.df) <- c("PC1", "PC2", "Type")
+  #
+  end.members.mat <- t(end.members.pca)
   FFt <- t(end.members.mat)%*%end.members.mat
   Ie <- matrix(1.0, nrow = n.endmembers, ncol = 1)
   tmp1 <- cbind(FFt,Ie)
