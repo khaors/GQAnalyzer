@@ -7,7 +7,7 @@
 m3_mixing_model(gdata, end.members)
 }
 \arguments{
-\item{gdata}{A geochemical_dataset object}
+\item{gdata}{A geochemical_dataset object with the major ions only.}
 
 \item{end.members}{A geochemical_dataset with the chemical compositions of the
 end-members of the solution.}
