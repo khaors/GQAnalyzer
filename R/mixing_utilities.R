@@ -15,7 +15,7 @@ NULL
 #' Analysis (PCA). The compositions of pre-defined end-members are also projected and from
 #' these coordinates, the mixing ratios of each end-member are calculated using a constrained
 #' least-squares procedure (mixing ratios add up to 1).
-#' @param gdata A geochemical_dataset object
+#' @param gdata A geochemical_dataset object with the major ions only.
 #' @param end.members A geochemical_dataset with the chemical compositions of the
 #' end-members of the solution.
 #' @return
