@@ -182,6 +182,17 @@ plot_multirectangular <- function(x, measure = c('conc', 'meql'),
           panel.border = element_blank(), panel.grid.major.y = element_blank(),
           panel.grid.minor.y = element_blank(), panel.grid.major.x = element_blank(),
           panel.grid.minor.x = element_blank())
+  #
+  if(!is.null(color)){
+    tmp <- gdata$dataset[color]
+    if(class(tmp[,1]) == "numeric"){
+      p <- p + scale_colour_gradientn(colours = rainbow(10))
+    }
+    else if(class(tmp[,1]) == "factor"){
+      p <- p + scale_color_discrete()
+    }
+  }
+  #
   return(p)
 }
 

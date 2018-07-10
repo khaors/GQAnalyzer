@@ -20,10 +20,11 @@ NULL
 #' @author
 #' Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 #' @family anomaly functions
+#' @importFrom stats sd
+#' @importFrom stats quantile
 #' @export
 anomaly_statistical_methods <- function(gdata, method  = c("mean", "quantile")){
-  if(class(gdata) != "geochemical_dataset" |
-     class(end.members) != "geochemical_dataset"){
+  if(class(gdata) != "geochemical_dataset"){
     stop('ERROR: A geochemical_dataset is required as input')
   }
   #
@@ -53,12 +54,16 @@ anomaly_statistical_methods <- function(gdata, method  = c("mean", "quantile")){
 #' @author
 #' Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 #' @family anomaly functions
+#' @importFrom ggplot2 geom_qq
+#' @importFrom ggplot2 ggplot
 #' @export
 anomaly_graphical_method <- function(gdata){
   if(class(gdata) != "geochemical_dataset"){
     stop('ERROR: A geochemical_dataset is required as input')
   }
   #
+  dataset <- gdata$dataset
+  Elements <- NULL
   p1 <- ggplot() + geom_qq(aes(sample = Elements), data = dataset)
   return(p1)
 }

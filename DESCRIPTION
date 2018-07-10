@@ -16,4 +16,8 @@ Imports:
   tidyr, 
   magrittr,
   MASS, 
-  pracma
+  pracma,
+  shiny,
+  DT, 
+  shinyalert,
+  gridExtra

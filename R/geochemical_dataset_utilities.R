@@ -238,3 +238,66 @@ plot.geochemical_dataset <- function(x, y = NULL, ..., type = c('piper',
   p <- do.call(current.cmd, args = current.args)
   return(p)
 }
+#' @title
+#' plot_schoeller
+#' @description
+#' Function to create a Schoeller plot
+#' @param x A geochemical dataset
+#' @param measure The type of measure
+#' @param vars variables
+#' @param color color
+#' @param Size  size
+#' @return
+#' A ggplot2 object with the corresponding Schoeller plot
+#' @author
+#' Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
+#' @export
+#' @importFrom ggplot2 ggplot scale_x_discrete scale_y_log10
+plot_schoeller <- function(x, measure = c('conc', 'meql'),
+                           vars = NULL, color = NULL,
+                           Size = NULL){
+  gdata <- x
+  conc_ions <- colnames(gdata$dataset)
+  meql_ions <- c("Ca", "Mg", "Na", "K", "HCO3", "CO3", "Cl", "SO4")
+  if(class(gdata) != "geochemical_dataset"){
+    stop('ERROR: A geochemical_dataset is required as input')
+  }
+  schoeller.df <- gdata$meqL.schoeller
+  nsamples <- nrow(schoeller.df)/8
+  if(is.null(color)){
+    stop('ERROR: This function requires a color variable for grouping and also for color')
+  }
+  #print(schoeller.df)
+  #
+  p <- NULL
+  tmp <- gdata$dataset[color]
+  schoeller.df[color] <- tmp[,1]
+  if(is.null(Size)){
+    p <- ggplot(data =schoeller.df) + geom_point(aes_string(x = "major_ions",
+                                                            y = "concentration",
+                                                            color = color),
+                                                 size = 3) +
+      scale_x_discrete() +
+      geom_line(aes_string(x = "major_ions", y = "concentration",
+                           color = color, group = color),
+                data = schoeller.df) +
+      scale_y_log10()
+  }
+  else{
+    tmp <- gdata$dataset[Size]
+    schoeller.df[Size] <- tmp[,1]
+    if(class(Size) == "numeric"){
+      p <- ggplot(data =schoeller.df) + geom_point(aes_string(x = "major_ions",
+                                                              y = "concentration",
+                                                              color = color,
+                                                              size = Size)) +
+        scale_x_discrete() +
+        geom_line(aes_string(x = "major_ions", y = "concentration",
+                             color = color, group = color),
+                  data = schoeller.df) +
+        scale_y_log10()
+    }
+  }
+  p <- p + theme_bw()
+  return(p)
+}
