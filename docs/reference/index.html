@@ -18,13 +18,22 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Function reference" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +56,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">GQAnalyzer</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">GQAnalyzer</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -65,6 +78,7 @@
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -72,238 +86,264 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.1.0</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="anion_cation_transform.html">anion_cation_transform</a></code> </p>
-          </td>
-          <td><p>anion_cation_transform</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="carrera_mixing_model.html">carrera_mixing_model</a></code> </p>
-          </td>
-          <td><p>carrera_mixing_model</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="constrained_lm.html">constrained_lm</a></code> </p>
-          </td>
-          <td><p>constrained_lm</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="convert_meql.html">convert_meql</a></code> </p>
-          </td>
-          <td><p>convert_meql</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="durov_transform1.html">durov_transform1</a></code> </p>
-          </td>
-          <td><p>durov_transform1</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="durov_transform.html">durov_transform</a></code> </p>
-          </td>
-          <td><p>durov_transform</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="geochemical_dataset.html">geochemical_dataset</a></code> </p>
-          </td>
-          <td><p>geochemical_dataset</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ggplot_durov.html">ggplot_durov</a></code> </p>
-          </td>
-          <td><p>ggplot_durov</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ggplot_maucha.html">ggplot_maucha</a></code> </p>
-          </td>
-          <td><p>ggplot_maucha</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ggplot_multirectangular.html">ggplot_multirectangular</a></code> </p>
-          </td>
-          <td><p>ggplot_multirectangular</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ggplot_piper.html">ggplot_piper</a></code> </p>
-          </td>
-          <td><p>ggplot_piper</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ggplot_radial.html">ggplot_radial</a></code> </p>
-          </td>
-          <td><p>ggplot_radial</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ggplot_stiff.html">ggplot_stiff</a></code> </p>
-          </td>
-          <td><p>ggplot_stiff</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ggplot_ternary.html">ggplot_ternary</a></code> </p>
-          </td>
-          <td><p>ggplot_ternary</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="GQAnalyzer.html">GQAnalyzer</a></code> </p>
-          </td>
-          <td><p>GQAnalyzer: A package for Hydrogeochemical plotting</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="m3_mixing_model.html">m3_mixing_model</a></code> </p>
-          </td>
-          <td><p>m3_mixing_model</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="maucha_transform.html">maucha_transform</a></code> </p>
-          </td>
-          <td><p>maucha_transform</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="multirectangular_transform.html">multirectangular_transform</a></code> </p>
-          </td>
-          <td><p>multirectangular_transform</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="piper_transform.html">piper_transform</a></code> </p>
-          </td>
-          <td><p>piper_transform</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_durov.html">plot_durov</a></code> </p>
-          </td>
-          <td><p>plot_durov</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot.geochemical_dataset.html">plot</a></code> </p>
-          </td>
-          <td><p>plot.geochemical_dataset</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_maucha.html">plot_maucha</a></code> </p>
-          </td>
-          <td><p>plot_maucha</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_multirectangular.html">plot_multirectangular</a></code> </p>
-          </td>
-          <td><p>plot_multirectangular</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_piper.html">plot_piper</a></code> </p>
-          </td>
-          <td><p>plot_piper</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_radial.html">plot_radial</a></code> </p>
-          </td>
-          <td><p>plot_radial</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_stiff.html">plot_stiff</a></code> </p>
-          </td>
-          <td><p>plot_stiff</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_ternary.html">plot_ternary</a></code> </p>
-          </td>
-          <td><p>plot_ternary</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="radial_transform.html">radial_transform</a></code> </p>
-          </td>
-          <td><p>radial_transform</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="select_end_members.html">select_end_members</a></code> </p>
-          </td>
-          <td><p>select_end_members</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="stiff_transform.html">stiff_transform</a></code> </p>
-          </td>
-          <td><p>stiff_transform</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sub-.geochemical_dataset.html">[.geochemical_dataset</a></code> </p>
-          </td>
-          <td><p>[.geochemical_dataset</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ternary_transform.html">ternary_transform</a></code> </p>
-          </td>
-          <td><p>ternary_transform</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="transform_piper_data.html">transform_piper_data</a></code> </p>
-          </td>
-          <td><p>transform_piper_data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="uncertainty_m3_mixing_model.html">uncertainty_m3_mixing_model</a></code> </p>
-          </td>
-          <td><p>uncertainty_m3_mixing_model</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="GQAnalyzer.html">GQAnalyzer</a></code> </p>
+        </td>
+        <td><p>GQAnalyzer: A package for Hydrogeochemical plotting</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="GQAnalyzer_gui.html">GQAnalyzer_gui()</a></code> </p>
+        </td>
+        <td><p>GQAnalyzer_gui</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="anion_cation_transform.html">anion_cation_transform()</a></code> </p>
+        </td>
+        <td><p>anion_cation_transform</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="anomaly_concentration_area_method.html">anomaly_concentration_area_method()</a></code> </p>
+        </td>
+        <td><p>anomaly_concentration_area_method</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="anomaly_graphical_method.html">anomaly_graphical_method()</a></code> </p>
+        </td>
+        <td><p>anomaly_graphical_method</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="anomaly_statistical_methods.html">anomaly_statistical_methods()</a></code> </p>
+        </td>
+        <td><p>anomaly_statistical_methods</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="carrera_mixing_model.html">carrera_mixing_model()</a></code> </p>
+        </td>
+        <td><p>carrera_mixing_model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="constrained_lm.html">constrained_lm()</a></code> </p>
+        </td>
+        <td><p>constrained_lm</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="convert_meql.html">convert_meql()</a></code> </p>
+        </td>
+        <td><p>convert_meql</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="durov_transform.html">durov_transform()</a></code> </p>
+        </td>
+        <td><p>durov_transform</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="durov_transform1.html">durov_transform1()</a></code> </p>
+        </td>
+        <td><p>durov_transform1</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geochemical_dataset.html">geochemical_dataset()</a></code> </p>
+        </td>
+        <td><p>geochemical_dataset</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ggplot_durov.html">ggplot_durov()</a></code> </p>
+        </td>
+        <td><p>ggplot_durov</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ggplot_maucha.html">ggplot_maucha()</a></code> </p>
+        </td>
+        <td><p>ggplot_maucha</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ggplot_multirectangular.html">ggplot_multirectangular()</a></code> </p>
+        </td>
+        <td><p>ggplot_multirectangular</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ggplot_piper.html">ggplot_piper()</a></code> </p>
+        </td>
+        <td><p>ggplot_piper</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ggplot_radial.html">ggplot_radial()</a></code> </p>
+        </td>
+        <td><p>ggplot_radial</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ggplot_stiff.html">ggplot_stiff()</a></code> </p>
+        </td>
+        <td><p>ggplot_stiff</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ggplot_ternary.html">ggplot_ternary()</a></code> </p>
+        </td>
+        <td><p>ggplot_ternary</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="m3_mixing_model.html">m3_mixing_model()</a></code> </p>
+        </td>
+        <td><p>m3_mixing_model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="maucha_transform.html">maucha_transform()</a></code> </p>
+        </td>
+        <td><p>maucha_transform</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="multirectangular_transform.html">multirectangular_transform()</a></code> </p>
+        </td>
+        <td><p>multirectangular_transform</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="piper_transform.html">piper_transform()</a></code> </p>
+        </td>
+        <td><p>piper_transform</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot.geochemical_dataset.html">plot(<i>&lt;geochemical_dataset&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>plot.geochemical_dataset</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_durov.html">plot_durov()</a></code> </p>
+        </td>
+        <td><p>plot_durov</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_maucha.html">plot_maucha()</a></code> </p>
+        </td>
+        <td><p>plot_maucha</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_multirectangular.html">plot_multirectangular()</a></code> </p>
+        </td>
+        <td><p>plot_multirectangular</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_piper.html">plot_piper()</a></code> </p>
+        </td>
+        <td><p>plot_piper</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_radial.html">plot_radial()</a></code> </p>
+        </td>
+        <td><p>plot_radial</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_schoeller.html">plot_schoeller()</a></code> </p>
+        </td>
+        <td><p>plot_schoeller</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_stiff.html">plot_stiff()</a></code> </p>
+        </td>
+        <td><p>plot_stiff</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_ternary.html">plot_ternary()</a></code> </p>
+        </td>
+        <td><p>plot_ternary</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="radial_transform.html">radial_transform()</a></code> </p>
+        </td>
+        <td><p>radial_transform</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="select_end_members.html">select_end_members()</a></code> </p>
+        </td>
+        <td><p>select_end_members</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="stiff_transform.html">stiff_transform()</a></code> </p>
+        </td>
+        <td><p>stiff_transform</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sub-.geochemical_dataset.html">`[`(<i>&lt;geochemical_dataset&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>[.geochemical_dataset</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ternary_transform.html">ternary_transform()</a></code> </p>
+        </td>
+        <td><p>ternary_transform</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="transform_piper_data.html">transform_piper_data()</a></code> </p>
+        </td>
+        <td><p>transform_piper_data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="uncertainty_m3_mixing_model.html">uncertainty_m3_mixing_model()</a></code> </p>
+        </td>
+        <td><p>uncertainty_m3_mixing_model</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -320,11 +360,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

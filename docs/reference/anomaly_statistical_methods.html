@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ggplot_multirectangular — ggplot_multirectangular • GQAnalyzer</title>
+<title>anomaly_statistical_methods — anomaly_statistical_methods • GQAnalyzer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,11 @@
 
 
 
-<meta property="og:title" content="ggplot_multirectangular — ggplot_multirectangular" />
+<meta property="og:title" content="anomaly_statistical_methods — anomaly_statistical_methods" />
 
-<meta property="og:description" content="Function to create the template of a multirectangular diagram." />
+<meta property="og:description" content="Function to calculate the anomaly threshold using two statistical methods:
+1. mean + 2*std
+2. Quantile 90" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -92,33 +94,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ggplot_multirectangular</h1>
+    <h1>anomaly_statistical_methods</h1>
     
-    <div class="hidden name"><code>ggplot_multirectangular.Rd</code></div>
+    <div class="hidden name"><code>anomaly_statistical_methods.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Function to create the template of a multirectangular diagram.</p>
+    <p>Function to calculate the anomaly threshold using two statistical methods:
+1. mean + 2*std
+2. Quantile 90</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_multirectangular</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>anomaly_statistical_methods</span>(<span class='no'>gdata</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"mean"</span>, <span class='st'>"quantile"</span>))</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>gdata</th>
+      <td><p>A geochemical dataset object</p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p>A character string with the method to define the threshold</p></td>
+    </tr>
+    </table>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A ggplot2 plot with the template of a multirectangular diagram.</p>
+    <p>This function returns a list with the following entries</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other multirectangular functions: <code><a href='multirectangular_transform.html'>multirectangular_transform</a></code>,
-  <code><a href='plot_multirectangular.html'>plot_multirectangular</a></code></p></div>
+    <div class='dont-index'><p>Other anomaly functions: <code><a href='anomaly_concentration_area_method.html'>anomaly_concentration_area_method</a></code>,
+  <code><a href='anomaly_graphical_method.html'>anomaly_graphical_method</a></code></p></div>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
 
@@ -127,7 +145,7 @@
 
     <h2>Author</h2>
     
-Oscar Garcia-Cabrejo <a href='mailto:khaors@gmail.com'>khaors@gmail.com</a>
+Oscar Garcia-Cabrejo, <a href='mailto:khaors@gmail.com'>khaors@gmail.com</a>
 
   </div>
 </div>

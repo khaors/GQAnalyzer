@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ggplot_multirectangular — ggplot_multirectangular • GQAnalyzer</title>
+<title>anomaly_concentration_area_method — anomaly_concentration_area_method • GQAnalyzer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="ggplot_multirectangular — ggplot_multirectangular" />
+<meta property="og:title" content="anomaly_concentration_area_method — anomaly_concentration_area_method" />
 
-<meta property="og:description" content="Function to create the template of a multirectangular diagram." />
+<meta property="og:description" content="Identification of anomalous areas using the concentration-area approach" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -92,33 +92,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ggplot_multirectangular</h1>
+    <h1>anomaly_concentration_area_method</h1>
     
-    <div class="hidden name"><code>ggplot_multirectangular.Rd</code></div>
+    <div class="hidden name"><code>anomaly_concentration_area_method.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Function to create the template of a multirectangular diagram.</p>
+    <p>Identification of anomalous areas using the concentration-area approach</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_multirectangular</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>anomaly_concentration_area_method</span>(<span class='no'>gdata</span>, <span class='kw'>int.method</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"akima"</span>, <span class='st'>"idw"</span>,
+  <span class='st'>"kriging"</span>))</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>gdata</th>
+      <td><p>A geochemical dataset object</p></td>
+    </tr>
+    <tr>
+      <th>int.method</th>
+      <td><p>A character string with the interpolation method. Currently three methods
+are supported:</p><ul>
+<li><p>akima</p></li>
+<li><p>idw</p></li>
+<li><p>kriging</p></li>
+</ul></td>
+    </tr>
+    </table>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A ggplot2 plot with the template of a multirectangular diagram.</p>
+    <p>This function returns a list with the following entries</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other multirectangular functions: <code><a href='multirectangular_transform.html'>multirectangular_transform</a></code>,
-  <code><a href='plot_multirectangular.html'>plot_multirectangular</a></code></p></div>
+    <div class='dont-index'><p>Other anomaly functions: <code><a href='anomaly_graphical_method.html'>anomaly_graphical_method</a></code>,
+  <code><a href='anomaly_statistical_methods.html'>anomaly_statistical_methods</a></code></p></div>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
 
@@ -127,7 +147,7 @@
 
     <h2>Author</h2>
     
-Oscar Garcia-Cabrejo <a href='mailto:khaors@gmail.com'>khaors@gmail.com</a>
+Oscar Garcia-Cabrejo, <a href='mailto:khaors@gmail.com'>khaors@gmail.com</a>
 
   </div>
 </div>
