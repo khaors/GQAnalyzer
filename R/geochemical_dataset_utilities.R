@@ -44,7 +44,7 @@ NULL
 #' @importFrom tidyr gather
 #' @importFrom magrittr %>%
 #' @export
-geochemical_dataset <- function(name="GeochemicalDataset", data){
+geochemical_dataset <- function(name = "GeochemicalDataset", data){
   if(class(data) != "data.frame"){
     stop('ERROR: A data.frame is required as input')
   }
@@ -53,6 +53,7 @@ geochemical_dataset <- function(name="GeochemicalDataset", data){
   major_ions <- c("Ca", "Mg", "Na", "K", "HCO3", "CO3", "Cl", "SO4")
   durov_var <- c("pH", "TDS")
   dnames <- colnames(data)
+  print(dnames)
   for(i in 1:8){
     if(!major_ions[i] %in% dnames){
       msg <- paste0('ERROR: a major ion ', major_ions[i], ' is not present in the input data.frame')

@@ -314,6 +314,8 @@ shinyServer(function(input, output, session) {
   #
   create_gdata <- function(){
     the.table <- server.env$current.table
+    print("CO3")
+    print(input$col.CO31)
     if(input$col.CO31 == "None"){
       the.table$CO3 <- vector("numeric", length = nrow(the.table))
       chem.cols <- c(input$col.Ca1, input$col.Mg1, input$col.Na1, input$col.K1,
@@ -321,12 +323,24 @@ shinyServer(function(input, output, session) {
     }
     else{
       chem.cols <- c(input$col.Ca1, input$col.Mg1, input$col.Na1, input$col.K1,
-                     input$col.HCO31, input$CO31, input$col.Cl1, input$col.SO41)
+                     input$col.HCO31, input$col.CO31, input$col.Cl1, input$col.SO41)
     }
+    #print("chem")
+    #print(chem.cols)
     phys.cols <- c(input$col.pH1, input$col.TDS1, input$col.EC1)
     all.cols <- c(chem.cols, phys.cols)
+    #print("all")
+    #print(all.cols)
     pos <- all.cols != "None"
-    the.table <- the.table[,pos]
+    #print("POS")
+    #print(pos)
+    #print("names")
+    #print(the.table[pos])
+    all.cols <- all.cols[pos]
+    #
+    pos <- all.cols %in% server.env$current.names
+    the.table <- the.table[pos]
+    print(names(the.table))
     input$create.gdata
     server.env$current.gdata <- isolate(
       geochemical_dataset(name = "GeochemicalDataset", data = the.table)
