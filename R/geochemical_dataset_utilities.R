@@ -152,6 +152,7 @@ geochemical_dataset <- function(name = "GeochemicalDataset", data){
 #' \item anions: A matrix with the values of the normalized meqL of the anions.
 #' \item cations: A matrix with the values of the normalized meqL of the cations.
 #' \item meqL: A matrix with the values of the normalized meqL of the meqL.
+#' \item mmol: A matrix with the concentration values in mmol/L.
 #' }
 #' @author
 #' Oscar Garcia-Cabrejo \email{khaors@gmail.com}
@@ -184,8 +185,70 @@ convert_meql <- function(gdata){
   anions[,3] <- meqL[,7]/sumanions
   anions[,2] <- meqL[,8]/sumanions
   #
-  results <- list(anions = anions, cations = cations, meqL = meqL)
+  mmol <- matrix(0.0, nrow = ndat, ncol = 8)
+  mmol[,1] <- gdata$Ca/gmol[1]
+  mmol[,2] <- gdata$Mg/gmol[2]
+  mmol[,3] <- gdata$Na/gmol[3]
+  mmol[,4] <- gdata$K/gmol[4]
+  mmol[,5] <- gdata$HCO3/gmol[5]
+  mmol[,6] <- gdata$CO3/gmol[6]
+  mmol[,7] <- gdata$Cl/gmol[7]
+  mmol[,8] <- gdata$SO4/gmol[8]
+  #
+  results <- list(anions = anions, cations = cations, meqL = meqL, mmol = mmol)
   return(results)
+}
+#' @title
+#' calculate_conservative_mixing
+#' @description
+#' Function to calculate the mixing ratio of a perfect-conservative mixture between fresh and
+#' sea water from a given geochemical dataset.
+#' @param gdata A geochemical dataset object
+#' @param fresh.water The chemical composition of fresh water
+#' @param sea.water The chemical composition of sea water
+#' @return
+#' This function returns a list with the following entries:
+#' \itemize{
+#' \item f.sea: A vector with the mixing ratio
+#' \item mix: Matrix with the results of conservative mixing between fresh and sea water (in mmol/L)
+#' \item react: Matrix with the concentrations due to reactions (in mmol/L)
+#' }
+#' @author
+#' Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
+#' @family base functions
+#' @export calculate_convervative_mixing
+calculate_convervative_mixing <- function(gdata, fresh.water = NULL, sea.water = NULL){
+  if(class(gdata) != "geochemical_dataset"){
+    stop('ERROR: A geochemical_dataset is required as input')
+  }
+  #
+  gmol <- c(40.078, 24.305, 22.989768, 39.0983, 61.01714, 60.0092, 35.4527, 96.0636)
+  # mmol/L
+  sea.water.comp <- c(10.7, 55.1, 485.0, 10.6, 2.4, 0, 566, 29.4)
+  # mmo/L
+  fresh.water.comp <- c(3.0, 0, 0, 0, 6, 0, 0, 0)
+  #
+  res.meqL <- convert_meql(gdata$dataset)
+  mmol <- res.meqL$mmol
+  ndat <- nrow(mmol)
+  f.sea <- mmol[,7] / 566.0
+  gdata.mix <- matrix(0.0, nrow = ndat, ncol = ncol(mmol))
+  for(i in 1:nrow(mmol)){
+    gdata.mix[i,] <- f.sea[i]*sea.water.comp + (1-f.sea[i])*fresh.water.comp
+  }
+  #
+  gdata.react <- mmol - gdata.mix
+  #
+  gdata.mix.conc <- matrix(0.0, nrow = ndat, ncol = 8)
+  gdata.react.conc <- matrix(0.0, nrow = ndat, ncol = 8)
+  for(i in 1:8){
+    gdata.mix.conc[,i] <- gdata.mix[,i]*gmol[i]
+    gdata.react.conc[,i] <- gdata.react[,i]*gmol[i]
+  }
+  #
+  res <- list(f.sea = f.sea, mix.mmol = gdata.mix, react.mmol = gdata.react,
+              mix = gdata.mix.conc, react = gdata.react.conc)
+  return(res)
 }
 #' @title
 #' plot.geochemical_dataset

@@ -15,13 +15,15 @@ This function returns a list with the following entries:
 \item anions: A matrix with the values of the normalized meqL of the anions.
 \item cations: A matrix with the values of the normalized meqL of the cations.
 \item meqL: A matrix with the values of the normalized meqL of the meqL.
+\item mmol: A matrix with the concentration values in mmol/L.
 }
 }
 \description{
 Function to calculate the miliequivalent of a given composition.
 }
 \seealso{
-Other base functions: \code{\link{geochemical_dataset}},
+Other base functions: \code{\link{calculate_convervative_mixing}},
+  \code{\link{geochemical_dataset}},
   \code{\link{plot.geochemical_dataset}}
 }
 \author{

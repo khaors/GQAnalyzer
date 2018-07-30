@@ -35,7 +35,8 @@ meqL of the measured concentrations of the major ions. The concentrations of the
 specified in mg/L.
 }
 \seealso{
-Other base functions: \code{\link{convert_meql}},
+Other base functions: \code{\link{calculate_convervative_mixing}},
+  \code{\link{convert_meql}},
   \code{\link{plot.geochemical_dataset}}
 }
 \author{

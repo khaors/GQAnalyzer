@@ -47,7 +47,8 @@ This function returns a ggplot2 object with the corresponding hydrogeochemical p
 Generic function to create different hydrogeochemical plots
 }
 \seealso{
-Other base functions: \code{\link{convert_meql}},
+Other base functions: \code{\link{calculate_convervative_mixing}},
+  \code{\link{convert_meql}},
   \code{\link{geochemical_dataset}}
 }
 \author{

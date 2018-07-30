@@ -25,6 +25,7 @@ shinyServer(function(input, output, session) {
   current.gdata <- NULL # this variable will contain the current geochemical dataset
   current.geonames <- NULL
   current.plot <- NULL
+  current.names <- NULL
   first <- TRUE
   #
   output$uptc.logo <- renderImage(list(src = "uptc_jpg.jpg"),
@@ -63,6 +64,8 @@ shinyServer(function(input, output, session) {
     server.env$first <- first
     # return the table
     server.env$current.table <- the.table
+    #print("Original Names")
+    #print(names(the.table))
     server.env$current.names <- names(the.table)
     the.table
   })
@@ -243,7 +246,8 @@ shinyServer(function(input, output, session) {
   #
   fit_columns <- function(){
     current.names <- server.env$current.names
-    print(current.names)
+    #print("FIT")
+    #print(current.names)
     if(is.null(current.names))
       return(NULL)
     pos <- current.names == "Ca"
@@ -314,8 +318,8 @@ shinyServer(function(input, output, session) {
   #
   create_gdata <- function(){
     the.table <- server.env$current.table
-    print("CO3")
-    print(input$col.CO31)
+    #print("CO3")
+    #print(input$col.CO31)
     if(input$col.CO31 == "None"){
       the.table$CO3 <- vector("numeric", length = nrow(the.table))
       chem.cols <- c(input$col.Ca1, input$col.Mg1, input$col.Na1, input$col.K1,
@@ -338,9 +342,14 @@ shinyServer(function(input, output, session) {
     #print(the.table[pos])
     all.cols <- all.cols[pos]
     #
-    pos <- all.cols %in% server.env$current.names
+    #print("current")
+    #print( server.env$current.names)
+    pos <- all.cols %in% names(the.table)
+    #print("POS")
+    #print(pos)
     the.table <- the.table[pos]
-    print(names(the.table))
+    #print("Names")
+    #print(names(the.table))
     input$create.gdata
     server.env$current.gdata <- isolate(
       geochemical_dataset(name = "GeochemicalDataset", data = the.table)
