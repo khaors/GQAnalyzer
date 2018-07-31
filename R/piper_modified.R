@@ -90,7 +90,7 @@ modified_piper_transform <- function(gdata){
 #' @importFrom ggplot2 ggplot geom_point coord_fixed scale_color_gradientn scale_colour_gradientn scale_color_discrete aes_string annotate
 #' @importFrom grDevices rainbow
 #' @export
-plot_modifed_piper <- function(x, measure = c('conc', 'meql'),
+plot_modified_piper <- function(x, measure = c('conc', 'meql'),
                        vars = NULL, color = NULL,
                        Size = NULL){
   gdata <- x
