@@ -11,7 +11,8 @@ library(DT)
 library(ggplot2)
 library(gridExtra)
 #
-plot.types.all <-  c("None", "ternary", "piper",  "durov", "schoeller", "multirectangular")
+plot.types.all <-  c("None", "ternary", "piper", "modified_piper", "durov", "schoeller",
+                     "multirectangular")
 #
 plot.types.single <- c("None", "stiff", "radial")
 #
@@ -624,6 +625,9 @@ shinyServer(function(input, output, session) {
                    measure = current.measure,
                    color = current.color,
                    Size = current.size)
+      }
+      else if(current.tplot == "modified_piper"){
+        p1 <- plot(current.gdata, type = "modified_piper")
       }
       else if(current.tplot == "durov"){
         p1 <- plot(current.gdata, type = "durov",
