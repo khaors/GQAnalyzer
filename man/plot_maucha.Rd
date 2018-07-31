@@ -4,8 +4,8 @@
 \alias{plot_maucha}
 \title{plot_maucha}
 \usage{
-plot_maucha(x, measure = c("conc", "meql"), vars = NULL, color = NULL,
-  Size = NULL)
+plot_maucha(x, measure = c("conc", "meql"), vars = NULL,
+  color = NULL, Size = NULL)
 }
 \arguments{
 \item{x}{A geochemical_dataset object}
@@ -37,3 +37,4 @@ Other maucha functions: \code{\link{ggplot_maucha}},
 \author{
 Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 }
+\concept{maucha functions}

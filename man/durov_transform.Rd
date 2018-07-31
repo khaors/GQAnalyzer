@@ -39,3 +39,4 @@ Calculate the coordinates in the Durov plot.
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 }
+\concept{Durov functions}

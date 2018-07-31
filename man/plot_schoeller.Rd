@@ -4,8 +4,8 @@
 \alias{plot_schoeller}
 \title{plot_schoeller}
 \usage{
-plot_schoeller(x, measure = c("conc", "meql"), vars = NULL, color = NULL,
-  Size = NULL)
+plot_schoeller(x, measure = c("conc", "meql"), vars = NULL,
+  color = NULL, Size = NULL)
 }
 \arguments{
 \item{x}{A geochemical dataset}

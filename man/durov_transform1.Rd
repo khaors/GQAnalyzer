@@ -22,3 +22,4 @@ Other durov functions: \code{\link{ggplot_durov}},
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 }
+\concept{durov functions}

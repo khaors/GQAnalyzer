@@ -19,3 +19,4 @@ Other radial functions: \code{\link{plot_radial}},
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 }
+\concept{radial functions}

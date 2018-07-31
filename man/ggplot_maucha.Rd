@@ -19,3 +19,4 @@ Other maucha functions: \code{\link{maucha_transform}},
 \author{
 Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 }
+\concept{maucha functions}

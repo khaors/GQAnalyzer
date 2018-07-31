@@ -6,7 +6,8 @@
 \usage{
 \method{plot}{geochemical_dataset}(x, y = NULL, ..., type = c("piper",
   "ternary", "durov", "schoeller", "stiff", "multirectangular", "radial"),
-  measure = c("conc", "meql"), vars = NULL, color = NULL, Size = NULL)
+  measure = c("conc", "meql"), vars = NULL, color = NULL,
+  Size = NULL)
 }
 \arguments{
 \item{x, y}{A geochemical_dataset object}
@@ -54,3 +55,4 @@ Other base functions: \code{\link{calculate_convervative_mixing}},
 \author{
 Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 }
+\concept{base functions}

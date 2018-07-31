@@ -24,3 +24,4 @@ Other mixing functions: \code{\link{carrera_mixing_model}},
 \author{
 Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 }
+\concept{mixing functions}

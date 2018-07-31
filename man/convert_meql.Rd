@@ -7,7 +7,7 @@
 convert_meql(gdata)
 }
 \arguments{
-\item{gdata}{A geochemical_dataset object}
+\item{gdata}{A data.frame with the concentrations of the major ions}
 }
 \value{
 This function returns a list with the following entries:
@@ -29,3 +29,4 @@ Other base functions: \code{\link{calculate_convervative_mixing}},
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 }
+\concept{base functions}

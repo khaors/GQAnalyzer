@@ -19,3 +19,4 @@ Other durov functions: \code{\link{durov_transform1}},
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 }
+\concept{durov functions}

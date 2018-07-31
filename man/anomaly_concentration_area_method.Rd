@@ -31,3 +31,4 @@ Other anomaly functions: \code{\link{anomaly_graphical_method}},
 \author{
 Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 }
+\concept{anomaly functions}

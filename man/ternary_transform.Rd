@@ -22,3 +22,4 @@ Other ternary functions: \code{\link{ggplot_ternary}},
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 }
+\concept{ternary functions}

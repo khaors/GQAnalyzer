@@ -19,3 +19,4 @@ Other multirectangular functions: \code{\link{multirectangular_transform}},
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 }
+\concept{multirectangular functions}

@@ -19,3 +19,4 @@ Other ternary functions: \code{\link{plot_ternary}},
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 }
+\concept{ternary functions}

@@ -26,3 +26,4 @@ Other mixing functions: \code{\link{constrained_lm}},
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 }
+\concept{mixing functions}

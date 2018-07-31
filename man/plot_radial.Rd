@@ -4,8 +4,8 @@
 \alias{plot_radial}
 \title{plot_radial}
 \usage{
-plot_radial(x, measure = c("conc", "meql"), vars = NULL, color = NULL,
-  Size = NULL)
+plot_radial(x, measure = c("conc", "meql"), vars = NULL,
+  color = NULL, Size = NULL)
 }
 \arguments{
 \item{x}{A geochemical_dataset object}
@@ -37,3 +37,4 @@ Other radial functions: \code{\link{ggplot_radial}},
 \author{
 Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 }
+\concept{radial functions}

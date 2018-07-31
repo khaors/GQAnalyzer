@@ -22,3 +22,4 @@ Other stiff functions: \code{\link{ggplot_stiff}},
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 }
+\concept{stiff functions}

@@ -19,3 +19,4 @@ Other stiff functions: \code{\link{plot_stiff}},
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 }
+\concept{stiff functions}

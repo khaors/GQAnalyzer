@@ -36,3 +36,4 @@ Other piper functions: \code{\link{anion_cation_transform}},
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 }
+\concept{piper functions}

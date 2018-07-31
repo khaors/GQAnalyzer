@@ -26,3 +26,4 @@ Other maucha functions: \code{\link{ggplot_maucha}},
 \author{
 Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 }
+\concept{maucha functions}

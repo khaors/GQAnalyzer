@@ -22,3 +22,4 @@ Other multirectangular functions: \code{\link{ggplot_multirectangular}},
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 }
+\concept{multirectangular functions}

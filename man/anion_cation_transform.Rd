@@ -50,3 +50,4 @@ Other piper functions: \code{\link{ggplot_piper}},
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 }
+\concept{piper functions}

@@ -76,10 +76,10 @@ geochemical_dataset <- function(name = "GeochemicalDataset", data){
   #print(meqL.df)
   #
   meqL.df1 <- meqL.df %>% gather(key = "major_ions", value = "concentration")
-  #
-  #meqL.rectagular < meqL.df %>% mutate(rectangular.x = (Ca+Mg)-(Na+K),
-  #                                     rectangular.y = (CO3+HCO3)-(Cl+SO4))
-
+  # Calculate the fractions of conservative mixing between fresh and sea water.
+  tmp1 <- calculate_convervative_mixing(gdata = data)
+  mix.df <- as.data.frame(tmp1$mix)
+  names(mix.df) <- major_ions
   #
   result <- list(name = name,
                  dataset = data,
@@ -88,8 +88,11 @@ geochemical_dataset <- function(name = "GeochemicalDataset", data){
                  cations = tmp$cations,
                  meqL.min = meqL.mn,
                  meqL.max = meqL.mx,
-                 meqL.schoeller = meqL.df1)#,
-                 #meqL.rectangular = meqL.rectangular)
+                 meqL.schoeller = meqL.df1,
+                 sea.water.fraction = tmp1$f.sea,
+                 fresh.water.fraction = 1.0-tmp1$f.sea,
+                 mix.mmol = tmp1$mix.mmol,
+                 mix = mix.df)
   class(result) <- "geochemical_dataset"
   invisible(result)
   return(result)
@@ -123,12 +126,6 @@ geochemical_dataset <- function(name = "GeochemicalDataset", data){
   #IDsamples <- x$ID[i,]
   nsamples <- length(i)
   tmp <- data.frame(ions = character(), concentration = double())
-#  for(isamples in 1:nsamples){
-#    possamples <- x$meqL.schoeller$ID == IDsamples[isamples]
-#    suppressWarnings(
-#      tmp <- full_join(tmp, x$meqL.schoeller[possamples,])
-#    )
-#  }
   #
   res <- list(dataset = x$dataset[i,],
               meqL = matrix(x$meqL[i,], nrow = nsamples),
@@ -145,7 +142,7 @@ geochemical_dataset <- function(name = "GeochemicalDataset", data){
 #' convert_meql
 #' @description
 #' Function to calculate the miliequivalent of a given composition.
-#' @param gdata A geochemical_dataset object
+#' @param gdata A data.frame with the concentrations of the major ions
 #' @return
 #' This function returns a list with the following entries:
 #' \itemize{
@@ -203,7 +200,7 @@ convert_meql <- function(gdata){
 #' @description
 #' Function to calculate the mixing ratio of a perfect-conservative mixture between fresh and
 #' sea water from a given geochemical dataset.
-#' @param gdata A geochemical dataset object
+#' @param gdata A data.frame with the concentrations of the major ions
 #' @param fresh.water The chemical composition of fresh water
 #' @param sea.water The chemical composition of sea water
 #' @return
@@ -218,9 +215,6 @@ convert_meql <- function(gdata){
 #' @family base functions
 #' @export calculate_convervative_mixing
 calculate_convervative_mixing <- function(gdata, fresh.water = NULL, sea.water = NULL){
-  if(class(gdata) != "geochemical_dataset"){
-    stop('ERROR: A geochemical_dataset is required as input')
-  }
   #
   gmol <- c(40.078, 24.305, 22.989768, 39.0983, 61.01714, 60.0092, 35.4527, 96.0636)
   # mmol/L
@@ -228,7 +222,7 @@ calculate_convervative_mixing <- function(gdata, fresh.water = NULL, sea.water =
   # mmo/L
   fresh.water.comp <- c(3.0, 0, 0, 0, 6, 0, 0, 0)
   #
-  res.meqL <- convert_meql(gdata$dataset)
+  res.meqL <- convert_meql(gdata)
   mmol <- res.meqL$mmol
   ndat <- nrow(mmol)
   f.sea <- mmol[,7] / 566.0

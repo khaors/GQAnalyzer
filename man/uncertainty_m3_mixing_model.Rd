@@ -4,8 +4,8 @@
 \alias{uncertainty_m3_mixing_model}
 \title{uncertainty_m3_mixing_model}
 \usage{
-uncertainty_m3_mixing_model(gdata, end.members, lower, upper, nreal = 100,
-  seed = 12345)
+uncertainty_m3_mixing_model(gdata, end.members, lower, upper,
+  nreal = 100, seed = 12345)
 }
 \arguments{
 \item{gdata}{A geochemical_dataset object}
@@ -45,3 +45,4 @@ Other mixing functions: \code{\link{carrera_mixing_model}},
 \author{
 Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 }
+\concept{mixing functions}

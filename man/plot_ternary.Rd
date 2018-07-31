@@ -4,8 +4,8 @@
 \alias{plot_ternary}
 \title{plot_ternary}
 \usage{
-plot_ternary(x, measure = c("conc", "meql"), vars = NULL, color = NULL,
-  Size = NULL)
+plot_ternary(x, measure = c("conc", "meql"), vars = NULL,
+  color = NULL, Size = NULL)
 }
 \arguments{
 \item{x}{A geochemical_dataset object}
@@ -37,3 +37,4 @@ Other ternary functions: \code{\link{ggplot_ternary}},
 \author{
 Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 }
+\concept{ternary functions}

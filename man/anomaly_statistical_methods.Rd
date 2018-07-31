@@ -26,3 +26,4 @@ Other anomaly functions: \code{\link{anomaly_concentration_area_method}},
 \author{
 Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 }
+\concept{anomaly functions}
