@@ -51,8 +51,9 @@ modified_piper_transform <- function(gdata){
   delta_x <- d_x_mixing - d_x
   delta_y <- d_y_mixing - d_y
   m <- delta_y / delta_x # m is measured from the mixing line
-  # Initial coordinates are defined by the measured concentrations. Calculate final coordinates
-  d <- 0.025
+  # Initial coordinates are defined by the measured concentrations.
+  # Calculate final coordinates
+  d <- 0.035
   k1 <- d/sqrt(1+m^2)
   k2 <- -d/sqrt(1+m^2)
   kk <- cbind(k1, k2)
@@ -140,12 +141,12 @@ plot_modified_piper <- function(x, measure = c('conc', 'meql'),
         annotate(geom = "label", x = 98, y = 133, label = "4") +
         annotate(geom = "label", x = 124, y = 89, label = "5") +
         annotate(geom = "label", x = 96, y = 121, label = "6") +
-        annotate(geom = "label", x = 10, y = 150, label= "1: Mixing") +
-        annotate(geom = "label", x = 10, y = 142, label= "2: CaCO3 Precip.") +
-        annotate(geom = "label", x = 10, y = 134, label= "3: CaCO3 Dissol.") +
-        annotate(geom = "label", x = 10, y = 126, label= "4: Ion Exchange") +
-        annotate(geom = "label", x = 10, y = 118, label= "5: Ion Exchange") +
-        annotate(geom = "label", x = 10, y = 110, label= "6: SO4 Reduction")
+        annotate(geom = "label", x = 15, y = 150, label= "1: Mixing") +
+        annotate(geom = "label", x = 15, y = 142, label= "2: CaCO3 Precip.") +
+        annotate(geom = "label", x = 15, y = 134, label= "3: CaCO3 Dissol.") +
+        annotate(geom = "label", x = 15, y = 126, label= "4: Ion Exchange") +
+        annotate(geom = "label", x = 15, y = 118, label= "5: Ion Exchange") +
+        annotate(geom = "label", x = 15, y = 110, label= "6: SO4 Reduction")
     }
     else{
       if(class(Size) == "numeric"){

@@ -16,8 +16,9 @@ NULL
 #' these coordinates, the mixing ratios of each end-member are calculated using a constrained
 #' least-squares procedure (mixing ratios add up to 1).
 #' @param gdata A geochemical_dataset object with the major ions only.
-#' @param end.members A geochemical_dataset with the chemical compositions of the
-#' end-members of the solution.
+#' @param end.members If provided, this is a numeric vector with the indices of the end members
+#' to be used in the mixing calculations. If it is not specified then the end members are
+#' defined using the convex hull of the first two principal components.
 #' @return
 #' This function returns a list with the following entries:
 #' \itemize{
@@ -35,7 +36,7 @@ NULL
 #' @author
 #' Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 #' @family mixing functions
-#' @importFrom stats princomp lm residuals
+#' @importFrom stats princomp lm residuals predict
 #' @importFrom graphics plot
 #' @importFrom MASS stepAIC
 #' @importFrom grDevices chull
@@ -44,37 +45,30 @@ NULL
 #' balance (M3) calculations, a new tool for decoding hydrogeochemical information.
 #' Applied Geochemistry, 14(7), 861–871. http://doi.org/10.1016/S0883-2927(99)00024-4
 #' @export
-m3_mixing_model <- function(gdata, end.members){
+m3_mixing_model <- function(gdata, end.members = NULL){
+  p <- NULL
+  conc_ions <- colnames(gdata$dataset)
   meql_ions <- c("Ca", "Mg", "Na", "K", "HCO3", "CO3", "Cl", "SO4")
-  if(class(gdata) != "geochemical_dataset" |
-     class(end.members) != "geochemical_dataset"){
+  if(class(gdata) != "geochemical_dataset"){
     stop('ERROR: A geochemical_dataset is required as input')
   }
   # Step 1. Multivariate Analysis
-  # Scaling dataset = samples + end.members
-  ions <- names(gdata$dataset)
-  nvar <- ncol(gdata$dataset)
-  samples.conc <- gdata$dataset[meql_ions]
-  end.members.conc <- end.members$dataset[meql_ions]
-  dataset <- rbind(samples.conc, end.members.conc)
-  dataset <- scale(dataset, center = TRUE, scale = TRUE)
+  # Scaling dataset
+  dataset <- scale(gdata$dataset[meql_ions], center = TRUE, scale = TRUE)
   nsamples <- nrow(dataset)
-  n.endmembers <- nrow(end.members.conc)
   res.pca <- princomp(dataset, cor = TRUE, scores = TRUE)
-  res.pca.def <- res.pca$scores
+  res.pca.def <- res.pca$scores[,1:2]
+  n.endmembers <- 0
+  if(is.null(end.members)){
+    pos.end.members <- chull(res.pca.def[,1], res.pca.def[,2])
+    n.endmembers <- length(pos.end.members)
+  }
+  else{
+    pos.end.members <- end.members
+    n.endmembers <- length(end.members)
+  }
   # Step 2. Calculate mixing ratios using end members
-  beginp <- nrow(samples.conc)+1
-  endp <- nsamples
-  end.members.pca <- res.pca.def[beginp:endp,]
-  end.members.pchull <- chull(end.members.pca[,1], end.members.pca[,2])
-  n.chull <- length(end.members.pchull)
-  end.members.chull <- end.members.pca[end.members.pchull,1:2]
-  end.members.chull <- rbind(end.members.chull, end.members.chull[1,])
-  end.members.chull.df <- as.data.frame(end.members.chull)
-  end.members.chull.df$Type <- c(seq(1,n.chull, 1), 1)
-  names(end.members.chull.df) <- c("PC1", "PC2", "Type")
-  #
-  end.members.mat <- t(end.members.pca)
+  end.members.mat <- t(res.pca.def[pos.end.members,])
   FFt <- t(end.members.mat)%*%end.members.mat
   Ie <- matrix(1.0, nrow = n.endmembers, ncol = 1)
   tmp1 <- cbind(FFt,Ie)
@@ -82,40 +76,45 @@ m3_mixing_model <- function(gdata, end.members){
   res.mixing.ratios <- matrix(0.0, nrow = nsamples, ncol = n.endmembers)
   for(i in 1:nsamples){
     b <- rbind(t(end.members.mat)%*%res.pca.def[i,], 1)
-    mixing.ratios <- solve(A+1e-12*diag(n.endmembers+1),b)
+    mixing.ratios <- solve(A+1e-6*diag(n.endmembers+1),b)
     res.mixing.ratios[i,] <- mixing.ratios[1:n.endmembers]
   }
-  # Step 3. Mass Balance Calculations
-  X <- matrix(0.0, nrow = nsamples, ncol = nvar)
-  for(isample in 1:nsamples){
-    X[isample,] <- res.mixing.ratios[isample,]%*%t(end.members.mat)
+  # Correct mixing ratios for end members
+  for(i in 1:n.endmembers){
+    current.ratio <- rep(0.0, n.endmembers)
+    current.ratio[i] <- 1
+    res.mixing.ratios[pos.end.members[i],] <- current.ratio
   }
   #
-  res.lm <- list()
-  names.lm <- ions
-  pc.names <- c('PC1', 'PC2', 'PC3', 'PC4', 'PC5', 'PC6', 'PC7', 'PC8')
-  ion.residuals <- matrix(0.0, nrow = nsamples, ncol = nvar)
-  rel.ion.residuals <- matrix(0.0, nrow = nsamples, ncol = nvar)
+  # Step 3. Mass Balance Calculations
+  ions <- c("Ca", "Mg", "Na", "K", "HCO3", "CO3", "Cl","SO4")
+  X <- matrix(0.0, nrow = nsamples, ncol = 2)
+  residuals <- matrix(0.0, nrow = nsamples, ncol = length(ions))
+  predicted <- matrix(0.0, nrow = nsamples, ncol = length(ions))
+  lm.models <- list()
   for(i in 1:length(ions)){
-    y <- dataset[1:nsamples,i]
-    current.df <- data.frame(X[1:nsamples,])
-    names(current.df) <- pc.names
-    current.df$y <- y
-    current.lm <- lm(y ~ ., data = current.df)
-    current.slm <- stepAIC(current.lm, direction = "both", trace = 0)
-    res.lm[[i]] <- current.slm
-    ion.residuals[,i] <- residuals(current.slm)
-    rel.ion.residuals[,i] <- 100*ion.residuals[,i]/y
+    current.ion <- ions[i]
+    y <- dataset[,i]
+    for(isample in 1:nsamples){
+      X[isample,] <- res.mixing.ratios[isample,]%*%t(end.members.mat)
+    }
+    current.df <- data.frame(y = y, PC1 = X[,1], PC2 = X[,2])
+    res.lm <- lm(y ~ PC1 + PC2, data = current.df)
+    lm.models[[i]] <- res.lm
+    predicted[,i] <- predict(res.lm)
+    residuals[,i] <- residuals(res.lm)
   }
-  res <- list(mixing.ratios = res.mixing.ratios, res.pca = res.pca.def,
-              res.lm = res.lm, names.lm = names.lm, X = X, dataset = dataset,
-              mass.balance = ion.residuals,
-              relative.mass.balance = rel.ion.residuals,
-              end.members = end.members.conc,
-              original.samples = samples.conc,
-              end.members.convexhull.df = end.members.chull.df)
+  #
+  res <- list(std.dataset = dataset,
+              mixing.ratios = res.mixing.ratios,
+              res.pca = res.pca.def,
+              end.members = t(end.members.mat),
+              predicted = predicted,
+              residuals = residuals,
+              lm.models = lm.models)
   return(res)
 }
+#
 #' @title
 #' select_end_members
 #' @description

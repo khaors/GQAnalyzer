@@ -4,13 +4,14 @@
 \alias{m3_mixing_model}
 \title{m3_mixing_model}
 \usage{
-m3_mixing_model(gdata, end.members)
+m3_mixing_model(gdata, end.members = NULL)
 }
 \arguments{
 \item{gdata}{A geochemical_dataset object with the major ions only.}
 
-\item{end.members}{A geochemical_dataset with the chemical compositions of the
-end-members of the solution.}
+\item{end.members}{If provided, this is a numeric vector with the indices of the end members
+to be used in the mixing calculations. If it is not specified then the end members are
+defined using the convex hull of the first two principal components.}
 }
 \value{
 This function returns a list with the following entries:
