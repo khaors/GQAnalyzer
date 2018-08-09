@@ -22,8 +22,9 @@ Constrained least-squares function. The constraint included ensures that the sum
 estimated coefficients is equal to 1 and the coefficients are positive.
 }
 \seealso{
-Other mixing functions: \code{\link{carrera_mixing_model}},
-  \code{\link{m3_mixing_model}},
+Other mixing functions: \code{\link{m3_mixing_model}},
+  \code{\link{mix_model}},
+  \code{\link{plot_m3_mixing_results}},
   \code{\link{select_end_members}},
   \code{\link{uncertainty_m3_mixing_model}}
 }

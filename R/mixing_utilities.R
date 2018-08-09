@@ -192,6 +192,96 @@ uncertainty_m3_mixing_model <- function(gdata, end.members, lower, upper,
   return(current.end.members)
 }
 #' @title
+#' plot_m3_mixing_results
+#' @description
+#' Function to plot different results obtained from the application of the M3 mixing model
+#' @param gdata A geochemical_dataset object
+#' @param mixing.res A list with ther results of the m3_mixing_model function
+#' @param type A character string specifying the plot type to be created. Currently the
+#' supported options are:
+#' \itemize{
+#' \item concentration
+#' \item mixing.ratio
+#' }
+#' @param element A character string with the name of the ion
+#' @return
+#' This function returns a ggplot2 object with the requested plot.
+#' @author
+#' Oscar Garcia-Cabrejo \email{khaors@gmail.com}
+#' @family mixing functions
+#' @importFrom ggplot2 ggplot geom_point geom_polygon ggtitle
+plot_m3_mixing_results <- function(gdata, mixing.res,
+                                   type = c("concentration",
+                                            "mixing.ratio",
+                                            "residual"),
+                                   element){
+  if(class(gdata) != "geochemical_dataset"){
+    stop('ERROR: A geochemical_dataset is required as input')
+  }
+  x <- NULL
+  y <- NULL
+  p <- NULL
+  res.pca.df <- NULL
+  current.title <- NULL
+  ions <- list("Ca" = 1, "Mg" = 2, "Na" = 3, "K" = 4, "HCO3" = 5,
+               "CO3" = 6, "Cl" = 7, "SO4" = 8)
+  end.members.df <- data.frame(x = mixing.res$end.members[,1],
+                               y = mixing.res$end.members[,2])
+  #
+  if(type == "concentration"){
+    res.pca.df <- data.frame(PC1 = mixing.res$res.pca[,1],
+                             PC2 = mixing.res$res.pca[,2],
+                             concentration = mixing.res$residuals)
+    #
+    current.title <- paste0("Concentration: ", element)
+    p <- ggplot() + geom_point(aes_string(x = "PC1", y = "PC2",
+                                          color = paste0("residuals.",
+                                                         ions[[element]])),
+                               data = res.pca.df, size = 3) +
+      scale_color_gradientn(colors=rainbow(10)) +
+      geom_polygon(aes(x = x, y = y), data = end.members.df,
+                   fill = NA, colour = "black") +
+      theme_bw() +
+      ggtitle(current.title)
+  }
+  else if(type == "mixing.ratio"){
+    if(class(element) != "numeric"){
+      stop("ERROR: the requested end member must be a number")
+    }
+    res.pca.df <- data.frame(PC1 = mixing.res$res.pca[,1],
+                             PC2 = mixing.res$res.pca[,2],
+                             mixing.ratio = mixing.res$residuals)
+    #
+    current.title <- paste0("Mixing Ratio: End Member", as.character(element))
+    p <- ggplot() + geom_point(aes_string(x = "PC1", y = "PC2",
+                                          color = paste0("mixing.ratio.",
+                                                         as.character(element))),
+                               data = res.pca.df, size = 3) +
+      scale_color_gradientn(colors=rainbow(10)) +
+      geom_polygon(aes(x = x, y = y), data = end.members.df,
+                   fill = NA, colour = "black") +
+      theme_bw() +
+      ggtitle(current.title)
+  }
+  else if(type == "residual"){
+    res.pca.df <- data.frame(PC1 = mixing.res$res.pca[,1],
+                             PC2 = mixing.res$res.pca[,2],
+                             residuals = mixing.res$residuals)
+    #
+    current.title <-
+    p <- ggplot() + geom_point(aes_string(x = "PC1", y = "PC2",
+                                   color = paste0("residuals.",
+                                                  ions[[element]])),
+                               data = res.pca.df, size = 3) +
+      scale_color_gradientn(colors=rainbow(10)) +
+      geom_polygon(aes(x = x, y = y), data = end.members.df,
+                   fill = NA, colour = "black") +
+      theme_bw() +
+      ggtitle(element)
+  }
+  return(p)
+}
+#' @title
 #' constrained_lm
 #' @description
 #' Constrained least-squares function. The constraint included ensures that the sum of the
@@ -216,7 +306,7 @@ constrained_lm <- function(y, X, tol = 1e-12){
   return(res)
 }
 #' @title
-#' carrera_mixing_model
+#' mix_model
 #' @description
 #' Function to estimate mixing ratios with uncertain end.members
 #' @param gdata.gd A geochemical_dataset
@@ -227,7 +317,7 @@ constrained_lm <- function(y, X, tol = 1e-12){
 #' Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 #' @family mixing functions
 #' @importFrom pracma inv
-carrera_mixing_model <- function(gdata.gd, end.members.gd){
+mix_model <- function(gdata.gd, end.members.gd){
   if(class(gdata.gd) != "geochemical_dataset" |
      class(end.members.gd) != "geochemical_dataset"){
     stop('ERROR: A geochemical_dataset is required as input')

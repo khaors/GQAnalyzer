@@ -37,9 +37,9 @@ balance (M3) calculations, a new tool for decoding hydrogeochemical information.
 Applied Geochemistry, 14(7), 861–871. http://doi.org/10.1016/S0883-2927(99)00024-4
 }
 \seealso{
-Other mixing functions: \code{\link{carrera_mixing_model}},
-  \code{\link{constrained_lm}},
-  \code{\link{m3_mixing_model}},
+Other mixing functions: \code{\link{constrained_lm}},
+  \code{\link{m3_mixing_model}}, \code{\link{mix_model}},
+  \code{\link{plot_m3_mixing_results}},
   \code{\link{select_end_members}}
 }
 \author{
