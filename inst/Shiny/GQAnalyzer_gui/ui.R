@@ -153,6 +153,7 @@ shinyUI(
                  uiOutput(outputId = "hplot.option2"),
                  uiOutput(outputId = "hplot.option3"),
                  uiOutput(outputId = "hplot.option4"),
+                 uiOutput(outputId = "hplot.option5"),
                  br(),
                  plotOutput("hplot", height = "600px")
                )

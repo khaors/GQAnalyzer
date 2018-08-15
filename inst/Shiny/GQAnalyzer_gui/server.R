@@ -580,6 +580,23 @@ shinyServer(function(input, output, session) {
     return(res)
   })
   #
+  output$hplot.option5 <- renderUI({
+    res <- NULL
+    current.table <- server.env$current.table
+    if(is.null(current.table)){
+      return(NULL)
+    }
+    #
+    current.tplot <- input$hplot.tselector1a
+    if(is.null(current.tplot) || current.tplot == "None")
+      return(NULL)
+    #
+    all.variables <- c("None", server.env$current.names)
+    res <- selectInput(inputId = "hplot.ID", label = "Choose ID variable",
+                       choices = all.variables, selected = "None", multiple = FALSE)
+    return(res)
+  })
+  #
   output$hplot <- renderPlot({
     current.table <- server.env$current.table
     if(is.null(current.table)){
@@ -617,6 +634,8 @@ shinyServer(function(input, output, session) {
     current.measure <- input$hplot.measure
     if(is.null(current.measure) || current.measure == "None")
       return(NULL)
+    current.ID <- input$hplot.ID
+    #
     p1 <- NULL
     current.gdata <- server.env$current.gdata
     if(current.hplot == "All Samples"){
@@ -627,7 +646,11 @@ shinyServer(function(input, output, session) {
                    Size = current.size)
       }
       else if(current.tplot == "modified_piper"){
-        p1 <- plot(current.gdata, type = "modified_piper")
+        if(current.ID == "None"){
+          current.ID <- NULL
+        }
+        p1 <- plot_modified_piper(current.gdata, labels = current.ID)
+        #p1 <- plot(current.gdata, type = "modified_piper")
       }
       else if(current.tplot == "durov"){
         p1 <- plot(current.gdata, type = "durov",
