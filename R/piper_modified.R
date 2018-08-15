@@ -83,6 +83,7 @@ modified_piper_transform <- function(gdata){
 #' are already defined. Used only for compatibility with the plot function.
 #' @param color Character variable that specifies the variable to color the data inside the plot.
 #' @param Size Character variable that specifies the variable to define the size of the data inside the plot.
+#' @param labels Character variable that specifies the name of the variable to assign text labels.
 #' @return
 #' This function returns a ggplot2 object with the Durov plot.
 #' @author
@@ -93,7 +94,7 @@ modified_piper_transform <- function(gdata){
 #' @export
 plot_modified_piper <- function(x, measure = c('conc', 'meql'),
                        vars = NULL, color = NULL,
-                       Size = NULL){
+                       Size = NULL, labels = NULL){
   gdata <- x
   conc_ions <- colnames(gdata$dataset)
   meql_ions <- c("Ca", "Mg", "Na", "K", "HCO3", "CO3", "Cl", "SO4")
@@ -121,6 +122,13 @@ plot_modified_piper <- function(x, measure = c('conc', 'meql'),
   ion.exchange.df <- data.frame(x = c(110, 87), y = c(113, 150))
   ion.exchange.df1 <- data.frame(x = c(110, 137), y = c(113, 65))
   so4.reduction.df <- data.frame(x =c(110, 79), y = c(113, 129))
+  # Labels
+  ID.samples.df <- NULL
+  if(!is.null(labels)){
+    ID.samples.df <- data.frame(x = piper.df$d_x, y = piper.df$d_y,
+                                labels = unname(gdata$dataset[labels]))
+    print(ID.samples.df)
+  }
   #
   if(is.null(color)){
     if(is.null(Size)){
@@ -147,6 +155,11 @@ plot_modified_piper <- function(x, measure = c('conc', 'meql'),
         geom_point(aes(x = 100*d_x, y = 100*d_y), data = piper.df) +
         geom_segment(aes(x = 100*d_x, y = 100*d_y, xend = 100*fx, yend = 100*fy),
                      data = piper.df)
+      if(!is.null(ID.samples.df)){
+        p <- p +
+          geom_text(aes(x = 100*x, y = 100*y, label = labels), data = ID.samples.df,
+                    nudge_y = 2, size = 2)
+      }
     }
     else{
       if(class(Size) == "numeric"){
