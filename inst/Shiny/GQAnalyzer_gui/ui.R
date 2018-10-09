@@ -89,7 +89,8 @@ shinyUI(
                          fluidRow(
                            column(width = 3, uiOutput(outputId = "col.pH")),
                            column(width = 3, uiOutput(outputId = "col.TDS")),
-                           column(width = 3, uiOutput(outputId = "col.EC"))),
+                           column(width = 3, uiOutput(outputId = "col.EC")),
+                           column(width = 3, uiOutput(outputId = "col.Temp"))),
                          br(),
                          h4("Cations"),
                          br(),
@@ -122,14 +123,47 @@ shinyUI(
              sidebarLayout(
                sidebarPanel(),
                mainPanel(
-                 uiOutput(outputId = "eda.varselector"),
+                 p(HTML("<h4>Create Statistical Plots</h4>")),
                  br(),
-                 radioButtons(inputId = "eda.log", label = "Log", choices = c("No", "Yes"),
-                              selected = "No"),
+                 fluidRow(
+                   column(width = 3, uiOutput(outputId = "eda.varselector")),
+                   column(width = 3, radioButtons(inputId = "eda.log", label = "Log",
+                                                  choices = c("No", "Yes"),
+                                                  selected = "No")),
+                   column(width = 3, uiOutput(outputId = "eda.nbins"))
+                 ),
                  br(),
-                 plotOutput(outputId = "eda.plot")
+                 br(),
+                 plotOutput(outputId = "eda.plot", height = "600px", width = "80%")
                  #br(),
                  #downloadButton('eda.downloadPlot', 'Download Plot')
+               )
+             )
+    ),
+    tabPanel(title = "CrossPlots",
+             sidebarLayout(
+               sidebarPanel("Tab to create scatterplots"),
+               mainPanel(
+                 p(HTML("<h4>Create Scatterplos</h4>")),
+                 br(),
+                 fluidRow(
+                   column(width = 3, uiOutput(outputId = "cross.varselector1")),
+                   column(width = 1, radioButtons(inputId = "cross.log1", label = "Log",
+                                                  choices = c("No", "Yes"),
+                                                  selected = "No")),
+                   column(width = 3, uiOutput(outputId = "cross.varcolor"))
+                 ),
+                 br(),
+                 fluidRow(
+                   column(width = 3, uiOutput(outputId = "cross.varselector2")),
+                   column(width = 1, radioButtons(inputId = "cross.log2", label = "Log",
+                                                  choices = c("No", "Yes"),
+                                                  selected = "No")),
+                   column(width = 3, uiOutput(outputId = "cross.varsize"))
+                 ),
+                 br(),
+                 br(),
+                 plotOutput(outputId = "cross.plot", height = "600px", width = "80%")
                )
              )
     ),
@@ -155,7 +189,7 @@ shinyUI(
                  uiOutput(outputId = "hplot.option4"),
                  uiOutput(outputId = "hplot.option5"),
                  br(),
-                 plotOutput("hplot", height = "600px")
+                 plotOutput("hplot", height = "600px", width = "80%")
                )
              )),
     #navbarMenu(title = "Hydrogeochemical Plots",
