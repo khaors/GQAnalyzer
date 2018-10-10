@@ -343,6 +343,7 @@ plot_modified_piper <- function(x, measure = c('conc', 'meql'),
 #' @author
 #' Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 #' @family modified_piper functions
+#' @export
 classification_reactions_piper_mode <- function(dx, dy){
   #
   V <- matrix(0.0, nrow = 2, ncol = 6)
