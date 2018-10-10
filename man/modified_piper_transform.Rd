@@ -21,7 +21,8 @@ This function returns a data.frame with the following variables:
 Function to calculate the coordinates of set of samples in a piper diagram.
 }
 \seealso{
-Other modified_piper functions: \code{\link{plot_modified_piper}}
+Other modified_piper functions: \code{\link{classification_reactions_piper_mode}},
+  \code{\link{plot_modified_piper}}
 }
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
