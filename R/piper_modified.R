@@ -85,7 +85,7 @@ modified_piper_transform <- function(gdata){
 #' @param Size Character variable that specifies the variable to define the size of the data inside the plot.
 #' @param labels Character variable that specifies the name of the variable to assign text labels.
 #' @return
-#' This function returns a ggplot2 object with the Durov plot.
+#' This function returns a ggplot2 object with the modified piper plot.
 #' @author
 #' Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 #' @family modified_piper functions

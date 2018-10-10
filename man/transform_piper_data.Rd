@@ -31,6 +31,7 @@ Function to transform the concentrations of Mg, Ca, Cl and SO4 to local coordina
 \seealso{
 Other piper functions: \code{\link{anion_cation_transform}},
   \code{\link{ggplot_piper}},
+  \code{\link{piper_classification}},
   \code{\link{piper_transform}}, \code{\link{plot_piper}}
 }
 \author{

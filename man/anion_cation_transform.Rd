@@ -44,6 +44,7 @@ Function to calculate the coordinates of anions and cations used in the Piper di
 }
 \seealso{
 Other piper functions: \code{\link{ggplot_piper}},
+  \code{\link{piper_classification}},
   \code{\link{piper_transform}}, \code{\link{plot_piper}},
   \code{\link{transform_piper_data}}
 }

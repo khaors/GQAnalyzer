@@ -10,6 +10,7 @@ library(shiny)
 library(DT)
 library(ggplot2)
 library(gridExtra)
+library(dplyr)
 #
 plot.types.all <-  c("None", "ternary", "piper", "modified_piper", "durov", "schoeller",
                      "multirectangular")
@@ -245,6 +246,19 @@ shinyServer(function(input, output, session) {
     return(res)
   })
   #
+  output$col.Temp <- renderUI({
+    res <- NULL
+    if(is.null(server.env$current.table)){
+      return(NULL)
+    }
+    else{
+      all.variables <- c("None", server.env$current.names)
+      res <- selectInput(inputId = "col.Temp1", label = "Temperature.Column",
+                         choices = all.variables, width = 100)
+    }
+    return(res)
+  })
+  #
   fit_columns <- function(){
     current.names <- server.env$current.names
     #print("FIT")
@@ -384,6 +398,17 @@ shinyServer(function(input, output, session) {
     return(res)
   })
   #
+  output$eda.nbins <- renderUI({
+    the.table <- server.env$current.table
+    if(is.null(the.table)){
+      return(NULL)
+    }
+    ncmethods <- c("None", "rule_thumb", "Sturges", "FreedmanDiaconis")
+    res <- selectInput(inputId = "eda.nclasses", label = "Number Classes",
+                       choices = ncmethods, selected = "None")
+    return(res)
+  })
+  #
   output$eda.plot <- renderPlot({
     current.gdata <- server.env$current.gdata
     validate(
@@ -403,8 +428,23 @@ shinyServer(function(input, output, session) {
     df <- data.frame(x = current.gdata$dataset[current.varname],
                      y =width)
     #print(df)
+    nclasses <- input$eda.nclasses
+    nc <- 8
+    if(nclasses  == "rule_thumb"){
+      nc <- sqrt(nrow(df))
+    }
+    else if(nclasses == "Sturges"){
+      nc <- 1+3.3*log10(nrow(df))
+    }
+    else if(nclasses == "FreedmanDiaconis"){
+      r <- diff(range(df[,1]))
+      print(r)
+      iqr <- quantile(df[,1], 0.75) - quantile(df[,1], 0.25)
+      nc <- (r*(nrow(df))**(1/3))/(2*iqr)
+      print(c(r,iqr,nc))
+    }
     p1 <- ggplot(df, aes_string(x = current.varname)) +
-      geom_histogram() +
+      geom_histogram(bins = nc) +
       theme_bw() +
       ggtitle("a) Histogram")
     if(input$eda.log == "Yes"){
@@ -450,6 +490,106 @@ shinyServer(function(input, output, session) {
       },
       contentType = "image/png"
     )
+  #######################################################################################
+  #                             Scatterplot TAB
+  #######################################################################################
+  output$cross.varselector1 <- renderUI({
+    the.table <- server.env$current.table
+    if(is.null(the.table)){
+      return(NULL)
+    }
+    varnames <- c("None", server.env$current.geonames)
+    res <- selectInput(inputId = "cross.varselector1a", label = "Variable",
+                       choices = varnames, selected = "None")
+    return(res)
+  })
+  #
+  output$cross.varselector2 <- renderUI({
+    the.table <- server.env$current.table
+    if(is.null(the.table)){
+      return(NULL)
+    }
+    varnames <- c("None", server.env$current.geonames)
+    res <- selectInput(inputId = "cross.varselector2a", label = "Variable",
+                       choices = varnames, selected = "None")
+    return(res)
+  })
+  #
+  output$cross.varcolor <- renderUI({
+    the.table <- server.env$current.table
+    if(is.null(the.table)){
+      return(NULL)
+    }
+    varnames <- c("None", server.env$current.geonames)
+    res <- selectInput(inputId = "cross.varcolor1", label = "Variable.Color",
+                       choices = varnames, selected = "None")
+    return(res)
+  })
+  #
+  output$cross.varsize <- renderUI({
+    the.table <- server.env$current.table
+    if(is.null(the.table)){
+      return(NULL)
+    }
+    varnames <- c("None", server.env$current.geonames)
+    res <- selectInput(inputId = "cross.varsize1", label = "Variable.Size",
+                       choices = varnames, selected = "None")
+    return(res)
+  })
+  #
+  output$cross.plot <- renderPlot({
+    current.gdata <- server.env$current.gdata
+    validate(
+      need(!is.null(current.gdata), "The Geochemical Dataset is not defined")
+    )
+    if(is.null(current.gdata))
+      return(NULL)
+    #
+    current.varname1 <- input$cross.varselector1a
+    current.varname2 <- input$cross.varselector2a
+    if(is.null(current.varname1) || current.varname1 == "None")
+      return(NULL)
+    if(is.null(current.varname2) || current.varname2 == "None")
+      return(NULL)
+    #
+    varsize <- input$cross.varsize1
+    varcolor <- input$cross.varcolor1
+    #
+    #df <- data.frame(x = current.gdata$dataset[current.varname1],
+    #                 y = current.gdata$dataset[current.varname2])
+    df <- current.gdata$dataset
+
+    # if(varsize != "None"){
+    #   var <- unname(unlist(current.gdata$dataset[varsize]))
+    #   df <- df %>% mutate(size = var)
+    # }
+    # #
+    # if(varcolor != "None"){
+    #   var <- unname(unlist(current.gdata$dataset[varcolor]))
+    #   df <- df %>% mutate(color = var)
+    # }
+    # #
+    # print(df)
+    p1 <- ggplot(df, aes_string(x = current.varname1, y = current.varname2)) +
+      geom_point(size = 3)
+    if(varsize != "None"){
+      p1 <- p1 + geom_point(aes_string(size = varsize))
+    }
+    if(varcolor != "None"){
+      p1 <- p1 + geom_point(aes_string(color = varcolor), size = 3) +
+        scale_color_gradientn(colors = rainbow(10))
+    }
+    #
+    if(input$cross.log1 == "Yes"){
+      p1 <- p1 + scale_x_log10()
+    }
+    #
+    if(input$cross.log2 == "Yes"){
+      p1 <- p1 + scale_y_log10()
+    }
+    p1 <- p1 + theme_bw()
+    return(p1)
+  })
 
   #######################################################################################
   #                               Hydrogeochemical Plots tab

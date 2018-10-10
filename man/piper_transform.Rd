@@ -22,7 +22,9 @@ Function to calculate the coordinates of set of samples in a piper diagram.
 }
 \seealso{
 Other piper functions: \code{\link{anion_cation_transform}},
-  \code{\link{ggplot_piper}}, \code{\link{plot_piper}},
+  \code{\link{ggplot_piper}},
+  \code{\link{piper_classification}},
+  \code{\link{plot_piper}},
   \code{\link{transform_piper_data}}
 }
 \author{

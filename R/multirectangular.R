@@ -31,12 +31,22 @@ multirectangular_transform <- function(gdata){
   anions.mx <- apply(anions, 1, max)
   cations.mx <- apply(cations, 1, max)
   #
+  ndat <- nrow(gdata$dataset)
+  class.anions <- c("Carbonatada/Bicarbonatada", "Clorurada", "Sulfatada")
+  class.cations <- c("Calcica", "Magnesica", "Sodica/Potasica")
+  classification <- vector("character", length = ndat)
+  for(i in 1:ndat){
+    classification[i] <- paste0(class.anions[anions.pmx[i]], "-", class.cations[cations.pmx[i]])
+  }
+  #
   danions <- anions.pmx - 1
   dcations <- cations.pmx - 1
   cy <- anions.mx + danions
   cx <- cations.mx + dcations
+
   tmp <- NULL
-  results <- data.frame(cx = cx, cy = cy)
+  results <- data.frame(cx = cx, cy = cy, da = anions.pmx, dc = cations.pmx,
+                        class = classification)
   return(results)
 }
 #' @title

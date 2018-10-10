@@ -363,3 +363,58 @@ plot_piper <- function(x, measure = c('conc', 'meql'),
   #
   return(p)
 }
+#' @title
+#' piper_classification
+#' @description
+#' Function to classify the groundwater samples according to the Piper diagram
+#' @param d_x A numeric vector with the x coordinates of the samples inside the diamond of the Piper diagram.
+#' @param d_y A numeric vector with the x coordinates of the samples inside the diamond of the Piper diagram.
+#' @return
+#' This function returns a character vector with the corresponding classification
+#' @author
+#' Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
+#' @family piper functions
+#' @importFrom sp point.in.polygon
+#' @export
+piper_classification <- function(d_x, d_y){
+  # Upper triangle: calcium chloride
+  pol.CaCl.x <- c(110,85,135,110)
+  pol.CaCl.y <- c(190.5266,147.2251,147.2251,190.5266)
+  # Mixed type 1
+  pol.mixed1.x <- c(85,135,60,85)
+  pol.mixed1.y <- c(147.2251,147.2251,103.9236,147.2251)
+  # Mixed type 2
+  pol.mixed2.x <- c(110,85,135,110)
+  pol.mixed2.y <- c(103.9236,60.62,60.62,103.9236)
+  # Magnesium-Bicarbonate
+  pol.MgHCO3.x <- c(60,85,110,85,60)
+  pol.MgHCO3.y <- c(103.9236,147.2251,103.9236,60.62,103.9236)
+  # NaCl
+  pol.NaCl.x <- c(110,135,160,135,110)
+  pol.NaCl.y <- c(103.9236,147.2251,103.9236,60.62,103.9236)
+  # NaHCO3
+  pol.NaHCO3.x <- c(85,135,110,85)
+  pol.NaHCO3.y <- c(60.62,60.62,17.3206,60.62)
+  #
+  classification <- c("Calcium.Chloride", "Mixed1", "Mixed2", "Magnesium.Bicarbonate",
+                      "Sodium.Chloride", "Sodium.Bicarbonate")
+  #
+  ndat <- length(d_x)
+  results <- matrix(0, nrow = ndat, ncol = 6)
+  for(i in 1:ndat){
+    results[i,1] <- point.in.polygon(d_x[i], d_y[i], pol.CaCl.x, pol.CaCl.y)
+    results[i,2] <- point.in.polygon(d_x[i], d_y[i], pol.mixed1.x, pol.mixed1.y)
+    results[i,3] <- point.in.polygon(d_x[i], d_y[i], pol.mixed2.x, pol.mixed2.y)
+    results[i,4] <- point.in.polygon(d_x[i], d_y[i], pol.MgHCO3.x, pol.MgHCO3.x)
+    results[i,5] <- point.in.polygon(d_x[i], d_y[i], pol.NaCl.x, pol.NaCl.y)
+    results[i,6] <- point.in.polygon(d_x[i], d_y[i], pol.NaHCO3.x, pol.NaHCO3.y)
+  }
+  #
+  pos.classification <- apply(results,1,which.max)
+  #
+  results.class <- vector("character", length = ndat)
+  for(i in 1:ndat){
+    results.class[i] <- classification[pos.classification[i]]
+  }
+  return(results.class)
+}

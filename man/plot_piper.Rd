@@ -33,6 +33,7 @@ Function to create the Piper plot
 \seealso{
 Other piper functions: \code{\link{anion_cation_transform}},
   \code{\link{ggplot_piper}},
+  \code{\link{piper_classification}},
   \code{\link{piper_transform}},
   \code{\link{transform_piper_data}}
 }
