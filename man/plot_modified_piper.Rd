@@ -33,7 +33,8 @@ This function returns a ggplot2 object with the modified piper plot.
 Function to create the modified Piper plot
 }
 \seealso{
-Other modified_piper functions: \code{\link{modified_piper_transform}}
+Other modified_piper functions: \code{\link{classification_reactions_piper_mode}},
+  \code{\link{modified_piper_transform}}
 }
 \author{
 Oscar Garcia-Cabrejo, \email{khaors@gmail.com}

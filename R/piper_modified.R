@@ -331,3 +331,40 @@ plot_modified_piper <- function(x, measure = c('conc', 'meql'),
   #
   return(p)
 }
+#' @title
+#' classification_reactions_piper_mod
+#' @description
+#' Function to calculate the contribution of each chemical reaction to the chemical composition
+#' of a given sample
+#' @param dx A numeric vector with the increments in x
+#' @param dy A numeric vector with the increments in y
+#' @return
+#' This function returns a matrix with the given contribution of each type of chemical reaction
+#' @author
+#' Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
+#' @family modified_piper functions
+classification_reactions_piper_mode <- function(dx, dy){
+  #
+  V <- matrix(0.0, nrow = 2, ncol = 6)
+  V[1:2,1] <- c(5.19, 1)# Mixing
+  V[1:2,2] <- c(-23, 37)# Ionic exchange 1
+  V[1:2,3] <- c(27, -48) # Ionic exchange 2
+  V[1:2,4] <- c(0, 1) # CaCO3 Precipitation
+  V[1:2,5] <- c(0, -1) # CaCO3 Dissolution
+  V[1:2,6] <- c(-31, 16) # SO4 reduction
+  FF <- t(V)%*%V
+  FF1 <- cbind(FF, matrix(1, nrow = 5, ncol = 1))
+  FF2 <- rbind(FF1, matrix(1, nrow = 1, ncol = 6))
+  AA <- FF2
+  AA[6,6] <- 0
+  #
+  ndat <- length(dx)
+  results <- matrix(0.0, nrow = ndat, ncol = 6)
+  for(i in 1:ndat){
+    bb <- t(V)%*%matrix(c(dx[i], dy[i]), nrow = 2, ncol = 1)
+    bb <- rbind(bb, 1)
+    current.contr <- solve(AA + 1e-6*diag(6), bb)
+    results[i,] <- current.contr
+  }
+  return(results)
+}
