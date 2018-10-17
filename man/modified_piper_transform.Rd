@@ -15,6 +15,7 @@ This function returns a data.frame with the following variables:
 \item cat_x,cat_y: coordinates of the cations in the ternary diagram (scaled between 0 and 1).
 \item an_x,an_y: coordiantes of the anions in the ternary diagram (scaled between 0 and 1).
 \item d_x,d_y: coordinates of the samples in the central diamond (scaled between 0 and 1).
+\item k: Matrix with the increments in the coordinates of the sample tail in the central diamond.
 }
 }
 \description{

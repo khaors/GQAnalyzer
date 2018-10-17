@@ -17,6 +17,7 @@ NULL
 #' \item cat_x,cat_y: coordinates of the cations in the ternary diagram (scaled between 0 and 1).
 #' \item an_x,an_y: coordiantes of the anions in the ternary diagram (scaled between 0 and 1).
 #' \item d_x,d_y: coordinates of the samples in the central diamond (scaled between 0 and 1).
+#' \item k: Matrix with the increments in the coordinates of the sample tail in the central diamond.
 #' }
 #' @author
 #' Oscar Garcia-Cabrejo \email{khaors@gmail.com}
@@ -354,18 +355,18 @@ classification_reactions_piper_mode <- function(dx, dy){
   V[1:2,5] <- c(0, -1) # CaCO3 Dissolution
   V[1:2,6] <- c(-31, 16) # SO4 reduction
   FF <- t(V)%*%V
-  FF1 <- cbind(FF, matrix(1, nrow = 5, ncol = 1))
-  FF2 <- rbind(FF1, matrix(1, nrow = 1, ncol = 6))
+  FF1 <- cbind(FF, matrix(1, nrow = 6, ncol = 1))
+  FF2 <- rbind(FF1, matrix(1, nrow = 1, ncol = 7))
   AA <- FF2
-  AA[6,6] <- 0
+  AA[7,7] <- 0
   #
   ndat <- length(dx)
   results <- matrix(0.0, nrow = ndat, ncol = 6)
   for(i in 1:ndat){
     bb <- t(V)%*%matrix(c(dx[i], dy[i]), nrow = 2, ncol = 1)
     bb <- rbind(bb, 1)
-    current.contr <- solve(AA + 1e-6*diag(6), bb)
-    results[i,] <- current.contr
+    current.contr <- solve(AA + 1e-6*diag(7), bb)
+    results[i,] <- current.contr[1:6]
   }
   return(results)
 }
