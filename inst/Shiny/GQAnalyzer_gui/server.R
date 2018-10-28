@@ -9,11 +9,12 @@
 library(shiny)
 library(DT)
 library(ggplot2)
+library(grid)
 library(gridExtra)
 library(dplyr)
 #
 plot.types.all <-  c("None", "ternary", "piper", "modified_piper", "durov", "schoeller",
-                     "multirectangular")
+                     "multirectangular", "ilr")
 #
 plot.types.single <- c("None", "stiff", "radial")
 #
@@ -818,6 +819,13 @@ shinyServer(function(input, output, session) {
                    color = current.color,
                    Size = current.size)
       }
+      else if(current.tplot == "ilr"){
+        p1 <- plot_ilr(current.gdata,
+                   measure = current.measure,
+                   vars = current.vars,
+                   color = current.color,
+                   Size = current.size)
+      }
     }
     else if(current.hplot == "Single Sample"){
       current.sample <- as.integer(input$hplot.samples)
@@ -830,7 +838,13 @@ shinyServer(function(input, output, session) {
                    measure = current.measure)
       }
     }
-    print(p1)
+    if(current.tplot != "ilr"){
+      print(p1)
+    }
+    else{
+      grid.draw(p1)
+    }
+
     return(p1)
   })
 

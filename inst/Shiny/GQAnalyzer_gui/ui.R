@@ -23,7 +23,8 @@ shinyUI(
                             useShinyalert(),
                             imageOutput("uptc.logo", inline=TRUE),
                             p(HTML("<h5>This is GQAnalyzer-GUI, the Shiny interface for analysis and
-                                    plotting and analysis of Groundwater Quality in <strong>R</strong>.</h5>
+                                    plotting and analysis of Groundwater Quality and Hydrochemical
+                                    characteristics of geothermal waters in <strong>R</strong>.</h5>
                                     This application can be used for the identification of the type of
                                     Groundwater, identification of hydrogeochemical groups, comparison of
                                     Groundwater Quality samples, and statistical analysis of Groundwater Quality
@@ -121,19 +122,18 @@ shinyUI(
     #
     tabPanel(title = "EDA",
              sidebarLayout(
-               sidebarPanel(),
-               mainPanel(
+               sidebarPanel(
                  p(HTML("<h4>Create Statistical Plots</h4>")),
                  br(),
-                 fluidRow(
-                   column(width = 3, uiOutput(outputId = "eda.varselector")),
-                   column(width = 3, radioButtons(inputId = "eda.log", label = "Log",
-                                                  choices = c("No", "Yes"),
-                                                  selected = "No")),
-                   column(width = 3, uiOutput(outputId = "eda.nbins"))
-                 ),
+                 uiOutput(outputId = "eda.varselector"),
                  br(),
+                 radioButtons(inputId = "eda.log", label = "Log",
+                              choices = c("No", "Yes"),
+                              selected = "No"),
                  br(),
+                 uiOutput(outputId = "eda.nbins")
+               ),
+               mainPanel(
                  plotOutput(outputId = "eda.plot", height = "600px", width = "80%")
                  #br(),
                  #downloadButton('eda.downloadPlot', 'Download Plot')
@@ -142,27 +142,26 @@ shinyUI(
     ),
     tabPanel(title = "CrossPlots",
              sidebarLayout(
-               sidebarPanel("Tab to create scatterplots"),
+               sidebarPanel(
+                 p(HTML("<h4>Create Scatterplots</h4>")),
+                 br(),
+                 p(HTML("<h3>X Variable</h3>")),
+                 br(),
+                 uiOutput(outputId = "cross.varselector1"),
+                 radioButtons(inputId = "cross.log1", label = "Log",
+                              choices = c("No", "Yes"),
+                              selected = "No"),
+                 br(),
+                 p(HTML("<h3>Y Variable</h3>")),
+                 uiOutput(outputId = "cross.varselector2"),
+                 radioButtons(inputId = "cross.log2", label = "Log",
+                              choices = c("No", "Yes"),
+                              selected = "No"),
+                 br(),
+                 uiOutput(outputId = "cross.varsize"),
+                 uiOutput(outputId = "cross.varcolor")
+               ),
                mainPanel(
-                 p(HTML("<h4>Create Scatterplos</h4>")),
-                 br(),
-                 fluidRow(
-                   column(width = 3, uiOutput(outputId = "cross.varselector1")),
-                   column(width = 1, radioButtons(inputId = "cross.log1", label = "Log",
-                                                  choices = c("No", "Yes"),
-                                                  selected = "No")),
-                   column(width = 3, uiOutput(outputId = "cross.varcolor"))
-                 ),
-                 br(),
-                 fluidRow(
-                   column(width = 3, uiOutput(outputId = "cross.varselector2")),
-                   column(width = 1, radioButtons(inputId = "cross.log2", label = "Log",
-                                                  choices = c("No", "Yes"),
-                                                  selected = "No")),
-                   column(width = 3, uiOutput(outputId = "cross.varsize"))
-                 ),
-                 br(),
-                 br(),
                  plotOutput(outputId = "cross.plot", height = "600px", width = "80%")
                )
              )
@@ -175,8 +174,6 @@ shinyUI(
     tabPanel(title = "Hydrogeochemical Plots",
              sidebarLayout(
                sidebarPanel(
-               ),
-               mainPanel(
                  h3("Choose Plot"),
                  br(),
                  uiOutput(outputId = "hplot.tselector"),
@@ -187,18 +184,12 @@ shinyUI(
                  uiOutput(outputId = "hplot.option2"),
                  uiOutput(outputId = "hplot.option3"),
                  uiOutput(outputId = "hplot.option4"),
-                 uiOutput(outputId = "hplot.option5"),
-                 br(),
+                 uiOutput(outputId = "hplot.option5")
+               ),
+               mainPanel(
                  plotOutput("hplot", height = "600px", width = "80%")
                )
              )),
-    #navbarMenu(title = "Hydrogeochemical Plots",
-    #           tabPanel("Ternary"),
-    #           tabPanel("Piper"),
-    #           tabPanel("Durov"),
-    #           tabPanel("Multirectangular"),
-    #           tabPanel("Circular")),
-    #
     #tabPanel(title = "Maps"),
     #navbarMenu(title = "Maps",
     #           tabPanel("Piper"),
