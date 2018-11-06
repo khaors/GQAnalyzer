@@ -62,12 +62,12 @@ silica.geothermometers <- function(SiO2, Temp){
   pos.high <- Temp > 250
   ndat <- length(SiO2)
   results <- matrix(0.0, nrow = ndat, ncol = 6)
-  Qz.no.steam.loss <- (1309/(5.15-log(SiO2[pos.low])))-273
-  Qz.max.steam <- (1522/(5.75-log(SiO2[pos.low])))-273
-  Chalcedony <- (1032/(4.69-log(SiO2[pos.low])))-273
-  alpha.Cristobalite <- (1000/(4.88-log(SiO2[pos.low])))-273
-  beta.Cristobalite <- (781/(4.51-log(SiO2[pos.low])))-273
-  amorphous.silica <- (731/(4.52-log(SiO2[pos.low])))-273
+  Qz.no.steam.loss <- (1309/(5.15-log10(SiO2[pos.low])))-273
+  Qz.max.steam <- (1522/(5.75-log10(SiO2[pos.low])))-273
+  Chalcedony <- (1032/(4.69-log10(SiO2[pos.low])))-273
+  alpha.Cristobalite <- (1000/(4.88-log10(SiO2[pos.low])))-273
+  beta.Cristobalite <- (781/(4.51-log10(SiO2[pos.low])))-273
+  amorphous.silica <- (731/(4.52-log10(SiO2[pos.low])))-273
   #
   results[pos.low,1] <- Qz.no.steam.loss
   results[pos.low,2] <- Qz.max.steam
@@ -129,7 +129,7 @@ Fournier.Potter.geothermometer <- function(SiO2, Temp){
 #' @family geothermometer functions
 #' @export
 Na.K.geothermometers <- function(Na, K, Temp){
-  pars <- matrix(0.0, nrow = 7, ncol = 2)
+  pars <- matrix(0.0, nrow = 9, ncol = 2)
   pars[1,] <- c(855.6, 0.8573) #Truesdell
   pars[2,] <- c(883, 0.780)#Tonani
   pars[3,] <- c(933, 0.993)#Arnosson1
@@ -141,10 +141,11 @@ Na.K.geothermometers <- function(Na, K, Temp){
   pars[9,] <- c(1289, 0.615)# Verma-Santoyo
   #
   ndat <- length(Na)
-  results <- matrix(0.0, nrow = ndat, ncol = 9)
+  results <- matrix(0.0, nrow = ndat, ncol = 13)
   for(i in 1:9){
     results[,i] <- vapply(Na/K,
-                          FUN = function(x,par){res <- (par[1]/(log(x)+par[2]))-273},
+                          FUN = function(x,par){res <- (par[1]/(log10(x)+par[2]))-273},
+                          FUN.VALUE = numeric(1),
                           par = pars[i,])
   }
   #Arnosson-3
@@ -152,13 +153,15 @@ Na.K.geothermometers <- function(Na, K, Temp){
   term2 <- term1**2
   term3 <- term1**3
   term4 <- term1**4
-  results[10,] <- 733.6-770.551*term1+378.189*term2-95.753*term3+9.544*term4
+  tmp <- 733.6-770.551*term1+378.189*term2-95.753*term3+9.544*term4
+  #print(tmp)
+  results[,10] <- tmp
   # Can
-  results[11,] <- 1052/(1-exp(1.714*log(Na/K)+0.252))+76
+  results[,11] <- 1052/(1-exp(1.714*log(Na/K)+0.252))+76
   #DiazGonzales-Santoyo-Reyes1
-  results[12,] <- (833/(log(Na/K)+0.894))-273.15
+  results[,12] <- (833/(log10(Na/K)+0.894))-273.15
   #DiazGonzales-Santoyo-Reyes2
-  results[13,] <- (833/(log(Na/K)+0.908))-273.15
+  results[,13] <- (833/(log10(Na/K)+0.908))-273.15
   results.df <- as.data.frame(results)
   names(results.df) <- c("Truesdell", "Tonani",
                          "Arnosson1", "Arnosson2",
@@ -184,15 +187,17 @@ Na.K.geothermometers <- function(Na, K, Temp){
 #' @family geothermometer functions
 #' @export
 Na.K.Ca.geothermometer <- function(Na, K, Ca, Temp){
-  check <- log((sqrt(Ca)/Na)+2.06)
-  beta <- -100
-  if(check > 0){
-    beta <- 4/3
+  check <- log10((sqrt(Ca)/Na)+2.06)
+  beta <- rep(-100, length(Na))
+  pos <- check > 0
+  if(sum(pos) > 0){
+    beta[pos] <- 4/3
   }
-  Temp.formation <- 1647/(log(Na/K)+beta*check+2.47)-273
-  if(Temp.formation > 100){
-    beta <- 1/3
-    Temp.formation <- 1647/(log(Na/K)+beta*check+2.47)-273
+  Temp.formation <- 1647/(log10(Na/K)+beta*check+2.47)-273
+  pos1 <- Temp.formation > 100
+  if(sum(pos1) > 1){
+    beta[pos1] <- 1/3
+    Temp.formation <- 1647/(log10(Na/K)+beta*check+2.47)-273
   }
   return(Temp.formation)
 }
@@ -217,7 +222,7 @@ K.Mg.geothermometer <- function(K, Mg, Temp){
   #
   ndat <- length(K)
   results <- matrix(0.0, nrow = ndat, ncol = 3)
-  term1 <- log((K**2)/Mg)
+  term1 <- log10((K**2)/Mg)
   results[,1] <- (4410/(14-term1))-273.15
   results[,2] <- (2230/(7.35-term1))-273.15
   results[,3] <- (1077/(4.033+term1))-273.15
@@ -243,7 +248,7 @@ Li.Mg.geothermometer <- function(Li, Mg, Temp){
   ndat <- length(Li)
   results <- matrix(0.0, nrow = ndat, ncol = 2)
   #
-  term <- log(Li/sqrt(Mg))
+  term <- log10(Li/sqrt(Mg))
   results[,1] <- (2200/(5.47-term))-273.15
   results[,2] <- (1910/(4.63-term))-273.15
   #
