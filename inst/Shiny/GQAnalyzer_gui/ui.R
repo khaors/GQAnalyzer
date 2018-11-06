@@ -111,6 +111,12 @@ shinyUI(
                            column(width = 3, uiOutput(outputId = "col.Cl")),
                            column(width = 3, uiOutput(outputId = "col.SO4"))),
                          br(),
+                         br(),
+                         fluidRow(
+                           column(width = 3, uiOutput(outputId = "col.SiO2")),
+                           column(width = 3, uiOutput(outputId = "col.Li"))
+                         ),
+                         br(),
                          actionButton("create.gdata", label = "Define Geochemical Dataset",
                                       icon = icon("bullseye"))
                          ))),
@@ -190,6 +196,23 @@ shinyUI(
                  plotOutput("hplot", height = "600px", width = "80%")
                )
              )),
+    tabPanel(title = "Geothermometers",
+             sidebarLayout(
+               sidebarPanel(
+                 h3("Choose Geothermometer"),
+                 br(),
+                 br(),
+                 uiOutput(outputId = "Geothermo.choice"),
+                 br(),
+                 br(),
+                 actionButton("calculate.geothermometer",
+                              label = "Calculate Geothermometers",
+                              icon = icon("bullseye"))
+               ),
+               mainPanel(
+                 DTOutput(outputId = "geothermometers.table")
+               )
+               )),
     #tabPanel(title = "Maps"),
     #navbarMenu(title = "Maps",
     #           tabPanel("Piper"),

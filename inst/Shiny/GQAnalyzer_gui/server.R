@@ -20,6 +20,9 @@ plot.types.single <- c("None", "stiff", "radial")
 #
 measures.type <- c("None", "conc", "meql")
 #
+geothermometers.type <- c("None", "SiO2", "Fournier.Potter", "Na.K", "Na.K.Ca", "K.Mg",
+                          "Mg.Li")
+#
 shinyServer(function(input, output, session) {
   #
   server.env <- environment() # used to allocate in functions
@@ -260,6 +263,33 @@ shinyServer(function(input, output, session) {
     return(res)
   })
   #
+  output$col.SiO2 <- renderUI({
+    res <- NULL
+    if(is.null(server.env$current.table)){
+      return(NULL)
+    }
+    else{
+      all.variables <- c("None", server.env$current.names)
+      res <- selectInput(inputId = "col.SiO21", label = "SiO2.Column",
+                         choices = all.variables, width = 100)
+    }
+    return(res)
+  })
+  #
+  #
+  output$col.Li <- renderUI({
+    res <- NULL
+    if(is.null(server.env$current.table)){
+      return(NULL)
+    }
+    else{
+      all.variables <- c("None", server.env$current.names)
+      res <- selectInput(inputId = "col.Li1", label = "Li.Column",
+                         choices = all.variables, width = 100)
+    }
+    return(res)
+  })
+  #
   fit_columns <- function(){
     current.names <- server.env$current.names
     #print("FIT")
@@ -329,6 +359,54 @@ shinyServer(function(input, output, session) {
     }
     else{
       updateSelectInput(session, inputId = "col.SO41", selected = "None")
+    }
+    #
+    pos <- current.names == "SiO2"
+    if(sum(pos) == 1){
+      updateSelectInput(session, inputId = "col.SiO21", selected = "SiO2")
+    }
+    else{
+      updateSelectInput(session, inputId = "col.SiO21", selected = "None")
+    }
+    #
+    pos <- current.names == "Li"
+    if(sum(pos) == 1){
+      updateSelectInput(session, inputId = "col.Li1", selected = "Li")
+    }
+    else{
+      updateSelectInput(session, inputId = "col.Li1", selected = "None")
+    }
+    #
+    pos <- current.names == "pH"
+    if(sum(pos) == 1){
+      updateSelectInput(session, inputId = "col.pH1", selected = "pH")
+    }
+    else{
+      updateSelectInput(session, inputId = "col.pH1", selected = "None")
+    }
+    #
+    pos <- current.names == "TDS"
+    if(sum(pos) == 1){
+      updateSelectInput(session, inputId = "col.TDS1", selected = "TDS")
+    }
+    else{
+      updateSelectInput(session, inputId = "col.TDS1", selected = "None")
+    }
+    #
+    pos <- current.names == "EC"
+    if(sum(pos) == 1){
+      updateSelectInput(session, inputId = "col.EC1", selected = "EC")
+    }
+    else{
+      updateSelectInput(session, inputId = "col.EC1", selected = "None")
+    }
+    #
+    pos <- current.names == "Temp"
+    if(sum(pos) == 1){
+      updateSelectInput(session, inputId = "col.Temp1", selected = "Temp")
+    }
+    else{
+      updateSelectInput(session, inputId = "col.Temp1", selected = "None")
     }
   }
   #
@@ -847,5 +925,138 @@ shinyServer(function(input, output, session) {
 
     return(p1)
   })
+  #########################################################################################
+  #                     Geothermometers tab
+  #########################################################################################
+
+  calculate_geothermometers <- function(){
+    res <- NULL
+    current.table <- server.env$current.table
+    if(is.null(current.table)){
+      validate("Define Geochemical Dataset")
+      return(NULL)
+    }
+    #
+    col.Temp <- input$col.Temp1
+    current.Temp <- rep(NULL, nrow(current.table))
+    if(!is.null(col.Temp)){
+      current.Temp <- current.table[col.Temp]
+    }
+    col.Ca <- input$col.Ca1
+    col.Na <- input$col.Na1
+    col.K <- input$col.K1
+    col.Mg <- input$col.Mg1
+    col.SiO2 <- input$col.SiO21
+    col.Li <- input$col.Li1
+    #
+    current.df <- data.frame(Temp = unname(current.table[col.Temp]),
+                             Ca = current.table[col.Ca],
+                             Na = current.table[col.Na],
+                             K = current.table[col.K],
+                             Mg = current.table[col.Mg],
+                             SiO2 = current.table[col.SiO2],
+                             Li = current.table[col.Li])
+    #
+    res.SiO2 <- silica.geothermometers(current.df$SiO2, Temp = current.df$Temp)
+    res.SiO21 <- Fournier.Potter.geothermometer(SiO2 = current.df$SiO2,
+                                                Temp = current.df$Temp)
+    res.Na.K <- Na.K.geothermometers(Na = current.df$Na,
+                                     K = current.df$K,
+                                     Temp = current.df$Temp)
+    res.Na.K.Ca <- Na.K.Ca.geothermometer(Na = current.df$Na,
+                                          K = current.df$K,
+                                          Ca = current.df$Ca,
+                                          Temp = current.df$Temp)
+    res.K.Mg <- K.Mg.geothermometer(K = current.df$K, Mg = current.df$Mg,
+                                    Temp = current.df$Temp)
+    res.Li.Mg <- Li.Mg.geothermometer(Li = current.df$Li, Mg = current.df$Mg,
+                                      Temp = current.df$Temp)
+    #
+    server.env$SiO2.gt <- res.SiO2
+    server.env$SiO2.gt1 <- res.SiO21
+    server.env$Na.K.gt <- res.Na.K
+    server.env$Na.K.Ca.gt <- res.Na.K.Ca
+    server.env$K.Mg.gt <- res.K.Mg
+    server.env$Li.Mg.gt <- res.Li.Mg
+  }
+
+  output$Geothermo.choice <- renderUI({
+    res <- NULL
+    current.table <- server.env$current.table
+    if(is.null(current.table)){
+      return(NULL)
+    }
+    #
+    res <- checkboxGroupInput(inputId = "geothermometer",
+                              label = "Geothermometers To Use: ",
+                              choices = geothermometers.type, selected = "None")
+    return(res)
+  })
+  #
+  output$geothermometers.table <- renderDataTable({
+    res <- NULL
+    current.table <- server.env$current.table
+    if(is.null(current.table)){
+      validate("Define Geochemical Dataset")
+      return(NULL)
+    }
+    calculate_geothermometers()
+    current.geothermometer <- input$geothermometer
+    if(is.null(current.geothermometer) || current.geothermometer[[1]] == "None")
+      return(NULL)
+    ngt <- length(current.geothermometer)
+    #print(ngt)
+    ndat <- nrow(current.table)
+    res <- seq(1, ndat, by = 1)
+    res.df <- data.frame(ID = res)
+    #print(res.df)
+    res1 <- NULL
+    res2 <- NULL
+    for(i in 1:ngt){
+      if(current.geothermometer[[i]] == "None"){
+        next
+      }
+      else if(current.geothermometer[[i]] == "SiO2"){
+        #print(server.env$SiO2.gt)
+        res.df <- cbind(res.df,server.env$SiO2.gt)
+      }
+      else if(current.geothermometer[[i]] == "Fournier.Potter"){
+        fournier.df <- data.frame(Fournier.Potter =  as.numeric(server.env$SiO2.gt1))
+        res.df <- cbind(res.df, fournier.df)
+      }
+      else if(current.geothermometer[[i]] == "Na.K"){
+        res.df <- cbind(res.df, server.env$Na.K.gt)
+      }
+      else if(current.geothermometer[[i]] == "Na.K.Ca"){
+        res.df <- cbind(res.df, server.env$Na.K.Ca.gt)
+      }
+      else if(current.geothermometer[[i]] == "K.Mg"){
+        res.df <- cbind(res.df, server.env$K.Mg.gt)
+      }
+      else if(current.geothermometer[[i]] == "Mg.Li"){
+        res.df <- cbind(res.df, server.env$Li.Mg.gt)
+      }
+    }
+    return(res.df)
+  },
+  extensions = c('Buttons'),
+  options = list(
+    autoWidth = TRUE,
+    pageLength = 25,
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+    text = 'Download',
+    scrollY = 1000,
+    scrollX = TRUE,
+    scroller = TRUE))
+  #
+
+  #
+ # observeEvent(input$calculate.geothermometers, {
+#    calculate_geothermometers()
+
+
+    #shinyalert(title = "Geochemical Dataset Defined!!!", type = "success")
+#  })
 
 })
