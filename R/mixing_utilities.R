@@ -202,24 +202,30 @@ uncertainty_m3_mixing_model <- function(gdata, end.members = NULL,
   for(ireal in 1:nreal){
     for(iend in 1:n.endmember){
       for(ivar in 1:nvar){
-        current.end.members[iend,ivar,] <- rlnorm(nreal, meanlog = mu[iend, ivar],
-                                                  sdlog = sigma[iend, ivar])
+        current.end.members[iend,ivar,] <- rlnorm(nreal, 
+                                                  meanlog = alpha[iend, ivar],
+                                                  sdlog = beta[iend, ivar])
       }
     }
   }
   # Estimate the mixing ratios
-  current.mixing.ratios <- array(-1.0, dim=c(nsamples, n.endmember, nreal))
-  pos.end.member <- seq((nsamples+1):(nsamples+n.endmember), by = 1)
+  current.mixing.ratios <- array(-1.0, dim = c(nsamples, n.endmember, nreal))
+  pos.end.member <- seq((nsamples+1),(nsamples+n.endmember), by = 1)
+  end.members.array <- array(-999.99, dim = c(n.endmember, 2, nreal))
   for(ireal in 1:nreal){
     # Define current end member
-    currentEM <- current.end.members[,,ireal]
+    currentEM <- as.data.frame(current.end.members[,,ireal])
+    names(currentEM) <- names(dataset)
     # Add currentEM to original dataset
-    current.dataset <- rbind(dataset, currentEM)
+    #current.dataset <- rbind(dataset, currentEM)
+    current.dataset <- dataset
+    current.dataset[end.members,] <- currentEM
     current.dataset1 <- scale(current.dataset, center = TRUE, scale = TRUE)
     # PCA
     res.pca <- princomp(current.dataset1, cor = TRUE, scores = TRUE)
     res.pca.def <- res.pca$scores[,1:2]
-    end.members.mat <- t(res.pca.def[pos.end.member,])
+    end.members.mat <- t(res.pca.def[end.members,])
+    end.members.array[,,ireal] <- t(end.members.mat)
     FFt <- t(end.members.mat)%*%end.members.mat
     Ie <- matrix(1.0, nrow = n.endmember, ncol = 1)
     tmp1 <- cbind(FFt,Ie)
@@ -231,18 +237,19 @@ uncertainty_m3_mixing_model <- function(gdata, end.members = NULL,
       mixing.ratios <- solve(A+1e-6*diag(n.endmember+1),b)
       res.mixing.ratios[i,] <- mixing.ratios[1:n.endmember]
     }
-    # Correct mixing ratios for end members
+    #Correct mixing ratios for end members
     for(i in 1:n.endmember){
       current.ratio <- rep(0.0, n.endmember)
       current.ratio[i] <- 1
-      res.mixing.ratios[pos.end.member[i],] <- current.ratio
+      res.mixing.ratios[end.members[i],] <- current.ratio
     }
     # Save estimated mixing ratios
     current.mixing.ratios[,,ireal] <- res.mixing.ratios
   }
   #
   res <- list(end.members = current.end.members, 
-              mixing.ratios = current.mixing.ratios)
+              mixing.ratios = current.mixing.ratios, 
+              end.members.pca = end.members.array)
   return(res)
 }
 #' @title
