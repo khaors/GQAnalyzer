@@ -1,8 +1,9 @@
-# __GQAnalyzer__: Package to create hydrogeochemical plots
+# __GQAnalyzer__: Package to analyze hydrogeochemical and fluid geothermal data
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rves)](https://cran.r-project.org/package=GQAnalyzer)
 [![HitCount](http://hits.dwyl.io/khaors/rves.svg)](http://hits.dwyl.io/khaors/GQAnalyzer)
 
-The goal of GQAnalyzer is to create several plots routenely used in hydrogeochemistry including:
+The goal of GQAnalyzer is to be a tool to support the analysis of different types of geological fluids (groundwater and geothermal waters).
+This package includes several functions to create plots routinely used in hydrogeochemistry and analysis of geothermal fluid including:
 
 - Ternary diagrams
 - Piper plots
@@ -12,6 +13,19 @@ The goal of GQAnalyzer is to create several plots routenely used in hydrogeochem
 - Multirectangular diagrams
 - Schoeller diagrams
 - Radial diagrams
+- ilr compositional plots
+- Giggenbach plot
+
+The package includes functions to calculate several geothermometers including:
+
+- Silica geothermometers
+- Fournier-Potter geothermometer
+- Na-K geothermometers
+- Na-K-Ca geothermometer
+- K-Mg geothermometer
+- Mg-Li geothermometer
+
+In addition, the package includes a set of functions to study mixing of different types of groundwater using the M3 algorithm.
 
 ## Installation 
 

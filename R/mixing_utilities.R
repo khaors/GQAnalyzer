@@ -2,8 +2,8 @@
 #'
 #' This section is devoted to functions used in the study of mixing processes from hydrogeochenmical information.
 #'
-#' This section includes the definition of three functions used to create the Durov diagram:
-#' m3_model
+#' This section includes the definition of five functions:
+#' m3_mixing_model,select_end_members,uncertainty_m3_mixing_model,plot_m3_mixing_results,constrained_lm
 #' @docType package
 #' @name GQAnalyzer
 NULL
@@ -125,6 +125,7 @@ m3_mixing_model <- function(gdata, end.members = NULL){
 #' @author
 #' Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 #' @family mixing functions
+#' @export
 select_end_members <- function(gdata){
   if(class(gdata) != "geochemical_dataset"){
     stop('ERROR: A geochemical_dataset is required as input')
@@ -139,7 +140,9 @@ select_end_members <- function(gdata){
 #' Function to quantify the uncertainty in the mixing ratios due to the variability in
 #' the concentrations of the end.members using Monte Carlo simulation.
 #' @param gdata A geochemical_dataset object
-#' @param end.members A geochemical_dataset object
+#' @param end.members If provided, this is a numeric vector with the indices of the end members
+#' to be used in the mixing calculations. If it is not specified then the end members are
+#' defined using the convex hull of the first two principal components.
 #' @param lower A matrix with the lower limits of the concentrations of the end.members.
 #' @param upper A matrix with the upper limits of the concentrations of the end.members.
 #' @param nreal The number of realizations.
@@ -147,22 +150,32 @@ select_end_members <- function(gdata){
 #' @return
 #' This function returns a list with the following entries:
 #' \itemize{
-#' \item a
-#' \item b
+#' \item end.members: realizations of the end.members 
+#' \item mixing.ratios: estimated mixing ratios
 #' }
+#' @details 
+#' This function implements a procedure designed to assess the impact of the 
+#' compositional variability of the end members on the estimated mixing ratios. 
+#' This procedure is based on the random generation of a predefined number of 
+#' end member realizations where the concentration of each species is assumed 
+#' to follow a log-normal distribution. These distributions are defined in 
+#' terms of the upper and lower limits which corresponds to their  0.05 and 0.95 
+#' quantiles. Then a large number of end member compostions are randomly 
+#' generated and from each one the mixing ratios are estimated.   
 #' @author
 #' Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 #' @family mixing functions
 #' @importFrom stats rlnorm
+#' @export
 #' @references
 #' Laaksoharju, M., Skarrman, C., \& Skarrman, E. (1999). Multivariate mixing and mass
 #' balance (M3) calculations, a new tool for decoding hydrogeochemical information.
 #' Applied Geochemistry, 14(7), 861–871. http://doi.org/10.1016/S0883-2927(99)00024-4
-uncertainty_m3_mixing_model <- function(gdata, end.members, lower, upper,
-                                        nreal = 100, seed = 12345){
+uncertainty_m3_mixing_model <- function(gdata, end.members = NULL, 
+                                        lower, upper, nreal = 100, 
+                                        seed = 12345){
   set.seed(seed)
-  if(class(gdata) != "geochemical_dataset" |
-     class(end.members) != "geochemical_dataset"){
+  if(class(gdata) != "geochemical_dataset"){
     stop('ERROR: A geochemical_dataset is required as input')
   }
   #
@@ -170,8 +183,14 @@ uncertainty_m3_mixing_model <- function(gdata, end.members, lower, upper,
     stop("ERROR: the lower and upper input variables must be numeric vectors")
   }
   #
+  conc_ions <- colnames(gdata$dataset)
+  meql_ions <- c("Ca", "Mg", "Na", "K", "HCO3", "CO3", "Cl", "SO4")
+  #
+  dataset <- gdata$dataset[meql_ions]
+  #
   n.endmember <- nrow(lower)
   nvar <- ncol(lower)
+  nsamples <- nrow(dataset)
   # Define alpha and beta parameters
   alpha <- (log(upper)+log(lower))/2
   beta <- (log(upper)-log(lower))/(2*2.576)
@@ -189,7 +208,42 @@ uncertainty_m3_mixing_model <- function(gdata, end.members, lower, upper,
     }
   }
   # Estimate the mixing ratios
-  return(current.end.members)
+  current.mixing.ratios <- array(-1.0, dim=c(nsamples, n.endmember, nreal))
+  pos.end.member <- seq((nsamples+1):(nsamples+n.endmember), by = 1)
+  for(ireal in 1:nreal){
+    # Define current end member
+    currentEM <- current.end.members[,,ireal]
+    # Add currentEM to original dataset
+    current.dataset <- rbind(dataset, currentEM)
+    current.dataset1 <- scale(current.dataset, center = TRUE, scale = TRUE)
+    # PCA
+    res.pca <- princomp(current.dataset1, cor = TRUE, scores = TRUE)
+    res.pca.def <- res.pca$scores[,1:2]
+    end.members.mat <- t(res.pca.def[pos.end.member,])
+    FFt <- t(end.members.mat)%*%end.members.mat
+    Ie <- matrix(1.0, nrow = n.endmember, ncol = 1)
+    tmp1 <- cbind(FFt,Ie)
+    A <- rbind(tmp1, c(t(Ie), 0))
+    res.mixing.ratios <- matrix(0.0, nrow = nsamples, ncol = n.endmember)
+    # Estimate mixing ratios
+    for(i in 1:nsamples){
+      b <- rbind(t(end.members.mat)%*%res.pca.def[i,], 1)
+      mixing.ratios <- solve(A+1e-6*diag(n.endmember+1),b)
+      res.mixing.ratios[i,] <- mixing.ratios[1:n.endmember]
+    }
+    # Correct mixing ratios for end members
+    for(i in 1:n.endmember){
+      current.ratio <- rep(0.0, n.endmember)
+      current.ratio[i] <- 1
+      res.mixing.ratios[pos.end.member[i],] <- current.ratio
+    }
+    # Save estimated mixing ratios
+    current.mixing.ratios[,,ireal] <- res.mixing.ratios
+  }
+  #
+  res <- list(end.members = current.end.members, 
+              mixing.ratios = current.mixing.ratios)
+  return(res)
 }
 #' @title
 #' plot_m3_mixing_results
@@ -295,6 +349,7 @@ plot_m3_mixing_results <- function(gdata, mixing.res,
 #' @author
 #' Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 #' @family mixing functions
+#' @export
 constrained_lm <- function(y, X, tol = 1e-12){
   nx <- nrow(X)
   FFt <- t(X)%*%X

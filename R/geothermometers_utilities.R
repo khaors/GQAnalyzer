@@ -1,6 +1,7 @@
 #' @section Geothermometers:
 #'
-#' The functions defined to calculate the temperatures
+#' The functions defined to calculate the temperatures of the geothermal 
+#' reservoir from the concentrations of some chemical species.
 #'
 #'
 #' @docType package
