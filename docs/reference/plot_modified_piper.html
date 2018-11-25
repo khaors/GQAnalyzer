@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>plot_piper — plot_piper • GQAnalyzer</title>
+<title>plot_modified_piper — plot_modified_piper • GQAnalyzer</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="plot_piper — plot_piper" />
+<meta property="og:title" content="plot_modified_piper — plot_modified_piper" />
 
-<meta property="og:description" content="Function to create the Piper plot" />
+<meta property="og:description" content="Function to create the modified Piper plot" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -94,19 +94,19 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>plot_piper</h1>
+    <h1>plot_modified_piper</h1>
     
-    <div class="hidden name"><code>plot_piper.Rd</code></div>
+    <div class="hidden name"><code>plot_modified_piper.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Function to create the Piper plot</p>
+    <p>Function to create the modified Piper plot</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plot_piper</span>(<span class='no'>x</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"conc"</span>, <span class='st'>"meql"</span>), <span class='kw'>vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>Size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_modified_piper</span>(<span class='no'>x</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"conc"</span>, <span class='st'>"meql"</span>), <span class='kw'>vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>Size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -136,19 +136,20 @@ are already defined. Used only for compatibility with the plot function.</p></td
       <th>Size</th>
       <td><p>Character variable that specifies the variable to define the size of the data inside the plot.</p></td>
     </tr>
+    <tr>
+      <th>labels</th>
+      <td><p>Character variable that specifies the name of the variable to assign text labels.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>This function returns a ggplot2 object with the Durov plot.</p>
+    <p>This function returns a ggplot2 object with the modified piper plot.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other piper functions: <code><a href='anion_cation_transform.html'>anion_cation_transform</a></code>,
-  <code><a href='ggplot_piper.html'>ggplot_piper</a></code>,
-  <code><a href='piper_classification.html'>piper_classification</a></code>,
-  <code><a href='piper_transform.html'>piper_transform</a></code>,
-  <code><a href='transform_piper_data.html'>transform_piper_data</a></code></p></div>
+    <div class='dont-index'><p>Other modified_piper functions: <code><a href='classification_reactions_piper_mode.html'>classification_reactions_piper_mode</a></code>,
+  <code><a href='modified_piper_transform.html'>modified_piper_transform</a></code></p></div>
     
 
   </div>

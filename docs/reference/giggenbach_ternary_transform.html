@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>plot_piper — plot_piper • GQAnalyzer</title>
+<title>giggenbach_ternary_transform — giggenbach_ternary_transform • GQAnalyzer</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="plot_piper — plot_piper" />
+<meta property="og:title" content="giggenbach_ternary_transform — giggenbach_ternary_transform" />
 
-<meta property="og:description" content="Function to create the Piper plot" />
+<meta property="og:description" content="This function calculates the coordinates of the ternary plot proposed by Giggenbach (1988)
+to identify the samples that can be used in the geothermometer calculations" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -94,61 +95,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>plot_piper</h1>
+    <h1>giggenbach_ternary_transform</h1>
     
-    <div class="hidden name"><code>plot_piper.Rd</code></div>
+    <div class="hidden name"><code>giggenbach_ternary_transform.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Function to create the Piper plot</p>
+    <p>This function calculates the coordinates of the ternary plot proposed by Giggenbach (1988)
+to identify the samples that can be used in the geothermometer calculations</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plot_piper</span>(<span class='no'>x</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"conc"</span>, <span class='st'>"meql"</span>), <span class='kw'>vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>Size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>giggenbach_ternary_transform</span>(<span class='no'>gdata</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
+      <th>gdata</th>
       <td><p>A geochemical_dataset object</p></td>
-    </tr>
-    <tr>
-      <th>measure</th>
-      <td><p>A character variable specifying the type of measure to be used in the plot.
-Currently the types supported include:</p><ul>
-<li><p>'conc': concentrations</p></li>
-<li><p>'meql': miliequivalent</p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>vars</th>
-      <td><p>Character vector. Variables to use in the plot. In the case of the Durov plot, these variables
-are already defined. Used only for compatibility with the plot function.</p></td>
-    </tr>
-    <tr>
-      <th>color</th>
-      <td><p>Character variable that specifies the variable to color the data inside the plot.</p></td>
-    </tr>
-    <tr>
-      <th>Size</th>
-      <td><p>Character variable that specifies the variable to define the size of the data inside the plot.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>This function returns a ggplot2 object with the Durov plot.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p>This function returns a data.frame with the following entries</p><ul>
+<li><p>cNa: concentrations of Na divided by 1000</p></li>
+<li><p>cK: concentration of K divided by 100</p></li>
+<li><p>cMg: square root of concentration of Mg</p></li>
+</ul>
 
-    <div class='dont-index'><p>Other piper functions: <code><a href='anion_cation_transform.html'>anion_cation_transform</a></code>,
-  <code><a href='ggplot_piper.html'>ggplot_piper</a></code>,
-  <code><a href='piper_classification.html'>piper_classification</a></code>,
-  <code><a href='piper_transform.html'>piper_transform</a></code>,
-  <code><a href='transform_piper_data.html'>transform_piper_data</a></code></p></div>
     
 
   </div>
@@ -158,8 +135,6 @@ are already defined. Used only for compatibility with the plot function.</p></td
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
           </ul>
 
     <h2>Author</h2>

@@ -49,7 +49,8 @@ durov_transform, durov_transform1, ggplot_durov
 \section{Geothermometers}{
 
 
-The functions defined to calculate the temperatures
+The functions defined to calculate the temperatures of the geothermal 
+reservoir from the concentrations of some chemical species.
 }
 
 \section{Giggenbach Diagrams}{
@@ -70,8 +71,8 @@ maucha_transform, ggplot_maucha
 
 This section is devoted to functions used in the study of mixing processes from hydrogeochenmical information.
 
-This section includes the definition of three functions used to create the Durov diagram:
-m3_model
+This section includes the definition of five functions:
+m3_mixing_model,select_end_members,uncertainty_m3_mixing_model,plot_m3_mixing_results,constrained_lm
 }
 
 \section{Multirectangular Diagram}{

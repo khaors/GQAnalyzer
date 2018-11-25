@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>plot_piper — plot_piper • GQAnalyzer</title>
+<title>calculate_geothermometers — calculate_geothermometers • GQAnalyzer</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="plot_piper — plot_piper" />
+<meta property="og:title" content="calculate_geothermometers — calculate_geothermometers" />
 
-<meta property="og:description" content="Function to create the Piper plot" />
+<meta property="og:description" content="Function to calculate several geothermometers" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -94,61 +94,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>plot_piper</h1>
+    <h1>calculate_geothermometers</h1>
     
-    <div class="hidden name"><code>plot_piper.Rd</code></div>
+    <div class="hidden name"><code>calculate_geothermometers.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Function to create the Piper plot</p>
+    <p>Function to calculate several geothermometers</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plot_piper</span>(<span class='no'>x</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"conc"</span>, <span class='st'>"meql"</span>), <span class='kw'>vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>Size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>calculate_geothermometers</span>(<span class='no'>gdata</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
+      <th>gdata</th>
       <td><p>A geochemical_dataset object</p></td>
-    </tr>
-    <tr>
-      <th>measure</th>
-      <td><p>A character variable specifying the type of measure to be used in the plot.
-Currently the types supported include:</p><ul>
-<li><p>'conc': concentrations</p></li>
-<li><p>'meql': miliequivalent</p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>vars</th>
-      <td><p>Character vector. Variables to use in the plot. In the case of the Durov plot, these variables
-are already defined. Used only for compatibility with the plot function.</p></td>
-    </tr>
-    <tr>
-      <th>color</th>
-      <td><p>Character variable that specifies the variable to color the data inside the plot.</p></td>
-    </tr>
-    <tr>
-      <th>Size</th>
-      <td><p>Character variable that specifies the variable to define the size of the data inside the plot.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>This function returns a ggplot2 object with the Durov plot.</p>
+    <p>This function returns a data.frame with the temperatures</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other piper functions: <code><a href='anion_cation_transform.html'>anion_cation_transform</a></code>,
-  <code><a href='ggplot_piper.html'>ggplot_piper</a></code>,
-  <code><a href='piper_classification.html'>piper_classification</a></code>,
-  <code><a href='piper_transform.html'>piper_transform</a></code>,
-  <code><a href='transform_piper_data.html'>transform_piper_data</a></code></p></div>
+    <div class='dont-index'><p>Other geothermometer functions: <code><a href='Fournier.Potter.geothermometer.html'>Fournier.Potter.geothermometer</a></code>,
+  <code><a href='K.Mg.geothermometer.html'>K.Mg.geothermometer</a></code>,
+  <code><a href='Li.Mg.geothermometer.html'>Li.Mg.geothermometer</a></code>,
+  <code><a href='Na.K.Ca.geothermometer.html'>Na.K.Ca.geothermometer</a></code>,
+  <code><a href='Na.K.geothermometers.html'>Na.K.geothermometers</a></code>,
+  <code><a href='silica.geothermometers.html'>silica.geothermometers</a></code></p></div>
     
 
   </div>

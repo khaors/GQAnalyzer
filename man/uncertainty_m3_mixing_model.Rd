@@ -4,13 +4,15 @@
 \alias{uncertainty_m3_mixing_model}
 \title{uncertainty_m3_mixing_model}
 \usage{
-uncertainty_m3_mixing_model(gdata, end.members, lower, upper,
+uncertainty_m3_mixing_model(gdata, end.members = NULL, lower, upper,
   nreal = 100, seed = 12345)
 }
 \arguments{
 \item{gdata}{A geochemical_dataset object}
 
-\item{end.members}{A geochemical_dataset object}
+\item{end.members}{If provided, this is a numeric vector with the indices of the end members
+to be used in the mixing calculations. If it is not specified then the end members are
+defined using the convex hull of the first two principal components.}
 
 \item{lower}{A matrix with the lower limits of the concentrations of the end.members.}
 
@@ -23,13 +25,23 @@ uncertainty_m3_mixing_model(gdata, end.members, lower, upper,
 \value{
 This function returns a list with the following entries:
 \itemize{
-\item a
-\item b
+\item end.members: realizations of the end.members 
+\item mixing.ratios: estimated mixing ratios
 }
 }
 \description{
 Function to quantify the uncertainty in the mixing ratios due to the variability in
 the concentrations of the end.members using Monte Carlo simulation.
+}
+\details{
+This function implements a procedure designed to assess the impact of the 
+compositional variability of the end members on the estimated mixing ratios. 
+This procedure is based on the random generation of a predefined number of 
+end member realizations where the concentration of each species is assumed 
+to follow a log-normal distribution. These distributions are defined in 
+terms of the upper and lower limits which corresponds to their  0.05 and 0.95 
+quantiles. Then a large number of end member compostions are randomly 
+generated and from each one the mixing ratios are estimated.
 }
 \references{
 Laaksoharju, M., Skarrman, C., \& Skarrman, E. (1999). Multivariate mixing and mass
