@@ -22,7 +22,7 @@ ternary_transform <- function(a, b, c){
   a_norm <- a/sumall
   b_norm <- b/sumall
   c_norm <- c/sumall
-  xc <- 0.5*(b+c)/sumall
+  xc <- 0.5*(2*b+c)/sumall
   yc <- 0.5*sqrt(3)*c/sumall
   results <- as.data.frame(list(xc = xc, yc = yc))
   names(results) <- c("xc", "yc")
@@ -68,9 +68,9 @@ ggplot_ternary <- function(){
                  linetype = "dashed", size = 0.25, colour = "grey50") +
     #
     geom_text(aes(c(.20, .40, .60, .80), c(-.05, -.05, -.05, -.05),
-                  label=c(80, 60, 40, 20)), size=3) +
-    geom_text(aes(c(.35, .25, .15, .05), grid1p2$y2, label=c(80, 60, 40, 20)), size=3) +
-    geom_text(aes(c(.95, .85, .75, .65), grid1p3$y2, label=c(80, 60, 40, 20)), size=3) +
+                  label=c(20, 40, 60, 80)), size=3) +
+    geom_text(aes(c(.35, .25, .15, .05), grid1p2$y2, label=c(20, 40, 60, 80)), size=3) +
+    geom_text(aes(c(.95, .85, .75, .65), grid1p3$y2, label=c(20, 40, 60, 80)), size=3) +
     #
     coord_equal(ratio = 0.9) +
     #
