@@ -223,15 +223,15 @@ ggplot_piper <- function() {
     #
     coord_equal(ratio = 1) +
     #
-    geom_text(aes(17,50, label="Mg^2"), angle=60, size=4, parse=TRUE) +
+    geom_text(aes(17,50, label="Mg2"), angle=60, size=4, parse=TRUE) +
     geom_text(aes(82.5,50, label="Na + K"), angle=-60, size=4) +
-    geom_text(aes(50,-10, label="Ca^2"), size=4, parse=TRUE) +
+    geom_text(aes(50,-10, label="Ca2"), size=4, parse=TRUE) +
     #
-    geom_text(aes(170,-10, label="Cl^-phantom()"), size=4, parse=TRUE) +
-    geom_text(aes(205,50, label="SO^4"), angle=-60, size=4, parse=TRUE) +
-    geom_text(aes(137.5,50, label="Alkalinity~as~HCO^3"), angle=60, size=4, parse=TRUE) +
-    geom_text(aes(72.5,150, label="SO^4~+~Cl^-phantom()"), angle=60, size=4, parse=TRUE) +
-    geom_text(aes(147.5,150, label="Ca^2~+~Mg^2"), angle=-60, size=4, parse=TRUE) +
+    geom_text(aes(170,-10, label="Cl-"), size=4, parse=TRUE) +
+    geom_text(aes(205,50, label="SO4"), angle=-60, size=4, parse=TRUE) +
+    geom_text(aes(137.5,50, label="Alkalinity~as~HCO3"), angle=60, size=4, parse=TRUE) +
+    geom_text(aes(72.5,150, label="SO4~+~Cl-"), angle=60, size=4, parse=TRUE) +
+    geom_text(aes(147.5,150, label="Ca2~+~Mg2"), angle=-60, size=4, parse=TRUE) +
 
     geom_text(aes(c(155,145,135,125),grid2p2$y2, label=c(20, 40, 60, 80)), size=3) +
     geom_text(aes(c(215,205,195,185),grid2p3$y2, label=c(20, 40, 60, 80)), size=3) +
