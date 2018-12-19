@@ -31,6 +31,10 @@ This function returns a ggplot2 object with the Giggenbach ternary plot.
 Function to create the ternary plot proposed by Giggenbach(1988) to identify the samples
 to be used in geothermometer calculations
 }
+\seealso{
+Other giggenbach functions: \code{\link{add_lines_giggenbach}},
+  \code{\link{ggplot_giggenbach}}
+}
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 }

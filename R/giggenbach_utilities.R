@@ -34,9 +34,73 @@ giggenbach_ternary_transform <- function(gdata){
   cK <- gdata$dataset$K/100
   cMg <- sqrt(gdata$dataset$Mg)
   #
-  results <- data.frame(cNa = cNa, cK = cK, cMg = cMg)
-  #
-
+  ternary <- ternary_transform(cK, cMg, cNa)
+  results <- ternary
+}
+#' @title
+#' ggplot_giggenbach
+#' @description
+#' Function to create the base of the Giggenbach's geothermometer plot
+#' @return
+#' This function returns the base of the Giggenbach's geothermometer plot
+#' @author
+#' Oscar Garcia-Cabrejo \email{khaors@gmail.com}
+#' @family giggenbach functions
+#' @importFrom ggplot2 ggplot geom_segment
+#' @export ggplot_giggenbach
+ggplot_giggenbach <- function(){
+  xc <- NULL
+  yc <- NULL
+  xi <- NULL
+  yi <- NULL
+  p <- ggplot_ternary() +   
+    geom_segment(aes(x = xi, y = yi, xend = xc, yend=yc), 
+                 data = giggenbach_lines1, 
+                 color = "gray") +
+    geom_segment(aes(x = xi, y = yi, xend = xc, yend=yc), 
+                 data = giggenbach_lines2, color = "gray") + 
+  return(p)
+}
+#' @title 
+#' add_lines_giggenbach
+#' @description 
+#' Auxiliary function to add the lines of the inmature and mature waters 
+#' in a Giggenbach's geothermometer plot.
+#' @param p A ggplot2 object with the base of the Giggenbach's geothermometer 
+#' plot created using the ggplot_giggenbach function
+#' @param color A character string specifying the color of the lines separating 
+#' mature and inmature waters.
+#' @param Size A numeric value specifying the size of the temperature labels 
+#' in the Giggenbach's geothermometer plot 
+#' @param dy A numeric value specifying the vertical displacement of the 
+#' temperature labels in the Giggenbach's geothermometer plot 
+#' @return 
+#' This function adds lines to define separate fields in the Giggenbach's 
+#' geothermometer plot that has been previously created with the function 
+#' ggplot_giggenbach
+#' @author Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
+#' @family giggenbach functions
+#' @importFrom ggplot2 geom_path geom_point geom_text
+#' @export 
+add_lines_giggenbach <- function(p, color = NULL, Size = NULL, dy = NULL){
+  xc <- NULL
+  yc <- NULL
+  if(is.null(color)){
+    color <- "red"
+  }
+  if(is.null(Size)){
+    Size <- 3
+  }
+  if(is.null(dy)){
+    dy <- 0.025
+  }
+  p <- p + geom_path(aes(x = xc, y = yc), data = giggenbach_limits, 
+                         color = "red") + 
+    geom_point(aes(x = xc, y = yc), data = ternary.df2a, 
+               color = color) + 
+    geom_text(aes(x = xc, y = yc + dy, label = as.character(tdat$Temp)), 
+              data = ternary.df2a, size = Size, col = color)
+  return(p)
 }
 #' @title
 #' plot_giggenbach
@@ -87,7 +151,8 @@ plot_giggenbach <- function(x, measure = c('conc', 'meql'),
     }
     else{
       if(class(Size) == "numeric"){
-        p <- p + geom_point(aes(x = xc, y = yc), data = ternary.df, size = Size)
+        p <- p + geom_point(aes(x = xc, y = yc), data = ternary.df, 
+                            size = Size)
       }
       else if(class(Size) == "character"){
         ternary.df[Size] <- gdata$dataset[Size]
