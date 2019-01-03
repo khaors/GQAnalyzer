@@ -22,16 +22,15 @@ shinyUI(
                sidebarPanel(width = 3,
                             useShinyalert(),
                             imageOutput("uptc.logo", inline=TRUE),
-                            p(HTML("<h5>This is GQAnalyzer-GUI, the Shiny interface for analysis and
-                                    plotting and analysis of Groundwater Quality and Hydrochemical
-                                    characteristics of geothermal waters in <strong>R</strong>.</h5>
-                                    This application can be used for the identification of the type of
-                                    Groundwater, identification of hydrogeochemical groups, comparison of
-                                    Groundwater Quality samples, and statistical analysis of Groundwater Quality
-                                    data in space and time using the  <strong>R</strong>
-                                    package  <a href='http://www.github.com/khaors/GQAnalyzer'>GQAnalyzer</a>.
-                                    The analysis of a pumping/slug test is achieved in simple steps using the
-                                    panels on the right."))),
+                            p(HTML("<h5>This is GQAnalyzer-GUI, the Shiny interface developed in the programming language 
+                                    <strong>R</strong> to plot and analyze the hydrogeochemical characterists of 
+                                    Groundwater/geothermal fluids and geothermal gases.</h5>
+                                    This application can be used for the classification of Groundwater samples, 
+                                    exploration of bivatiate relationship betwee ions, creation of several specialized 
+                                    hydrogeochemical plots (including Piper, Durov, Multirectangular, etc), study the mixing processes of different types of 
+                                    groundwaters and/or geothermal fluids, calculation of several conventional geothermometers, and the 
+                                    identification of hydrogeochemical groups in a dataset  
+                                    using the  <strong>R</strong> package  <a href='http://www.github.com/khaors/GQAnalyzer'>GQAnalyzer</a>."))),
                #
                mainPanel(
                  fluidRow(
