@@ -248,6 +248,7 @@ ggplot_durov <- function(){
 #' are already defined. Used only for compatibility with the plot function.
 #' @param color Character variable that specifies the variable to color the data inside the plot.
 #' @param Size Character variable that specifies the variable to define the size of the data inside the plot.
+#' @param additional.args A list with additional arguments
 #' @return
 #' This function returns a ggplot2 object with the Durov plot.
 #' @author
@@ -258,7 +259,8 @@ ggplot_durov <- function(){
 #' @export
 plot_durov <- function(x, measure = c('conc', 'meql'),
                        vars = NULL, color = NULL,
-                       Size = NULL){
+                       Size = NULL, 
+                       additional.args = NULL){
   gdata <- x
   conc_ions <- colnames(gdata$dataset)
   meql_ions <- c("Ca", "Mg", "Na", "K", "HCO3", "CO3", "Cl", "SO4")

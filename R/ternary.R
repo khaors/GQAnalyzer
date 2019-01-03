@@ -97,6 +97,7 @@ ggplot_ternary <- function(){
 #' are already defined. Used only for compatibility with the plot function.
 #' @param color Character variable that specifies the variable to color the data inside the plot.
 #' @param Size Character variable that specifies the variable to define the size of the data inside the plot.
+#' @param additional.args A list with additional arguments
 #' @return
 #' This function returns a ggplot2 object with the Durov plot.
 #' @author
@@ -106,7 +107,8 @@ ggplot_ternary <- function(){
 #' @export
 plot_ternary <- function(x, measure = c('conc', 'meql'),
                          vars = NULL, color = NULL,
-                         Size = NULL){
+                         Size = NULL, 
+                         additional.args = NULL){
   gdata <- x
   p <- NULL
   angle <- NULL

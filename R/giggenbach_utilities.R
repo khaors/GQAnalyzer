@@ -58,7 +58,7 @@ ggplot_giggenbach <- function(){
                  data = giggenbach_lines1, 
                  color = "gray") +
     geom_segment(aes(x = xi, y = yi, xend = xc, yend=yc), 
-                 data = giggenbach_lines2, color = "gray") + 
+                 data = giggenbach_lines2, color = "gray")
   return(p)
 }
 #' @title 
@@ -66,8 +66,6 @@ ggplot_giggenbach <- function(){
 #' @description 
 #' Auxiliary function to add the lines of the inmature and mature waters 
 #' in a Giggenbach's geothermometer plot.
-#' @param p A ggplot2 object with the base of the Giggenbach's geothermometer 
-#' plot created using the ggplot_giggenbach function
 #' @param color A character string specifying the color of the lines separating 
 #' mature and inmature waters.
 #' @param Size A numeric value specifying the size of the temperature labels 
@@ -82,7 +80,7 @@ ggplot_giggenbach <- function(){
 #' @family giggenbach functions
 #' @importFrom ggplot2 geom_path geom_point geom_text
 #' @export 
-add_lines_giggenbach <- function(p, color = NULL, Size = NULL, dy = NULL){
+add_lines_giggenbach <- function(color = NULL, Size = NULL, dy = NULL){
   xc <- NULL
   yc <- NULL
   if(is.null(color)){
@@ -94,13 +92,14 @@ add_lines_giggenbach <- function(p, color = NULL, Size = NULL, dy = NULL){
   if(is.null(dy)){
     dy <- 0.025
   }
-  p <- p + geom_path(aes(x = xc, y = yc), data = giggenbach_limits, 
-                         color = "red") + 
-    geom_point(aes(x = xc, y = yc), data = ternary.df2a, 
-               color = color) + 
-    geom_text(aes(x = xc, y = yc + dy, label = as.character(tdat$Temp)), 
+  res <- list()
+  res[[1]] <- geom_path(aes(x = xc, y = yc), data = giggenbach_limits, 
+                         color = color)
+  res[[2]] <- geom_point(aes(x = xc, y = yc), data = ternary.df2a, 
+              color = color)
+  res[[3]] <- geom_text(aes(x = xc, y = yc + dy, label = as.character(tdat$Temp)), 
               data = ternary.df2a, size = Size, col = color)
-  return(p)
+  return(res)
 }
 #' @title
 #' plot_giggenbach
@@ -118,6 +117,7 @@ add_lines_giggenbach <- function(p, color = NULL, Size = NULL, dy = NULL){
 #' are already defined. Used only for compatibility with the plot function.
 #' @param color Character variable that specifies the variable to color the data inside the plot.
 #' @param Size Character variable that specifies the variable to define the size of the data inside the plot.
+#' @param additional.args A list with additional arguments
 #' @return
 #' This function returns a ggplot2 object with the Giggenbach ternary plot.
 #' @author
@@ -126,7 +126,8 @@ add_lines_giggenbach <- function(p, color = NULL, Size = NULL, dy = NULL){
 #' @export
 plot_giggenbach <- function(x, measure = c('conc', 'meql'),
                             vars = NULL, color = NULL,
-                            Size = NULL){
+                            Size = NULL, 
+                            additional.args = NULL){
   gdata <- x
   y <- NULL
   cx <- NULL

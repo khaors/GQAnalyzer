@@ -291,8 +291,9 @@ plot.geochemical_dataset <- function(x, y = NULL, ..., type = c('piper',
                                      Size = NULL){
   base_cmd <- "plot_"
   current.cmd <- paste0(base_cmd, type)
+  additional.args <- list(...)
   current.args <- list(x = x, measure = measure, vars = vars, color = color,
-                       Size = Size)
+                       Size = Size, additional.args = additional.args)
   p <- do.call(current.cmd, args = current.args)
   return(p)
 }

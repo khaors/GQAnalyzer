@@ -227,10 +227,10 @@ ggplot_piper <- function() {
     geom_text(aes(82.5,50, label="Na + K"), angle=-60, size=4) +
     geom_text(aes(50,-10, label="Ca2"), size=4, parse=TRUE) +
     #
-    geom_text(aes(170,-10, label="Cl-"), size=4, parse=TRUE) +
+    geom_text(aes(170,-10, label="Cl-phantom()"), size=4, parse=TRUE) +
     geom_text(aes(205,50, label="SO4"), angle=-60, size=4, parse=TRUE) +
     geom_text(aes(137.5,50, label="Alkalinity~as~HCO3"), angle=60, size=4, parse=TRUE) +
-    geom_text(aes(72.5,150, label="SO4~+~Cl-"), angle=60, size=4, parse=TRUE) +
+    geom_text(aes(72.5,150, label="SO4~+~Cl-phantom()"), angle=60, size=4, parse=TRUE) +
     geom_text(aes(147.5,150, label="Ca2~+~Mg2"), angle=-60, size=4, parse=TRUE) +
 
     geom_text(aes(c(155,145,135,125),grid2p2$y2, label=c(20, 40, 60, 80)), size=3) +
@@ -262,6 +262,7 @@ ggplot_piper <- function() {
 #' are already defined. Used only for compatibility with the plot function.
 #' @param color Character variable that specifies the variable to color the data inside the plot.
 #' @param Size Character variable that specifies the variable to define the size of the data inside the plot.
+#' @param additional.args A list with additional arguments
 #' @return
 #' This function returns a ggplot2 object with the Durov plot.
 #' @author
@@ -272,7 +273,8 @@ ggplot_piper <- function() {
 #' @export
 plot_piper <- function(x, measure = c('conc', 'meql'),
                        vars = NULL, color = NULL,
-                       Size = NULL){
+                       Size = NULL, 
+                       additional.args = NULL){
   gdata <- x
   conc_ions <- colnames(gdata$dataset)
   meql_ions <- c("Ca", "Mg", "Na", "K", "HCO3", "CO3", "Cl", "SO4")

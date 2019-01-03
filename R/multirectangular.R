@@ -112,8 +112,9 @@ ggplot_multirectangular <- function(){
 #' are already defined. Used only for compatibility with the plot function.
 #' @param color Character variable that specifies the variable to color the data inside the plot.
 #' @param Size Character variable that specifies the variable to define the size of the data inside the plot.
+#' @param additional.args A list with additional arguments 
 #' @return
-#' This function returns a ggplot2 object with the Durov plot.
+#' This function returns a ggplot2 object with the Multirectangular plot.
 #' @author
 #' Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 #' @family multirectangular functions
@@ -125,7 +126,8 @@ ggplot_multirectangular <- function(){
 #' Ground Water, 41(6), 828–832. http://doi.org/10.1111/j.1745-6584.2003.tb02423.x
 plot_multirectangular <- function(x, measure = c('conc', 'meql'),
                                   vars = NULL, color = NULL,
-                                  Size = NULL){
+                                  Size = NULL, 
+                                  additional.args = NULL){
   gdata <- x
   cx <- NULL
   cy <- NULL

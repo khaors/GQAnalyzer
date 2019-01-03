@@ -5,7 +5,7 @@
 \title{plot_modified_piper}
 \usage{
 plot_modified_piper(x, measure = c("conc", "meql"), vars = NULL,
-  color = NULL, Size = NULL, labels = NULL)
+  color = NULL, Size = NULL, labels = NULL, additional.args = NULL)
 }
 \arguments{
 \item{x}{A geochemical_dataset object}
@@ -25,6 +25,8 @@ are already defined. Used only for compatibility with the plot function.}
 \item{Size}{Character variable that specifies the variable to define the size of the data inside the plot.}
 
 \item{labels}{Character variable that specifies the name of the variable to assign text labels.}
+
+\item{additional.args}{A list with additional arguments}
 }
 \value{
 This function returns a ggplot2 object with the modified piper plot.

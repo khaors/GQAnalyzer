@@ -4,12 +4,9 @@
 \alias{add_lines_giggenbach}
 \title{add_lines_giggenbach}
 \usage{
-add_lines_giggenbach(p, color = NULL, Size = NULL, dy = NULL)
+add_lines_giggenbach(color = NULL, Size = NULL, dy = NULL)
 }
 \arguments{
-\item{p}{A ggplot2 object with the base of the Giggenbach's geothermometer 
-plot created using the ggplot_giggenbach function}
-
 \item{color}{A character string specifying the color of the lines separating 
 mature and inmature waters.}
 

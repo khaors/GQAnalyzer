@@ -85,6 +85,7 @@ modified_piper_transform <- function(gdata){
 #' @param color Character variable that specifies the variable to color the data inside the plot.
 #' @param Size Character variable that specifies the variable to define the size of the data inside the plot.
 #' @param labels Character variable that specifies the name of the variable to assign text labels.
+#' @param additional.args A list with additional arguments
 #' @return
 #' This function returns a ggplot2 object with the modified piper plot.
 #' @author
@@ -95,7 +96,8 @@ modified_piper_transform <- function(gdata){
 #' @export
 plot_modified_piper <- function(x, measure = c('conc', 'meql'),
                        vars = NULL, color = NULL,
-                       Size = NULL, labels = NULL){
+                       Size = NULL, labels = NULL, 
+                       additional.args = NULL){
   gdata <- x
   conc_ions <- colnames(gdata$dataset)
   meql_ions <- c("Ca", "Mg", "Na", "K", "HCO3", "CO3", "Cl", "SO4")
