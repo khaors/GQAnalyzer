@@ -173,26 +173,7 @@ ggplot_piper <- function() {
   x2 <- NULL
   y1 <- NULL
   y2 <- NULL
-  grid1p1 <- data.frame(x1 = c(20,40,60,80), x2= c(10,20,30,40),y1 = c(0,0,0,0), y2 = c(17.3206,34.6412,51.9618, 69.2824))
-  grid1p2 <- data.frame(x1 = c(20,40,60,80), x2= c(60,70,80,90),y1 = c(0,0,0,0), y2 = c(69.2824, 51.9618,34.6412,17.3206))
-  grid1p3 <- data.frame(x1 = c(10,20,30,40), x2= c(90,80,70,60),y1 = c(17.3206,34.6412,51.9618, 69.2824), y2 = c(17.3206,34.6412,51.9618, 69.2824))
-  grid2p1 <- grid1p1
-  grid2p1$x1 <- grid2p1$x1+120
-  grid2p1$x2 <- grid2p1$x2+120
-  grid2p2 <- grid1p2
-  grid2p2$x1 <- grid2p2$x1+120
-  grid2p2$x2 <- grid2p2$x2+120
-  grid2p3 <- grid1p3
-  grid2p3$x1 <- grid2p3$x1+120
-  grid2p3$x2 <- grid2p3$x2+120
-  # Gridlines diamons
-  grid3p1 <- data.frame(x1 = c(100, 90, 80, 70), y1 = c(34.6412, 51.9618, 69.2824, 86.603),
-                        x2 = c(150, 140, 130, 120),
-                        y2 = c(121.2442,138.5648,155.8854,173.2060))
-  grid3p2 <- data.frame(x1 = c(70, 80, 90, 100), y1 = c(121.2442,138.5648,155.8854,173.2060),
-                        x2 = c(120, 130, 140, 150),
-                        y2 = c(34.6412, 51.9618, 69.2824, 86.603))
-
+  #
   p <- ggplot() +
     ## left hand ternary plot
     geom_segment(aes(x=0,y=0, xend=100, yend=0)) +
@@ -207,45 +188,187 @@ ggplot_piper <- function() {
     geom_segment(aes(x=110,y=190.5266, xend=160, yend=103.9236)) +
     geom_segment(aes(x=110,y=17.3206, xend=160, yend=103.9236)) +
     geom_segment(aes(x=110,y=17.3206, xend=60, yend=103.9236)) +
-    ## Add grid lines to the plots
-    geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), data=grid1p1, linetype = "dashed", size = 0.25, colour = "grey50") +
-    geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), data=grid1p2, linetype = "dashed", size = 0.25, colour = "grey50") +
-    geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), data=grid1p3, linetype = "dashed", size = 0.25, colour = "grey50") +
-    geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), data=grid2p1, linetype = "dashed", size = 0.25, colour = "grey50") +
-    geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), data=grid2p2, linetype = "dashed", size = 0.25, colour = "grey50") +
-    geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), data=grid2p3, linetype = "dashed", size = 0.25, colour = "grey50") +
-    geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), data=grid3p1, linetype = "dashed", size = 0.25, colour = "grey50") +
-    geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), data=grid3p2, linetype = "dashed", size = 0.25, colour = "grey50") +
-    ### Labels and grid values
-    geom_text(aes(c(20,40,60,80),c(-5,-5,-5,-5), label=c(80, 60, 40, 20)), size=3) +
-    geom_text(aes(c(35,25,15,5),grid1p2$y2, label=c(80, 60, 40, 20)), size=3) +
-    geom_text(aes(c(95,85,75,65),grid1p3$y2, label=c(80, 60, 40, 20)), size=3) +
     #
     coord_equal(ratio = 1) +
     #
-    geom_text(aes(17,50, label="Mg2"), angle=60, size=4, parse=TRUE) +
-    geom_text(aes(82.5,50, label="Na + K"), angle=-60, size=4) +
-    geom_text(aes(50,-10, label="Ca2"), size=4, parse=TRUE) +
-    #
-    geom_text(aes(170,-10, label="Cl-phantom()"), size=4, parse=TRUE) +
-    geom_text(aes(205,50, label="SO4"), angle=-60, size=4, parse=TRUE) +
-    geom_text(aes(137.5,50, label="Alkalinity~as~HCO3"), angle=60, size=4, parse=TRUE) +
-    geom_text(aes(72.5,150, label="SO4~+~Cl-phantom()"), angle=60, size=4, parse=TRUE) +
-    geom_text(aes(147.5,150, label="Ca2~+~Mg2"), angle=-60, size=4, parse=TRUE) +
-
-    geom_text(aes(c(155,145,135,125),grid2p2$y2, label=c(20, 40, 60, 80)), size=3) +
-    geom_text(aes(c(215,205,195,185),grid2p3$y2, label=c(20, 40, 60, 80)), size=3) +
-    geom_text(aes(c(140,160,180,200),c(-5,-5,-5,-5), label=c(20, 40, 60, 80)), size=3) +
-    geom_text(aes(grid3p1$x1-5,grid3p1$y1, label=c(80, 60, 40, 20)), size=3) +
-    geom_text(aes(grid3p1$x2+5,grid3p1$y2, label=c(20, 40, 60, 80)), size=3) +
-    geom_text(aes(grid3p2$x1-5,grid3p2$y1, label=c(20, 40, 60, 80)), size=3) +
-    geom_text(aes(grid3p2$x2+5,grid3p2$y2, label=c(80, 60, 40, 20)), size=3) +
     theme_bw() +
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
           panel.border = element_blank(), axis.ticks = element_blank(),
           axis.text.x = element_blank(), axis.text.y = element_blank(),
           axis.title.x = element_blank(), axis.title.y = element_blank())
   return(p)
+}
+#' @title
+#' add_grid_lines_piper
+#' @description
+#' Function to add the grid lines to a Piper plot
+#' @param color A character string specifying the color of the grid lines in 
+#' Piper plot
+#' @param Size A numeric value specifying the size of the grid labels in a 
+#' Piper plot
+#' @return
+#' This function returns a list with the geom components used to create 
+#' a grid in a Piper diagram
+#' @author
+#' Oscar Garcia-Cabrejo \email{khaors@gmail.com}
+#' @family piper functions
+#' @importFrom ggplot2 geom_segment geom_text
+#' @export 
+add_grid_lines_piper <- function(color = NULL, Size = NULL){
+  color1 <- "grey50"
+  Size1 <- 3
+  if(!missing(color)){
+    color1 <- color
+  }
+  if(!missing(Size)){
+    Size1 <- Size
+  }
+  #
+  x1 <- NULL
+  x2 <- NULL
+  y1 <- NULL
+  y2 <- NULL
+  #
+  grid1p1 <- data.frame(x1 = c(20,40,60,80), x2= c(10,20,30,40), 
+                        y1 = c(0,0,0,0), 
+                        y2 = c(17.3206,34.6412,51.9618, 69.2824))
+  grid1p2 <- data.frame(x1 = c(20,40,60,80), x2= c(60,70,80,90),
+                        y1 = c(0,0,0,0), 
+                        y2 = c(69.2824, 51.9618,34.6412,17.3206))
+  grid1p3 <- data.frame(x1 = c(10,20,30,40), x2= c(90,80,70,60), 
+                        y1 = c(17.3206,34.6412,51.9618, 69.2824), 
+                        y2 = c(17.3206,34.6412,51.9618, 69.2824))
+  #
+  grid2p1 <- grid1p1
+  grid2p1$x1 <- grid2p1$x1+120
+  grid2p1$x2 <- grid2p1$x2+120
+  grid2p2 <- grid1p2
+  grid2p2$x1 <- grid2p2$x1+120
+  grid2p2$x2 <- grid2p2$x2+120
+  grid2p3 <- grid1p3
+  grid2p3$x1 <- grid2p3$x1+120
+  grid2p3$x2 <- grid2p3$x2+120
+  # Gridlines diamons
+  grid3p1 <- data.frame(x1 = c(100, 90, 80, 70),
+                        y1 = c(34.6412, 51.9618, 69.2824, 86.603),
+                        x2 = c(150, 140, 130, 120),
+                        y2 = c(121.2442,138.5648,155.8854,173.2060))
+  grid3p2 <- data.frame(x1 = c(70, 80, 90, 100), 
+                        y1 = c(121.2442,138.5648,155.8854,173.2060),
+                        x2 = c(120, 130, 140, 150),
+                        y2 = c(34.6412, 51.9618, 69.2824, 86.603))
+  
+  ## Add grid lines to the plots
+  res <- list()
+  res[[1]] <- geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), 
+                           data=grid1p1, linetype = "dashed", 
+                           size = 0.25, colour = color1)
+  res[[2]] <- geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), 
+                           data=grid1p2, linetype = "dashed", 
+                           size = 0.25, colour = color1)
+  res[[3]] <- geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), 
+                           data=grid1p3, linetype = "dashed", 
+                           size = 0.25, colour = color1)
+  res[[4]] <- geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), 
+                           data=grid2p1, linetype = "dashed", 
+                           size = 0.25, colour = color1)
+  res[[5]] <- geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), 
+                           data=grid2p2, linetype = "dashed", 
+                           size = 0.25, colour = color1)
+  res[[6]] <- geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), 
+                           data=grid2p3, linetype = "dashed", 
+                           size = 0.25, colour = color1)
+  res[[7]] <- geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), 
+                           data=grid3p1, linetype = "dashed", 
+                           size = 0.25, colour = color1)
+  res[[8]] <- geom_segment(aes(x=x1, y=y1, yend=y2, xend=x2), 
+                           data=grid3p2, linetype = "dashed", 
+                           size = 0.25, colour = color1)
+  res[[9]] <- geom_text(aes(c(155,145,135,125), grid2p2$y2, 
+                            label=c(20, 40, 60, 80)), size = Size1, 
+                        colour = color1)
+  res[[10]] <- geom_text(aes(c(215,205,195,185),grid2p3$y2, 
+                  label=c(20, 40, 60, 80)), size = Size1, 
+                  colour = color1)
+  res[[11]] <- geom_text(aes(c(140,160,180,200), c(-5,-5,-5,-5), 
+                  label=c(20, 40, 60, 80)), size = Size1, 
+                  colour = color1)
+  res[[12]] <- geom_text(aes(grid3p1$x1-5,grid3p1$y1, 
+                  label=c(80, 60, 40, 20)), size = Size1, 
+                  colour = color1)
+  res[[13]] <- geom_text(aes(grid3p1$x2+5,grid3p1$y2, 
+                  label=c(20, 40, 60, 80)), size = Size1, 
+                  colour = color1)
+  res[[14]] <- geom_text(aes(grid3p2$x1-5,grid3p2$y1, 
+                  label=c(20, 40, 60, 80)), size = Size1, 
+                  colour = color1)
+  res[[15]] <- geom_text(aes(grid3p2$x2+5,grid3p2$y2, 
+                  label=c(80, 60, 40, 20)), size=Size1, 
+                  colour = color1)
+  res[[16]] <- geom_text(aes(c(20,40,60,80),c(-5,-5,-5,-5),
+                              label=c(80, 60, 40, 20)), size = Size1,
+                          colour = color1)
+  res[[17]] <- geom_text(aes(c(35,25,15,5), grid1p2$y2,
+                              label=c(80, 60, 40, 20)), size = Size1,
+                          colour = color1)
+  res[[18]] <- geom_text(aes(c(95,85,75,65), grid1p3$y2,
+                              label=c(80, 60, 40, 20)), size = Size1,
+                          colour = color1)
+  
+  #
+  return(res)
+}
+#' @title 
+#' add_labels_piper
+#' @description 
+#' Function to add the labels to a ternary diagram
+#' @param labels A character vector with the labels to be added to the 
+#' Piper diagram 
+#' @param middle A logical flag indicating if the labels must be located on the 
+#' middle part of the axis. 
+#' @param color A character string specifying the color of the labels
+#' @param Size A numeric value specifying the size of the text label
+#' @return 
+#' This function returns a geom_text to be added to the Piper diagram
+#' @author 
+#' Oscar Garcia-Cabrejo \email{khaors@gmail.com}
+#' @family piper functions
+#' @importFrom ggplot2 geom_text
+#' @export
+add_labels_piper <- function(labels, middle = TRUE,  color = NULL, 
+                             Size = NULL){
+  color1 <- "black"
+  Size1 <- 4
+  if(!missing(color)){
+    color1 <- color
+  }
+  #
+  if(!missing(Size)){
+    Size1 <- Size
+  }
+  #
+  res <- list()
+  res[[1]] <- geom_text(aes(17, 50, label="Mg2"), angle = 60, size = Size1, 
+                        colour = color1, parse = TRUE)
+  res[[2]] <- geom_text(aes(82.5, 50, label="Na + K"), angle = -60, 
+                        size=Size1, colour = color1, parse = TRUE)
+  res[[3]] <- geom_text(aes(50, -10, label="Ca2"), size = Size1, 
+                        colour = color1, parse = TRUE)
+  #
+  res[[4]] <- geom_text(aes(170, -10, label="Cl-phantom()"), size = Size1, 
+                        colour = color1, parse = TRUE)
+  res[[5]] <- geom_text(aes(205,50, label="SO4"), angle=-60, size = Size1, 
+                        colour = color1, parse = TRUE)
+  res[[6]] <- geom_text(aes(137.5, 50, label = "Alkalinity~as~HCO3"), 
+                        angle=60, size = Size1, colour = color1, 
+                        parse = TRUE)
+  res[[7]] <- geom_text(aes(72.5, 150, label = "SO4~+~Cl-phantom()"), 
+                        angle=60, size = Size1, colour = color1, 
+                        parse = TRUE)
+  res[[8]] <- geom_text(aes(147.5,150, label="Ca2~+~Mg2"), angle=-60, 
+              size = Size1, colour = color1, parse = TRUE)
+  #  
+  return(res)  
 }
 #' @title
 #' plot_piper
@@ -284,7 +407,7 @@ plot_piper <- function(x, measure = c('conc', 'meql'),
   #  if(missing(vars) | is.null(vars)){
   #    stop('ERROR: Variable names must be specified to create a ternary diagram')
   #  }
-  p <- ggplot_piper()
+  p <- ggplot_piper() + add_grid_lines_piper() + add_labels_piper()
   piper.df <- piper_transform(gdata)
   cat_x <- NULL
   cat_y <- NULL
