@@ -70,6 +70,104 @@ modified_piper_transform <- function(gdata){
   return(as.data.frame(results))
 }
 #' @title
+#' ggplot_modified_piper
+#' @description
+#' Function to create the base of the modified Piper plot as proposed by Appelo and Postma.
+#' @return
+#' This function returns the base of the modified Piper plot
+#' @author
+#' Oscar Garcia-Cabrejo \email{khaors@gmail.com}
+#' @family modified_piper functions
+#' @importFrom ggplot2 ggplot geom_segment
+#' @export 
+ggplot_modified_piper <- function(){
+  p <- ggplot_piper()
+  return(p)
+}
+#' @title 
+#' add_lines_modified_piper
+#' @description 
+#' Auxiliary function to add the lines of the inmature and mature waters 
+#' in a Giggenbach's geothermometer plot.
+#' @param color A character string specifying the color of the lines separating 
+#' mature and inmature waters.
+#' @param Size A numeric value specifying the size of the temperature labels 
+#' in the Giggenbach's geothermometer plot 
+#' @return 
+#' This function adds lines to define separate fields in the Giggenbach's 
+#' geothermometer plot that has been previously created with the function 
+#' ggplot_giggenbach
+#' @author Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
+#' @family modified_piper functions
+#' @importFrom ggplot2 geom_path geom_point geom_text
+#' @export 
+add_lines_modified_piper <- function(color = NULL, Size = NULL){
+  # Define data.frames for Lines
+  mixing.line.df <- data.frame(x = c(60, 150), y = c(103.9236, 121.2442))
+  calcite.dissolution.df <- data.frame(x = c(110, 110), y = c(113, 70))
+  calcite.precipitation.df <- data.frame(x = c(110, 110), y = c(113, 160))
+  ion.exchange.df <- data.frame(x = c(110, 87), y = c(113, 150))
+  ion.exchange.df1 <- data.frame(x = c(110, 137), y = c(113, 65))
+  so4.reduction.df <- data.frame(x =c(110, 79), y = c(113, 129))
+  #
+  x <- NULL
+  y <- NULL
+  color1 <- "black"
+  size1 <- 3
+  #
+  res <- list()
+  if(!missing(color)){
+    color1 <- color
+  }
+  #
+  if(!missing(Size)){
+    size1 <- Size
+  }
+  res[[1]] <- geom_line(aes(x = x, y = y), data = mixing.line.df, 
+                        color = color1)
+  res[[2]] <- geom_line(aes(x = x, y = y), data = calcite.dissolution.df, 
+                        color = color1)
+  res[[3]] <-  geom_line(aes(x = x, y = y), data = calcite.precipitation.df, 
+                         color = color1)
+  res[[4]] <-  geom_line(aes(x = x, y = y), data = ion.exchange.df, 
+                         color = color1)
+  res[[5]] <-  geom_line(aes(x = x, y = y), data = ion.exchange.df1, 
+                         color = color1)
+  res[[6]] <-  geom_line(aes(x = x, y = y), data = so4.reduction.df, 
+                         color = color1)
+  res[[7]] <-  annotate(geom = "label", x = 96, y = 110, label= "1", 
+                        colour = color1, size = size1)
+  res[[8]] <-  annotate(geom = "label", x = 110, y = 128, label = "2", 
+                        colour = color1, size = size1)
+  res[[9]] <-  annotate(geom = "label", x = 110, y = 90, label = "3", 
+                        colour = color1, size = size1)
+  res[[10]] <-  annotate(geom = "label", x = 98, y = 133, label = "4", 
+                         colour = color1, size = size1)
+  res[[11]] <-  annotate(geom = "label", x = 124, y = 89, label = "5", 
+                         colour = color1, size = size1)
+  res[[12]] <-  annotate(geom = "label", x = 96, y = 121, label = "6", 
+                         colour = color1, size = size1)
+  res[[13]] <-  annotate(geom = "label", x = 15, y = 150, 
+                         label= "1: Mixing", colour = color1, size = size1)
+  res[[14]] <-  annotate(geom = "label", x = 15, y = 142, 
+                         label= "2: CaCO3 Precip.", 
+                         colour = color1, size = size1)
+  res[[15]] <-  annotate(geom = "label", x = 15, y = 134, 
+                         label= "3: CaCO3 Dissol.", 
+                         colour = color1, size = size1)
+  res[[16]] <-  annotate(geom = "label", x = 15, y = 126, 
+                         label= "4: Ion Exchange", 
+                         colour = color1, size = size1)
+  res[[17]] <-  annotate(geom = "label", x = 15, y = 118, 
+                         label= "5: Ion Exchange", 
+                         colour = color1, size = size1)
+  res[[18]] <-  annotate(geom = "label", x = 15, y = 110, 
+                         label= "6: SO4 Reduction", 
+                         colour = color1, size = size1)
+  #
+  return(res)
+}
+#' @title
 #' plot_modified_piper
 #' @description
 #' Function to create the modified Piper plot
@@ -107,7 +205,8 @@ plot_modified_piper <- function(x, measure = c('conc', 'meql'),
   #  if(missing(vars) | is.null(vars)){
   #    stop('ERROR: Variable names must be specified to create a ternary diagram')
   #  }
-  p <- ggplot_piper()
+  p <- ggplot_modified_piper() + add_lines_modified_piper() + 
+    add_grid_lines_piper() + add_labels_piper()
   piper.df <- modified_piper_transform(gdata)
   cat_x <- NULL
   cat_y <- NULL
@@ -118,43 +217,18 @@ plot_modified_piper <- function(x, measure = c('conc', 'meql'),
   fx <- NULL
   fy <- NULL
   y <- NULL
-  # Lines
-  mixing.line.df <- data.frame(x = c(60, 150), y = c(103.9236, 121.2442))
-  calcite.dissolution.df <- data.frame(x = c(110, 110), y = c(113, 70))
-  calcite.precipitation.df <- data.frame(x = c(110, 110), y = c(113, 160))
-  ion.exchange.df <- data.frame(x = c(110, 87), y = c(113, 150))
-  ion.exchange.df1 <- data.frame(x = c(110, 137), y = c(113, 65))
-  so4.reduction.df <- data.frame(x =c(110, 79), y = c(113, 129))
   # Labels
   ID.samples.df <- NULL
   if(!is.null(labels)){
     ID.samples.df <- data.frame(x = piper.df$d_x, y = piper.df$d_y,
                                 labels = unname(gdata$dataset[labels]))
-    print(ID.samples.df)
+    #print(ID.samples.df)
   }
   #
   if(is.null(color)){
     if(is.null(Size)){
       p <- p + geom_point(aes(x = 100*cat_x, y = 100*cat_y), data = piper.df) +
         geom_point(aes(x = 100*an_x, y = 100*an_y), data= piper.df) +
-        geom_line(aes(x = x, y = y), data = mixing.line.df) +
-        geom_line(aes(x = x, y = y), data = calcite.dissolution.df) +
-        geom_line(aes(x = x, y = y), data = calcite.precipitation.df) +
-        geom_line(aes(x = x, y = y), data = ion.exchange.df) +
-        geom_line(aes(x = x, y = y), data = ion.exchange.df1) +
-        geom_line(aes(x = x, y = y), data = so4.reduction.df) +
-        annotate(geom = "label", x = 96, y = 110, label= "1") +
-        annotate(geom = "label", x = 110, y = 128, label = "2") +
-        annotate(geom = "label", x = 110, y = 90, label = "3") +
-        annotate(geom = "label", x = 98, y = 133, label = "4") +
-        annotate(geom = "label", x = 124, y = 89, label = "5") +
-        annotate(geom = "label", x = 96, y = 121, label = "6") +
-        annotate(geom = "label", x = 15, y = 150, label= "1: Mixing") +
-        annotate(geom = "label", x = 15, y = 142, label= "2: CaCO3 Precip.") +
-        annotate(geom = "label", x = 15, y = 134, label= "3: CaCO3 Dissol.") +
-        annotate(geom = "label", x = 15, y = 126, label= "4: Ion Exchange") +
-        annotate(geom = "label", x = 15, y = 118, label= "5: Ion Exchange") +
-        annotate(geom = "label", x = 15, y = 110, label= "6: SO4 Reduction") +
         geom_point(aes(x = 100*d_x, y = 100*d_y), data = piper.df) +
         geom_segment(aes(x = 100*d_x, y = 100*d_y, xend = 100*fx, yend = 100*fy),
                      data = piper.df)
@@ -170,55 +244,17 @@ plot_modified_piper <- function(x, measure = c('conc', 'meql'),
                             size = Size) +
           geom_point(aes(x = 100*an_x, y = 100*an_y), data= piper.df,
                      size = Size) +
-          annotate(geom = "label", x = 96, y = 110, label= "1") +
-          annotate(geom = "label", x = 110, y = 128, label = "2") +
-          annotate(geom = "label", x = 110, y = 90, label = "3") +
-          annotate(geom = "label", x = 98, y = 133, label = "4") +
-          annotate(geom = "label", x = 124, y = 89, label = "5") +
-          annotate(geom = "label", x = 96, y = 121, label = "6") +
-          annotate(geom = "label", x = 15, y = 150, label= "1: Mixing") +
-          annotate(geom = "label", x = 15, y = 142, label= "2: CaCO3 Precip.") +
-          annotate(geom = "label", x = 15, y = 134, label= "3: CaCO3 Dissol.") +
-          annotate(geom = "label", x = 15, y = 126, label= "4: Ion Exchange") +
-          annotate(geom = "label", x = 15, y = 118, label= "5: Ion Exchange") +
-          annotate(geom = "label", x = 15, y = 110, label= "6: SO4 Reduction") +
           geom_point(aes(x = 100*d_x, y = 100*d_y), data = piper.df,
                      size = Size) +
           geom_segment(aes(x = 100*d_x, y = 100*d_y, xend = 100*fx, yend = 100*fy),
-                       data = piper.df) +
-          geom_line(aes(x = x, y = y), data = mixing.line.df) +
-          geom_line(aes(x = x, y = y), data = calcite.dissolution.df)+
-          geom_line(aes(x = x, y = y), data = calcite.precipitation.df) +
-          geom_line(aes(x = x, y = y), data = ion.exchange.df) +
-          geom_line(aes(x = x, y = y), data = ion.exchange.df1) +
-          geom_line(aes(x = x, y = y), data = so4.reduction.df)
+                        data = piper.df) #+
       }
       else if(class(Size) == "character"){
         tmp <- gdata$dataset[Size]
         piper.df[Size] <- tmp[,1]
         p <- p + geom_point(aes(x = 100*cat_x, y = 100*cat_y, size = Size), data = piper.df) +
           geom_point(aes(x = 100*an_x, y = 100*an_y, size = Size), data = piper.df) +
-          geom_point(aes(x = 100*d_x, y = 100*d_y, size = Size), data = piper.df) +
-          annotate(geom = "label", x = 96, y = 110, label= "1") +
-          annotate(geom = "label", x = 110, y = 128, label = "2") +
-          annotate(geom = "label", x = 110, y = 90, label = "3") +
-          annotate(geom = "label", x = 98, y = 133, label = "4") +
-          annotate(geom = "label", x = 124, y = 89, label = "5") +
-          annotate(geom = "label", x = 96, y = 121, label = "6") +
-          annotate(geom = "label", x = 15, y = 150, label= "1: Mixing") +
-          annotate(geom = "label", x = 15, y = 142, label= "2: CaCO3 Precip.") +
-          annotate(geom = "label", x = 15, y = 134, label= "3: CaCO3 Dissol.") +
-          annotate(geom = "label", x = 15, y = 126, label= "4: Ion Exchange") +
-          annotate(geom = "label", x = 15, y = 118, label= "5: Ion Exchange") +
-          annotate(geom = "label", x = 15, y = 110, label= "6: SO4 Reduction") +
-          geom_segment(aes(x = 100*d_x, y = 100*d_y, xend = 100*fx, yend = 100*fy),
-                       data = piper.df)+
-          geom_line(aes(x = x, y = y), data = mixing.line.df)+
-          geom_line(aes(x = x, y = y), data = calcite.dissolution.df)+
-          geom_line(aes(x = x, y = y), data = calcite.precipitation.df) +
-          geom_line(aes(x = x, y = y), data = ion.exchange.df) +
-          geom_line(aes(x = x, y = y), data = ion.exchange.df1) +
-          geom_line(aes(x = x, y = y), data = so4.reduction.df)
+          geom_point(aes(x = 100*d_x, y = 100*d_y, size = Size), data = piper.df)
         }
     }
   }
@@ -229,29 +265,11 @@ plot_modified_piper <- function(x, measure = c('conc', 'meql'),
       p <- p + geom_point(aes_string(x = "100*cat_x", y = "100*cat_y", color = color),
                           data = piper.df, size = 3) +
         geom_point(aes_string(x = "100*an_x", y = "100*an_y", color = color),
-                   data= piper.df, size = 3) +
-        annotate(geom = "label", x = 96, y = 110, label= "1") +
-        annotate(geom = "label", x = 110, y = 128, label = "2") +
-        annotate(geom = "label", x = 110, y = 90, label = "3") +
-        annotate(geom = "label", x = 98, y = 133, label = "4") +
-        annotate(geom = "label", x = 124, y = 89, label = "5") +
-        annotate(geom = "label", x = 96, y = 121, label = "6") +
-        annotate(geom = "label", x = 15, y = 150, label= "1: Mixing") +
-        annotate(geom = "label", x = 15, y = 142, label= "2: CaCO3 Precip.") +
-        annotate(geom = "label", x = 15, y = 134, label= "3: CaCO3 Dissol.") +
-        annotate(geom = "label", x = 15, y = 126, label= "4: Ion Exchange") +
-        annotate(geom = "label", x = 15, y = 118, label= "5: Ion Exchange") +
-        annotate(geom = "label", x = 15, y = 110, label= "6: SO4 Reduction") +
+                    data= piper.df, size = 3) +
         geom_point(aes_string(x = "100*d_x", y = "100*d_y", color = color),
-                   data = piper.df, size = 3) +
+                   data = piper.df, size = 3) + 
         geom_segment(aes(x = 100*d_x, y = 100*d_y, xend = 100*fx, yend = 100*fy),
-                     data = piper.df) +
-        geom_line(aes(x = x, y = y), data = mixing.line.df)+
-        geom_line(aes(x = x, y = y), data = calcite.dissolution.df)+
-        geom_line(aes(x = x, y = y), data = calcite.precipitation.df)+
-        geom_line(aes(x = x, y = y), data = ion.exchange.df) +
-        geom_line(aes(x = x, y = y), data = ion.exchange.df1)+
-        geom_line(aes(x = x, y = y), data = so4.reduction.df)
+                     data = piper.df)
     }
     else{
       if(class(Size) == "numeric"){
@@ -260,28 +278,10 @@ plot_modified_piper <- function(x, measure = c('conc', 'meql'),
                             data = piper.df, size = Size) +
           geom_point(aes_string(x = "100*an_x", y = "100*an_y", color = color),
                      data= piper.df, size = Size) +
-          annotate(geom = "label", x = 96, y = 110, label= "1") +
-          annotate(geom = "label", x = 110, y = 128, label = "2") +
-          annotate(geom = "label", x = 110, y = 90, label = "3") +
-          annotate(geom = "label", x = 98, y = 133, label = "4") +
-          annotate(geom = "label", x = 124, y = 89, label = "5") +
-          annotate(geom = "label", x = 96, y = 121, label = "6") +
-          annotate(geom = "label", x = 15, y = 150, label= "1: Mixing") +
-          annotate(geom = "label", x = 15, y = 142, label= "2: CaCO3 Precip.") +
-          annotate(geom = "label", x = 15, y = 134, label= "3: CaCO3 Dissol.") +
-          annotate(geom = "label", x = 15, y = 126, label= "4: Ion Exchange") +
-          annotate(geom = "label", x = 15, y = 118, label= "5: Ion Exchange") +
-          annotate(geom = "label", x = 15, y = 110, label= "6: SO4 Reduction") +
           geom_point(aes_string(x = "100*d_x", y = "100*d_y", color = color),
                      data= piper.df, size = Size) +
           geom_segment(aes_string(x = "100*d_x", y = "100*d_y", xend = "100*fx",
-                                  yend = "100*fy", color = color), data = piper.df) +
-          geom_line(aes(x = x, y = y), data = mixing.line.df)+
-          geom_line(aes(x = x, y = y), data = calcite.dissolution.df)+
-          geom_line(aes(x = x, y = y), data = calcite.precipitation.df)+
-          geom_line(aes(x = x, y = y), data = ion.exchange.df) +
-          geom_line(aes(x = x, y = y), data = ion.exchange.df1) +
-          geom_line(aes(x = x, y = y), data = so4.reduction.df)
+                                  yend = "100*fy", color = color), data = piper.df) #+
       }
       else if(class(Size) == "character"){
         tmp <- gdata$dataset[Size]
@@ -292,30 +292,12 @@ plot_modified_piper <- function(x, measure = c('conc', 'meql'),
           geom_point(aes_string(x = "100*an_x", y = "100*an_y",
                                 color = color, size = Size),
                      data = piper.df) +
-          annotate(geom = "label", x = 96, y = 110, label= "1") +
-          annotate(geom = "label", x = 110, y = 128, label = "2") +
-          annotate(geom = "label", x = 110, y = 90, label = "3") +
-          annotate(geom = "label", x = 98, y = 133, label = "4") +
-          annotate(geom = "label", x = 124, y = 89, label = "5") +
-          annotate(geom = "label", x = 96, y = 121, label = "6") +
-          annotate(geom = "label", x = 15, y = 150, label= "1: Mixing") +
-          annotate(geom = "label", x = 15, y = 142, label= "2: CaCO3 Precip.") +
-          annotate(geom = "label", x = 15, y = 134, label= "3: CaCO3 Dissol.") +
-          annotate(geom = "label", x = 15, y = 126, label= "4: Ion Exchange") +
-          annotate(geom = "label", x = 15, y = 118, label= "5: Ion Exchange") +
-          annotate(geom = "label", x = 15, y = 110, label= "6: SO4 Reduction") +
           geom_point(aes_string(x = "100*d_x", y = "100*d_y",
                                 color = color, size = Size),
                      data = piper.df) +
           geom_segment(aes_string(x = "100*d_x", y = "100*d_y", xend = "100*fx",
                                   yend = "100*fy", color = color),
-                       data = piper.df)+
-          geom_line(aes(x = x, y = y), data = mixing.line.df)+
-          geom_line(aes(x = x, y = y), data = calcite.dissolution.df)+
-          geom_line(aes(x = x, y = y), data = calcite.precipitation.df)+
-          geom_line(aes(x = x, y = y), data = ion.exchange.df) +
-          geom_line(aes(x = x, y = y), data = ion.exchange.df1) +
-          geom_line(aes(x = x, y = y), data = so4.reduction.df)
+                       data = piper.df)#+
       }
     }
   }
