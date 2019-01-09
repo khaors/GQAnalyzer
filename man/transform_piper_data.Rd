@@ -29,7 +29,9 @@ A data.frame with the following variables
 Function to transform the concentrations of Mg, Ca, Cl and SO4 to local coordinates of the Piper diagram.
 }
 \seealso{
-Other piper functions: \code{\link{anion_cation_transform}},
+Other piper functions: \code{\link{add_grid_lines_piper}},
+  \code{\link{add_labels_piper}},
+  \code{\link{anion_cation_transform}},
   \code{\link{ggplot_piper}},
   \code{\link{piper_classification}},
   \code{\link{piper_transform}}, \code{\link{plot_piper}}

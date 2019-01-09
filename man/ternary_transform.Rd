@@ -16,8 +16,9 @@ This function returns a data.frame with the coordinates inside a ternary diagram
 Function to calculate the coordinates of a point in a ternary diagram.
 }
 \seealso{
-Other ternary functions: \code{\link{ggplot_ternary}},
-  \code{\link{plot_ternary}}
+Other ternary functions: \code{\link{add_grid_lines_ternary}},
+  \code{\link{add_labels_ternary}},
+  \code{\link{ggplot_ternary}}, \code{\link{plot_ternary}}
 }
 \author{
 Oscar Garcia-Cabrejo \email{khaors@gmail.com}

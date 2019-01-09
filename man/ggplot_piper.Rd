@@ -13,7 +13,9 @@ A ggplot2 object
 Function to create the ternary diagrams that compose the Piper diagram
 }
 \seealso{
-Other piper functions: \code{\link{anion_cation_transform}},
+Other piper functions: \code{\link{add_grid_lines_piper}},
+  \code{\link{add_labels_piper}},
+  \code{\link{anion_cation_transform}},
   \code{\link{piper_classification}},
   \code{\link{piper_transform}}, \code{\link{plot_piper}},
   \code{\link{transform_piper_data}}

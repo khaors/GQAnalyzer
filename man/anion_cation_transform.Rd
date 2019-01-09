@@ -43,7 +43,9 @@ ternary diagram of the cations.
 Function to calculate the coordinates of anions and cations used in the Piper diagram.
 }
 \seealso{
-Other piper functions: \code{\link{ggplot_piper}},
+Other piper functions: \code{\link{add_grid_lines_piper}},
+  \code{\link{add_labels_piper}},
+  \code{\link{ggplot_piper}},
   \code{\link{piper_classification}},
   \code{\link{piper_transform}}, \code{\link{plot_piper}},
   \code{\link{transform_piper_data}}

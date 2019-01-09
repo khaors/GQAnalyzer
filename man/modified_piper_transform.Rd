@@ -22,7 +22,9 @@ This function returns a data.frame with the following variables:
 Function to calculate the coordinates of set of samples in a piper diagram.
 }
 \seealso{
-Other modified_piper functions: \code{\link{classification_reactions_piper_mode}},
+Other modified_piper functions: \code{\link{add_lines_modified_piper}},
+  \code{\link{classification_reactions_piper_mode}},
+  \code{\link{ggplot_modified_piper}},
   \code{\link{plot_modified_piper}}
 }
 \author{

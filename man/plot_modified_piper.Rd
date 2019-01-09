@@ -35,7 +35,9 @@ This function returns a ggplot2 object with the modified piper plot.
 Function to create the modified Piper plot
 }
 \seealso{
-Other modified_piper functions: \code{\link{classification_reactions_piper_mode}},
+Other modified_piper functions: \code{\link{add_lines_modified_piper}},
+  \code{\link{classification_reactions_piper_mode}},
+  \code{\link{ggplot_modified_piper}},
   \code{\link{modified_piper_transform}}
 }
 \author{

@@ -19,7 +19,9 @@ Function to calculate the contribution of each chemical reaction to the chemical
 of a given sample
 }
 \seealso{
-Other modified_piper functions: \code{\link{modified_piper_transform}},
+Other modified_piper functions: \code{\link{add_lines_modified_piper}},
+  \code{\link{ggplot_modified_piper}},
+  \code{\link{modified_piper_transform}},
   \code{\link{plot_modified_piper}}
 }
 \author{

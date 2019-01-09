@@ -33,7 +33,9 @@ This function returns a ggplot2 object with the Durov plot.
 Function to create the Piper plot
 }
 \seealso{
-Other piper functions: \code{\link{anion_cation_transform}},
+Other piper functions: \code{\link{add_grid_lines_piper}},
+  \code{\link{add_labels_piper}},
+  \code{\link{anion_cation_transform}},
   \code{\link{ggplot_piper}},
   \code{\link{piper_classification}},
   \code{\link{piper_transform}},

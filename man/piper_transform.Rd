@@ -21,7 +21,9 @@ This function returns a data.frame with the following variables:
 Function to calculate the coordinates of set of samples in a piper diagram.
 }
 \seealso{
-Other piper functions: \code{\link{anion_cation_transform}},
+Other piper functions: \code{\link{add_grid_lines_piper}},
+  \code{\link{add_labels_piper}},
+  \code{\link{anion_cation_transform}},
   \code{\link{ggplot_piper}},
   \code{\link{piper_classification}},
   \code{\link{plot_piper}},
