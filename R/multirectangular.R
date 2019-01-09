@@ -73,14 +73,6 @@ ggplot_multirectangular <- function(){
     # lines to subdivide large square
     geom_segment(aes(x = 0,y = 1, xend = 3, yend = 1)) +
     geom_segment(aes(x = 0,y = 2, xend = 3, yend = 2)) +
-    # Add labels to each square in x direction
-    geom_text(aes(x = 0.5, y = -0.2, label = "%Ca(meq/L)"), size = 4) +
-    geom_text(aes(x = 1.5, y = -0.2, label = "%Mg(meq/L)"), size = 4) +
-    geom_text(aes(x = 2.5, y = -0.2, label = "%Na+K(meq/L)"), size = 4) +
-    # Add labels to each square in y direction
-    geom_text(aes(x = -0.2, y = 0.5, label = "%HCO3+CO3(meq/L)", angle = 90), size = 4) +
-    geom_text(aes(x = -0.2, y = 1.5, label = "%Cl(meq/L)", angle = 90), size = 4) +
-    geom_text(aes(x = -0.2, y = 2.5, label = "%SO4(meq/L)", angle = 90), size = 4) +
     # Add tick marks to each square in x direction
     geom_text(aes(c(0.025, 0.5, 0.975), rep(-.1,3), label = c(0,50,100)),size=3) +
     geom_text(aes(c(1.025, 1.5, 1.975), rep(3.1, 3), label = c(0,50,100)),size=3) +
@@ -90,13 +82,62 @@ ggplot_multirectangular <- function(){
     geom_text(aes(rep(3.1, 3), c(1.025, 1.5, 1.975), label = c(0,50,100)),size=3) +
     geom_text(aes(rep(-.1,3),c(2.025, 2.5, 2.975), label = c(0,50,100)),size=3) +
     #
-    theme_gray() +
-    theme(panel.border = element_blank(), axis.ticks = element_blank(),
-          axis.text.x = element_blank(), axis.text.y = element_blank(),
-          axis.title.x = element_blank(), axis.title.y = element_blank())
+    theme_bw() +
+    theme(axis.ticks.x = element_blank(), axis.ticks.y = element_blank(),
+          axis.text = element_blank(), axis.title.y = element_blank(),
+          axis.title.x = element_blank(),
+          panel.border = element_blank(), panel.grid.major.y = element_blank(),
+          panel.grid.minor.y = element_blank(), panel.grid.major.x = element_blank(),
+          panel.grid.minor.x = element_blank()) +
+  coord_equal()
   #
   return(p)
 }
+#' @title 
+#' add_labels_multirectangular
+#' @description 
+#' Function to add the labels to a multirectangular diagram
+#' @param color A character string specifying the color of the labels
+#' @param Size A numeric value specifying the size of the text label
+#' @return 
+#' This function returns a geom_text to be added to the multirectangular
+#'  diagram
+#' @author 
+#' Oscar Garcia-Cabrejo \email{khaors@gmail.com}
+#' @family multirectanguar functions
+#' @importFrom ggplot2 geom_text
+#' @export
+add_labels_multirectangular <- function(color = NULL, 
+                                        Size = NULL){
+  color1 <- "black"
+  Size1 <- 4
+  if(!missing(color)){
+    color1 <- color
+  }
+  #
+  if(!missing(Size)){
+    Size1 <- Size
+  }
+  #
+  res <- list() 
+  # Add labels to each square in x direction
+  res[[1]] <- geom_text(aes(x = 0.5, y = -0.2, label = "%Ca(meq/L)"), 
+                        size = Size1, colour = color1)
+  res[[2]] <- geom_text(aes(x = 1.5, y = -0.2, label = "%Mg(meq/L)"), 
+                        size = Size1, colour = color1)
+  res[[3]] <- geom_text(aes(x = 2.5, y = -0.2, label = "%Na+K(meq/L)"), 
+                        size = Size1, colour = color1)
+    # Add labels to each square in y direction
+  res[[4]] <- geom_text(aes(x = -0.2, y = 0.5, label = "%HCO3+CO3(meq/L)",
+                            angle = 90), size = Size1, colour = color1)
+  res[[5]] <- geom_text(aes(x = -0.2, y = 1.5, label = "%Cl(meq/L)", 
+                            angle = 90), size = Size1, colour = color1)
+  res[[6]] <- geom_text(aes(x = -0.2, y = 2.5, label = "%SO4(meq/L)", 
+                            angle = 90), size = Size1, colour = color1)
+  return(res)  
+}
+#
+
 #' @title
 #' plot_multirectangular
 #' @description
@@ -137,24 +178,21 @@ plot_multirectangular <- function(x, measure = c('conc', 'meql'),
     stop('ERROR: A geochemical_dataset is required as input')
   }
   multirec.df <- multirectangular_transform(gdata)
-  p <- NULL
+  p <- ggplot_multirectangular() + add_labels_multirectangular()
   if(is.null(color)){
     if(is.null(Size)){
-      p <- ggplot_multirectangular() + geom_point(aes(x = cx, y = cy),
-                                                  data = multirec.df, size = 3)
+      p <- p + geom_point(aes(x = cx, y = cy), data = multirec.df, size = 3)
     }
     else{
       if(class(Size) == "numeric"){
-        p <- ggplot_multirectangular() + geom_point(aes(x = cx, y = cy),
-                                                    data = multirec.df, size = Size)
+        p <- p + geom_point(aes(x = cx, y = cy), data = multirec.df, 
+                            size = Size)
       }
       else if(class(Size) == "character"){
         tmp <- gdata$dataset[Size]
         multirec.df[Size] <- tmp[,1]
-        p <- ggplot_multirectangular() + geom_point(aes_string(x = "cx",
-                                                               y = "cy",
-                                                               size = Size),
-                                                    data = multirec.df)
+        p <- p + geom_point(aes_string(x = "cx", y = "cy", size = Size),
+                            data = multirec.df)
       }
     }
   }
@@ -162,38 +200,22 @@ plot_multirectangular <- function(x, measure = c('conc', 'meql'),
     tmp <- gdata$dataset[color]
     multirec.df[color] <- tmp[,1]
     if(is.null(Size)){
-      p <- ggplot_multirectangular() + geom_point(aes_string(x = "cx",
-                                                             y = "cy",
-                                                             color = color),
-                                                  data = multirec.df, size = 3)
+      p <- p + geom_point(aes_string(x = "cx", y = "cy", color = color),
+                          data = multirec.df, size = 3)
     }
     else{
       if(class(Size) == "numeric"){
-        p <- ggplot_multirectangular() + geom_point(aes_string(x = "cx",
-                                                               y = "cy",
-                                                               color = color),
-                                                    data = multirec.df,
-                                                    size = Size)
+        p <- p + geom_point(aes_string(x = "cx", y = "cy", color = color),
+                            data = multirec.df, size = Size)
       }
       else if(class(Size) == "character"){
         tmp <- gdata$dataset[Size]
         multirec.df[Size] <- tmp[,1]
-        p <- ggplot_multirectangular() + geom_point(aes_string(x = "cx",
-                                                               y = "cy",
-                                                               color = color,
-                                                               size = Size),
-                                                    data = multirec.df)
+        p <- p + geom_point(aes_string(x = "cx", y = "cy", color = color,
+                            size = Size), data = multirec.df)
       }
     }
   }
-  p <- p + coord_fixed() +
-    theme_bw() +
-    theme(axis.ticks.x = element_blank(), axis.ticks.y = element_blank(),
-          axis.text = element_blank(), axis.title.y = element_blank(),
-          axis.title.x = element_blank(),
-          panel.border = element_blank(), panel.grid.major.y = element_blank(),
-          panel.grid.minor.y = element_blank(), panel.grid.major.x = element_blank(),
-          panel.grid.minor.x = element_blank())
   #
   if(!is.null(color)){
     tmp <- gdata$dataset[color]
