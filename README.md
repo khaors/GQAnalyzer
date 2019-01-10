@@ -1,12 +1,12 @@
-# __GQAnalyzer__: Package to analyze hydrogeochemical and fluid geothermal data
+# __GQAnalyzer__: R package to analyze Groundwater, Geothermal water and Gas Geochemistry information
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rves)](https://cran.r-project.org/package=GQAnalyzer)
 [![HitCount](http://hits.dwyl.io/khaors/rves.svg)](http://hits.dwyl.io/khaors/GQAnalyzer)
 
-The goal of GQAnalyzer is to be a tool to support the analysis of different types of geological fluids (groundwater and geothermal waters).
-This package includes several functions to create plots routinely used in hydrogeochemistry and analysis of geothermal fluid including:
+The goal of GQAnalyzer is to be a tool to support the analysis of the chemical composition of different types of geological fluids (groundwater, geothermal waters and geothermal gases). This package includes several functions to create plots routinely used in hydrogeochemistry including:
 
 - Ternary diagrams
 - Piper plots
+- Modified Piper plots
 - Durov plots
 - Stiff diagrams
 - Maucha diagrams
@@ -14,7 +14,16 @@ This package includes several functions to create plots routinely used in hydrog
 - Schoeller diagrams
 - Radial diagrams
 - ilr compositional plots
+
+The plots used in the analysis of the chemical composition of geothermal fluids include:
+
+- Custom ternary diagrams
 - Giggenbach plot
+
+The plots used in the analysis of the chemical composition of geothermal gases include:
+
+- Custom ternary diagrams
+- Grid geothermometers
 
 The package includes functions to calculate several geothermometers including:
 
@@ -37,7 +46,7 @@ devtools::install_github("khaors/GQAnalyzer")
 
 ## Usage
 
-The pumpingtest package does not require compilations and once installed it can be directly used by loading it: 
+The GQAnalyzer package does not require compilations and once installed it can be directly used by loading it: 
 
 ```r
 library(GQAnalyzer)
@@ -45,11 +54,11 @@ library(GQAnalyzer)
 
 ## Package Documentation
 
-The package documentation can be accesed [here](https://khaors.github.io/pumpingtest/) 
+The package documentation can be accesed [here](https://khaors.github.io/GQAnalyzer/) 
 
 ## Shiny App
 
-This package includes a shiny app called _GQAnalyzer\_gui_ designed to help in the interpretation of the Vertical Electric Soundings. This app can be called using:
+This package includes a shiny app called _GQAnalyzer\_gui_ designed to help in the interpretation of the chemical composition of groundwater, geothermal fluids and/or geothermal gases samples. This app can be called using:
 
 ```r
 GQAnalyzer_gui()
