@@ -33,9 +33,7 @@ This function returns a ggplot2 object with the Durov plot.
 Function to create a ternary plot for a geochemical_dataset
 }
 \seealso{
-Other ternary functions: \code{\link{add_grid_lines_ternary}},
-  \code{\link{add_labels_ternary}},
-  \code{\link{ggplot_ternary}},
+Other ternary functions: \code{\link{ggplot_ternary}},
   \code{\link{ternary_transform}}
 }
 \author{

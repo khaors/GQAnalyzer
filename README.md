@@ -2,10 +2,9 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rves)](https://cran.r-project.org/package=GQAnalyzer)
  [![Travis build status](https://travis-ci.org/khaors/GQAnalyzer.svg?branch=master)](https://travis-ci.org/khaors/GQAnalyzer)
  [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/khaors/GQAnalyzer?branch=master&svg=true)](https://ci.appveyor.com/project/khaors/GQAnalyzer)
-[![HitCount](http://hits.dwyl.io/khaors/rves.svg)](http://hits.dwyl.io/khaors/GQAnalyzer)
 [![Github All Releases](https://img.shields.io/github/downloads/khaors/GQAnalyzer/total.svg)]()
 
-The goal of GQAnalyzer is to be a tool to support the analysis of the chemical composition of different types of geological fluids (groundwater, geothermal waters and geothermal gases). This package includes several functions to create plots routinely used in hydrogeochemistry including:
+The goal of GQAnalyzer is to be a tool to support the analysis of the chemical composition of different types of geological fluids (groundwater, geothermal waters and geothermal gases). This package includes several functions to create plots routinely used in hydrogeochemistry such as:
 
 - Ternary diagrams
 - Piper plots

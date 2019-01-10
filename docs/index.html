@@ -46,7 +46,14 @@
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/khaors/GQAnalyzer">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -57,14 +64,15 @@
       
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="gqanalyzer-package-to-analyze-hydrogeochemical-and-fluid-geothermal-data" class="section level1">
+<div id="gqanalyzer-r-package-to-analyze-groundwater-geothermal-water-and-gas-geochemistry-information" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#gqanalyzer-package-to-analyze-hydrogeochemical-and-fluid-geothermal-data" class="anchor"></a><strong>GQAnalyzer</strong>: Package to analyze hydrogeochemical and fluid geothermal data</h1></div>
+<a href="#gqanalyzer-r-package-to-analyze-groundwater-geothermal-water-and-gas-geochemistry-information" class="anchor"></a><strong>GQAnalyzer</strong>: R package to analyze Groundwater, Geothermal water and Gas Geochemistry information</h1></div>
 
-<p>The goal of GQAnalyzer is to be a tool to support the analysis of different types of geological fluids (groundwater and geothermal waters). This package includes several functions to create plots routinely used in hydrogeochemistry and analysis of geothermal fluid including:</p>
+<p>The goal of GQAnalyzer is to be a tool to support the analysis of the chemical composition of different types of geological fluids (groundwater, geothermal waters and geothermal gases). This package includes several functions to create plots routinely used in hydrogeochemistry such as:</p>
 <ul>
 <li>Ternary diagrams</li>
 <li>Piper plots</li>
+<li>Modified Piper plots</li>
 <li>Durov plots</li>
 <li>Stiff diagrams</li>
 <li>Maucha diagrams</li>
@@ -72,7 +80,16 @@
 <li>Schoeller diagrams</li>
 <li>Radial diagrams</li>
 <li>ilr compositional plots</li>
+</ul>
+<p>The plots used in the analysis of the chemical composition of geothermal fluids include:</p>
+<ul>
+<li>Custom ternary diagrams</li>
 <li>Giggenbach plot</li>
+</ul>
+<p>The plots used in the analysis of the chemical composition of geothermal gases include:</p>
+<ul>
+<li>Custom ternary diagrams</li>
+<li>Grid geothermometers</li>
 </ul>
 <p>The package includes functions to calculate several geothermometers including:</p>
 <ul>
@@ -93,18 +110,18 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>The pumpingtest package does not require compilations and once installed it can be directly used by loading it:</p>
+<p>The GQAnalyzer package does not require compilations and once installed it can be directly used by loading it:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(GQAnalyzer)</code></pre></div>
 </div>
 <div id="package-documentation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#package-documentation" class="anchor"></a>Package Documentation</h2>
-<p>The package documentation can be accesed <a href="https://khaors.github.io/pumpingtest/">here</a></p>
+<p>The package documentation can be accesed <a href="https://khaors.github.io/GQAnalyzer/">here</a></p>
 </div>
 <div id="shiny-app" class="section level2">
 <h2 class="hasAnchor">
 <a href="#shiny-app" class="anchor"></a>Shiny App</h2>
-<p>This package includes a shiny app called <em>GQAnalyzer_gui</em> designed to help in the interpretation of the Vertical Electric Soundings. This app can be called using:</p>
+<p>This package includes a shiny app called <em>GQAnalyzer_gui</em> designed to help in the interpretation of the chemical composition of groundwater, geothermal fluids and/or geothermal gases samples. This app can be called using:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/GQAnalyzer_gui.html">GQAnalyzer_gui</a></span>()</code></pre></div>
 </div>
 <div id="contact" class="section level2">
@@ -121,8 +138,17 @@
 </div>
   </div>
 
-  <div class="col-md-3" id="sidebar">
-    <div class="license">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <div class="links">
+<h2>Links</h2>
+<ul class="list-unstyled">
+<li>Browse source code at <br><a href="https://github.com/khaors/GQAnalyzer">https://​github.com/​khaors/​GQAnalyzer</a>
+</li>
+<li>Report a bug at <br><a href="https://github.com/khaors/GQAnalyzer/issues">https://​github.com/​khaors/​GQAnalyzer/​issues</a>
+</li>
+</ul>
+</div>
+<div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
@@ -139,19 +165,20 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=GQAnalyzer"><img src="http://www.r-pkg.org/badges/version/rves" alt="CRAN_Status_Badge"></a></li>
-<li><a href="http://hits.dwyl.io/khaors/GQAnalyzer"><img src="http://hits.dwyl.io/khaors/rves.svg" alt="HitCount"></a></li>
+<li><a href="https://travis-ci.org/khaors/GQAnalyzer"><img src="https://travis-ci.org/khaors/GQAnalyzer.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://ci.appveyor.com/project/khaors/GQAnalyzer"><img src="https://ci.appveyor.com/api/projects/status/github/khaors/GQAnalyzer?branch=master&amp;svg=true" alt="AppVeyor build status"></a></li>
+<li><a href=""><img src="https://img.shields.io/github/downloads/khaors/GQAnalyzer/total.svg" alt="Github All Releases"></a></li>
 </ul>
 </div>
 </div>
 </div>
-
 
       <footer><div class="copyright">
   <p>Developed by Oscar Garcia-Cabrejo.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
 </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ggplot_multirectangular — ggplot_multirectangular • GQAnalyzer</title>
+<title>add_labels_piper — add_labels_piper • GQAnalyzer</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="ggplot_multirectangular — ggplot_multirectangular" />
+<meta property="og:title" content="add_labels_piper — add_labels_piper" />
 
-<meta property="og:description" content="Function to create the template of a multirectangular diagram." />
+<meta property="og:description" content="Function to add the labels to a ternary diagram" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -99,33 +99,61 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ggplot_multirectangular</h1>
-    <small class="dont-index">Source: <a href='https://github.com/khaors/GQAnalyzer/blob/master/R/multirectangular.R'><code>R/multirectangular.R</code></a></small>
-    <div class="hidden name"><code>ggplot_multirectangular.Rd</code></div>
+    <h1>add_labels_piper</h1>
+    <small class="dont-index">Source: <a href='https://github.com/khaors/GQAnalyzer/blob/master/R/piper.R'><code>R/piper.R</code></a></small>
+    <div class="hidden name"><code>add_labels_piper.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Function to create the template of a multirectangular diagram.</p>
+    <p>Function to add the labels to a ternary diagram</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_multirectangular</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>add_labels_piper</span>(<span class='no'>labels</span>, <span class='kw'>middle</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>Size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>labels</th>
+      <td><p>A character vector with the labels to be added to the 
+Piper diagram</p></td>
+    </tr>
+    <tr>
+      <th>middle</th>
+      <td><p>A logical flag indicating if the labels must be located on the 
+middle part of the axis.</p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p>A character string specifying the color of the labels</p></td>
+    </tr>
+    <tr>
+      <th>Size</th>
+      <td><p>A numeric value specifying the size of the text label</p></td>
+    </tr>
+    </table>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A ggplot2 plot with the template of a multirectangular diagram.</p>
+    <p>This function returns a geom_text to be added to the Piper diagram</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other multirectangular functions: <code><a href='multirectangular_transform.html'>multirectangular_transform</a></code>,
-  <code><a href='plot_multirectangular.html'>plot_multirectangular</a></code></p></div>
+    <div class='dont-index'><p>Other piper functions: <code><a href='add_grid_lines_piper.html'>add_grid_lines_piper</a></code>,
+  <code><a href='anion_cation_transform.html'>anion_cation_transform</a></code>,
+  <code><a href='ggplot_piper.html'>ggplot_piper</a></code>,
+  <code><a href='piper_classification.html'>piper_classification</a></code>,
+  <code><a href='piper_transform.html'>piper_transform</a></code>, <code><a href='plot_piper.html'>plot_piper</a></code>,
+  <code><a href='transform_piper_data.html'>transform_piper_data</a></code></p></div>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
 

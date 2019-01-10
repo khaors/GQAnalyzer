@@ -81,7 +81,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/khaors/GQAnalyzer">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -95,7 +100,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>plot_piper</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/khaors/GQAnalyzer/blob/master/R/piper.R'><code>R/piper.R</code></a></small>
     <div class="hidden name"><code>plot_piper.Rd</code></div>
     </div>
 
@@ -106,7 +111,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>plot_piper</span>(<span class='no'>x</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"conc"</span>, <span class='st'>"meql"</span>), <span class='kw'>vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>Size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>Size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>additional.args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -136,6 +141,10 @@ are already defined. Used only for compatibility with the plot function.</p></td
       <th>Size</th>
       <td><p>Character variable that specifies the variable to define the size of the data inside the plot.</p></td>
     </tr>
+    <tr>
+      <th>additional.args</th>
+      <td><p>A list with additional arguments</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -144,7 +153,9 @@ are already defined. Used only for compatibility with the plot function.</p></td
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other piper functions: <code><a href='anion_cation_transform.html'>anion_cation_transform</a></code>,
+    <div class='dont-index'><p>Other piper functions: <code><a href='add_grid_lines_piper.html'>add_grid_lines_piper</a></code>,
+  <code><a href='add_labels_piper.html'>add_labels_piper</a></code>,
+  <code><a href='anion_cation_transform.html'>anion_cation_transform</a></code>,
   <code><a href='ggplot_piper.html'>ggplot_piper</a></code>,
   <code><a href='piper_classification.html'>piper_classification</a></code>,
   <code><a href='piper_transform.html'>piper_transform</a></code>,
@@ -173,7 +184,7 @@ are already defined. Used only for compatibility with the plot function.</p></td
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>

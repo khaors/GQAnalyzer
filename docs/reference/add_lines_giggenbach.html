@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ggplot_multirectangular — ggplot_multirectangular • GQAnalyzer</title>
+<title>add_lines_giggenbach — add_lines_giggenbach • GQAnalyzer</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="ggplot_multirectangular — ggplot_multirectangular" />
+<meta property="og:title" content="add_lines_giggenbach — add_lines_giggenbach" />
 
-<meta property="og:description" content="Function to create the template of a multirectangular diagram." />
+<meta property="og:description" content="Auxiliary function to add the lines of the inmature and mature waters 
+in a Giggenbach's geothermometer plot." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -99,33 +100,57 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ggplot_multirectangular</h1>
-    <small class="dont-index">Source: <a href='https://github.com/khaors/GQAnalyzer/blob/master/R/multirectangular.R'><code>R/multirectangular.R</code></a></small>
-    <div class="hidden name"><code>ggplot_multirectangular.Rd</code></div>
+    <h1>add_lines_giggenbach</h1>
+    <small class="dont-index">Source: <a href='https://github.com/khaors/GQAnalyzer/blob/master/R/giggenbach_utilities.R'><code>R/giggenbach_utilities.R</code></a></small>
+    <div class="hidden name"><code>add_lines_giggenbach.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Function to create the template of a multirectangular diagram.</p>
+    <p>Auxiliary function to add the lines of the inmature and mature waters 
+in a Giggenbach's geothermometer plot.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ggplot_multirectangular</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>add_lines_giggenbach</span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>Size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dy</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>color</th>
+      <td><p>A character string specifying the color of the lines separating 
+mature and inmature waters.</p></td>
+    </tr>
+    <tr>
+      <th>Size</th>
+      <td><p>A numeric value specifying the size of the temperature labels 
+in the Giggenbach's geothermometer plot</p></td>
+    </tr>
+    <tr>
+      <th>dy</th>
+      <td><p>A numeric value specifying the vertical displacement of the 
+temperature labels in the Giggenbach's geothermometer plot</p></td>
+    </tr>
+    </table>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A ggplot2 plot with the template of a multirectangular diagram.</p>
+    <p>This function adds lines to define separate fields in the Giggenbach's 
+geothermometer plot that has been previously created with the function 
+ggplot_giggenbach</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other multirectangular functions: <code><a href='multirectangular_transform.html'>multirectangular_transform</a></code>,
-  <code><a href='plot_multirectangular.html'>plot_multirectangular</a></code></p></div>
+    <div class='dont-index'><p>Other giggenbach functions: <code><a href='ggplot_giggenbach.html'>ggplot_giggenbach</a></code>,
+  <code><a href='plot_giggenbach.html'>plot_giggenbach</a></code></p></div>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
 
@@ -133,7 +158,7 @@
           </ul>
 
     <h2>Author</h2>
-    <p>Oscar Garcia-Cabrejo <a href='mailto:khaors@gmail.com'>khaors@gmail.com</a></p>
+    <p>Oscar Garcia-Cabrejo, <a href='mailto:khaors@gmail.com'>khaors@gmail.com</a></p>
   </div>
 </div>
 
