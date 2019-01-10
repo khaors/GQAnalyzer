@@ -13,7 +13,9 @@ This function returns the base of a ternary diagram
 Function to create the ternary diagram
 }
 \seealso{
-Other ternary functions: \code{\link{plot_ternary}},
+Other ternary functions: \code{\link{add_grid_lines_ternary}},
+  \code{\link{add_labels_ternary}},
+  \code{\link{plot_ternary}},
   \code{\link{ternary_transform}}
 }
 \author{

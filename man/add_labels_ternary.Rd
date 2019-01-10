@@ -4,24 +4,26 @@
 \alias{add_labels_ternary}
 \title{add_labels_ternary}
 \usage{
-add_labels_ternary(labels, middle = TRUE, color = NULL, Size = NULL)
+add_labels_ternary(vars, middle = TRUE, color = NULL, Size = NULL)
 }
 \arguments{
-\item{labels}{A character vector with the labels to be added to the 
+\item{vars}{A character vector with the names of the variables}
+
+\item{middle}{A logical variable specifying if the labels are located in the 
+central part of the ternary axis (default=TRUE)}
+
+\item{color}{A character string specifying the color of the grid lines in a 
 ternary plot}
 
-\item{middle}{A logical flag indicating if the labels must be located on the 
-middle part of the axis.}
-
-\item{color}{A character string specifying the color of the labels}
-
-\item{Size}{A numeric value specifying the size of the text label}
+\item{Size}{A numeric value specifying the size of the grid labels in a 
+ternary plot}
 }
 \value{
-This function returns a geom_text to be added to the
+This function returns a list with the geom_text component that specifies the 
+labels of a ternary plot
 }
 \description{
-Function to add the labels to a ternary diagram
+Function to add the labels of a ternary diagram
 }
 \seealso{
 Other ternary functions: \code{\link{add_grid_lines_ternary}},
@@ -29,6 +31,6 @@ Other ternary functions: \code{\link{add_grid_lines_ternary}},
   \code{\link{ternary_transform}}
 }
 \author{
-Oscar Garcia-Cabrejo \email{khaors@gmail.com}
+Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 }
 \concept{ternary functions}

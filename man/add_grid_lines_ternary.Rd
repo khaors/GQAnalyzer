@@ -7,15 +7,15 @@
 add_grid_lines_ternary(color = NULL, Size = NULL)
 }
 \arguments{
-\item{color}{A character string specifying the color of the grid lines in 
+\item{color}{A character string specifying the color of the grid lines in a 
 ternary plot}
 
 \item{Size}{A numeric value specifying the size of the grid labels in a 
 ternary plot}
 }
 \value{
-This function returns a list with the geom components used to create 
-a grid in a ternary diagram
+This function returns a list with the geom components used to create a grid 
+in a ternary diagram
 }
 \description{
 Function to add the grid lines to a ternary diagram
@@ -26,6 +26,6 @@ Other ternary functions: \code{\link{add_labels_ternary}},
   \code{\link{ternary_transform}}
 }
 \author{
-Oscar Garcia-Cabrejo \email{khaors@gmail.com}
+Oscar Garcia-Cabrejo, \email{khaors@gmail,com}
 }
 \concept{ternary functions}

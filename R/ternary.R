@@ -37,7 +37,7 @@ ternary_transform <- function(a, b, c){
 #' @author
 #' Oscar Garcia-Cabrejo \email{khaors@gmail.com}
 #' @family ternary functions
-#' @importFrom ggplot2 ggplot geom_segment geom_text theme_bw theme
+#' @importFrom ggplot2 ggplot geom_segment theme_bw theme coord_equal
 #' @export ggplot_ternary
 ggplot_ternary <- function(){
   #
@@ -46,31 +46,12 @@ ggplot_ternary <- function(){
   y1 <- NULL
   y2 <- NULL
   #
-  grid1p1 <- data.frame(x1 = c(.20,.40,.60,.80), x2= c(.10,.20,.30,.40),
-                        y1 = c(0,0,0,0), y2 = c(.173206,.346412,.519618, .692824))
-  grid1p2 <- data.frame(x1 = c(.20,.40,.60,.80), x2= c(.60,.70,.80,.90),
-                        y1 = c(0,0,0,0), y2 = c(.692824, .519618,.346412,.173206))
-  grid1p3 <- data.frame(x1 = c(.10,.20,.30,.40), x2= c(.90,.80,.70,.60),
-                        y1 = c(.173206, .346412, .519618, .692824),
-                        y2 = c(.173206, .346412, .519618, .692824))
-
   p <- ggplot() +
     ## left hand ternary plot
     geom_segment(aes(x=0,y=0, xend=1, yend=0)) +
     geom_segment(aes(x=0,y=0, xend=.50, yend=.86603)) +
     geom_segment(aes(x=.50,y=.86603, xend=1, yend=0)) +
     #
-    geom_segment(aes(x = x1, y = y1, yend = y2, xend = x2), data=grid1p1,
-                 linetype = "dashed", size = 0.25, colour = "grey50") +
-    geom_segment(aes(x = x1, y = y1, yend = y2, xend = x2), data=grid1p2,
-                 linetype = "dashed", size = 0.25, colour = "grey50") +
-    geom_segment(aes(x = x1, y = y1, yend = y2, xend = x2), data=grid1p3,
-                 linetype = "dashed", size = 0.25, colour = "grey50") +
-    #
-    geom_text(aes(c(.20, .40, .60, .80), c(-.05, -.05, -.05, -.05),
-                  label=c(20, 40, 60, 80)), size=3) +
-    geom_text(aes(c(.35, .25, .15, .05), grid1p2$y2, label=c(20, 40, 60, 80)), size=3) +
-    geom_text(aes(c(.95, .85, .75, .65), grid1p3$y2, label=c(20, 40, 60, 80)), size=3) +
     #
     coord_equal(ratio = 0.9) +
     #
@@ -81,6 +62,102 @@ ggplot_ternary <- function(){
           axis.title.x = element_blank(), axis.title.y = element_blank())
   #
   return(p)
+}
+#' @title 
+#' add_grid_lines_ternary
+#' @description 
+#' Function to add the grid lines to a ternary diagram
+#' @param color A character string specifying the color of the grid lines in a 
+#' ternary plot
+#' @param Size A numeric value specifying the size of the grid labels in a 
+#' ternary plot
+#' @return
+#' This function returns a list with the geom components used to create a grid 
+#' in a ternary diagram
+#' @author 
+#' Oscar Garcia-Cabrejo, \email{khaors@gmail,com}
+#' @family ternary functions 
+#' @importFrom ggplot2 geom_segment geom_text
+#' @export
+add_grid_lines_ternary <- function(color = NULL, Size = NULL){
+  #
+  grid1p1 <- data.frame(x1 = c(.20,.40,.60,.80), x2= c(.10,.20,.30,.40),
+                        y1 = c(0,0,0,0), y2 = c(.173206,.346412,.519618, .692824))
+  grid1p2 <- data.frame(x1 = c(.20,.40,.60,.80), x2= c(.60,.70,.80,.90),
+                        y1 = c(0,0,0,0), y2 = c(.692824, .519618,.346412,.173206))
+  grid1p3 <- data.frame(x1 = c(.10,.20,.30,.40), x2= c(.90,.80,.70,.60),
+                        y1 = c(.173206, .346412, .519618, .692824),
+                        y2 = c(.173206, .346412, .519618, .692824))
+  #
+  color1 <- "grey50"
+  Size1 <- 3
+  if(!missing(color)){
+    color1 <- color
+  }
+  if(!missing(Size)){
+    Size1 <- Size
+  }
+  #
+  res <- list()
+  #
+  res[[1]] <- geom_segment(aes(x = x1, y = y1, yend = y2, xend = x2), 
+                           data=grid1p1, linetype = "dashed", 
+                           size = 0.25, colour = color1)
+  res[[2]] <- geom_segment(aes(x = x1, y = y1, yend = y2, xend = x2), 
+                           data=grid1p2, linetype = "dashed", 
+                           size = 0.25, colour = color1)
+  res[[3]] <- geom_segment(aes(x = x1, y = y1, yend = y2, xend = x2), 
+                           data=grid1p3, linetype = "dashed", 
+                           size = 0.25, colour = color1)
+  res[[4]] <- geom_text(aes(c(.20, .40, .60, .80), 
+                            c(-.05, -.05, -.05, -.05), 
+                            label=c(20, 40, 60, 80)), size=Size1)
+  res[[5]] <- geom_text(aes(c(.35, .25, .15, .05), 
+                            grid1p2$y2, label=c(20, 40, 60, 80)), size=Size1)
+  res[[6]] <- geom_text(aes(c(.95, .85, .75, .65),
+                            rid1p3$y2, label=c(20, 40, 60, 80)), size=Size1)
+  #
+  return(res)
+}
+#' @title 
+#' add_labels_ternary
+#' @description 
+#' Function to add the labels of a ternary diagram
+#' @param vars A character vector with the names of the variables
+#' @param middle A logical variable specifying if the labels are located in the 
+#' central part of the ternary axis (default=TRUE)
+#' @param color A character string specifying the color of the grid lines in a 
+#' ternary plot
+#' @param Size A numeric value specifying the size of the grid labels in a 
+#' ternary plot
+#' @return 
+#' This function returns a list with the geom_text component that specifies the 
+#' labels of a ternary plot
+#' @author 
+#' Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
+#' @family ternary functions
+#' @importFrom ggplot2 geom_text
+#' @export 
+add_labels_ternary <- function(vars, middle = TRUE, color = NULL, Size = NULL){
+  poslabels <- NULL
+  if(middle){
+    poslabels <- list(x = c(.13,.83,0.5), 
+                      y = c(.45, .45, -0.1),
+                      vars = c(vars[3],vars[2],vars[1]),
+                      angle = c(60, -60, 0.0))
+  }
+  else{
+    poslabels <- list(x = c(-0.1,.5,1.1), 
+                      y = c(0, .87, 0.0),
+                      vars = c(vars[3],vars[2],vars[1]),
+                      angle = c(0, 0, 0.0))
+  }
+  poslabels <- as.data.frame(poslabels)
+  #
+  res <- list()
+  res[[1]] <- geom_text(aes(x = x, y = y, label = vars, angle = angle), 
+                        data = poslabels)
+  return(res)
 }
 #' @title
 #' plot_ternary
@@ -143,12 +220,8 @@ plot_ternary <- function(x, measure = c('conc', 'meql'),
                                     gdata$dataset[,pos[2]],
                                     gdata$dataset[,pos[3]])
   }
-  poslabels <- list(x = c(.13,.83,0.5), y = c(.45, .45, -0.1),
-                    vars = c(vars[3],vars[2],vars[1]),
-                    angle = c(60, -60, 0.0))
-  poslabels <- as.data.frame(poslabels)
   #
-  p <- ggplot_ternary()
+  p <- ggplot_ternary() + add_grid_lines_ternary() + add_labels_piper(vars)
   if(is.null(color)){
     if(is.null(Size)){
       p <- p + geom_point(aes(x = xc, y = yc), data = ternary.df, size = 3)
@@ -181,9 +254,7 @@ plot_ternary <- function(x, measure = c('conc', 'meql'),
       }
     }
   }
-  p <- p + geom_text(aes(x = x, y = y, label = vars, angle = angle),
-                     data = poslabels) +
-    coord_fixed()
+  p <- p + coord_fixed()
 
   if(!is.null(color)){
     tmp <- gdata$dataset[color]
