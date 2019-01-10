@@ -22,3 +22,5 @@ Imports:
   shinyalert,
   gridExtra,
   sp
+URL: https://github.com/khaors/GQAnalyzer
+BugReports: https://github.com/khaors/GQAnalyzer/issues
