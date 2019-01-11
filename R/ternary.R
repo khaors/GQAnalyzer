@@ -81,6 +81,14 @@ ggplot_ternary <- function(){
 #' @export
 add_grid_lines_ternary <- function(color = NULL, Size = NULL){
   #
+  x1 <- NULL
+  x2 <- NULL
+  y1 <- NULL
+  y2 <- NULL
+  grid1p1 <- NULL
+  grid1p2 <- NULL
+  grid1p3 <- NULL
+  #
   grid1p1 <- data.frame(x1 = c(.20,.40,.60,.80), x2= c(.10,.20,.30,.40),
                         y1 = c(0,0,0,0), y2 = c(.173206,.346412,.519618, .692824))
   grid1p2 <- data.frame(x1 = c(.20,.40,.60,.80), x2= c(.60,.70,.80,.90),
@@ -115,7 +123,7 @@ add_grid_lines_ternary <- function(color = NULL, Size = NULL){
   res[[5]] <- geom_text(aes(c(.35, .25, .15, .05), 
                             grid1p2$y2, label=c(20, 40, 60, 80)), size=Size1)
   res[[6]] <- geom_text(aes(c(.95, .85, .75, .65),
-                            rid1p3$y2, label=c(20, 40, 60, 80)), size=Size1)
+                            grid1p3$y2, label=c(20, 40, 60, 80)), size=Size1)
   #
   return(res)
 }
@@ -140,6 +148,9 @@ add_grid_lines_ternary <- function(color = NULL, Size = NULL){
 #' @export 
 add_labels_ternary <- function(vars, middle = TRUE, color = NULL, Size = NULL){
   poslabels <- NULL
+  x <- NULL
+  y <- NULL
+  angle <- NULL
   if(middle){
     poslabels <- list(x = c(.13,.83,0.5), 
                       y = c(.45, .45, -0.1),
