@@ -232,7 +232,7 @@ plot_ternary <- function(x, measure = c('conc', 'meql'),
                                     gdata$dataset[,pos[3]])
   }
   #
-  p <- ggplot_ternary() + add_grid_lines_ternary() + add_labels_piper(vars)
+  p <- ggplot_ternary() + add_grid_lines_ternary() + add_labels_ternary(vars)
   if(is.null(color)){
     if(is.null(Size)){
       p <- p + geom_point(aes(x = xc, y = yc), data = ternary.df, size = 3)
