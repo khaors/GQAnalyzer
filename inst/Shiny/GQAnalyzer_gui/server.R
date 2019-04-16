@@ -859,10 +859,14 @@ shinyServer(function(input, output, session) {
     current.gdata <- server.env$current.gdata
     if(current.hplot == "All Samples"){
       if(current.tplot == "piper"){
+        if(current.ID == "None"){
+          current.ID <- NULL
+        }
         p1 <- plot(current.gdata, type = "piper",
                    measure = current.measure,
                    color = current.color,
-                   Size = current.size)
+                   Size = current.size, 
+                   labels = current.ID)
       }
       else if(current.tplot == "modified_piper"){
         if(current.ID == "None"){
@@ -884,18 +888,26 @@ shinyServer(function(input, output, session) {
                              color = current.color)
       }
       else if(current.tplot == "multirectangular"){
+        if(current.ID == "None"){
+          current.ID <- NULL
+        }
         p1 <- plot(current.gdata, type = "multirectangular",
                    measure = current.measure,
                    vars = current.vars,
                    color = current.color,
-                   Size = current.size)
+                   Size = current.size, 
+                   labels = current.ID)
       }
       else if(current.tplot == "ternary"){
+        if(current.ID == "None"){
+          current.ID <- NULL
+        }
         p1 <- plot(current.gdata, type = "ternary",
                    measure = current.measure,
                    vars = current.vars,
                    color = current.color,
-                   Size = current.size)
+                   Size = current.size, 
+                   labels = current.ID)
       }
       else if(current.tplot == "ilr"){
         p1 <- plot_ilr(current.gdata,

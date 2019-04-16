@@ -26,7 +26,7 @@ shinyUI(
                                     <strong>R</strong> to plot and analyze the hydrogeochemical characterists of 
                                     Groundwater/geothermal fluids and geothermal gases.</h5>
                                     This application can be used for the classification of Groundwater samples, 
-                                    exploration of bivatiate relationship betwee ions, creation of several specialized 
+                                    exploration of bivatiate relationship between ions, creation of several specialized 
                                     hydrogeochemical plots (including Piper, Durov, Multirectangular, etc), study the mixing processes of different types of 
                                     groundwaters and/or geothermal fluids, calculation of several conventional geothermometers, and the 
                                     identification of hydrogeochemical groups in a dataset  
