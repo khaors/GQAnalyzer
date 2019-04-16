@@ -185,6 +185,7 @@ add_labels_ternary <- function(vars, middle = TRUE, color = NULL, Size = NULL){
 #' are already defined. Used only for compatibility with the plot function.
 #' @param color Character variable that specifies the variable to color the data inside the plot.
 #' @param Size Character variable that specifies the variable to define the size of the data inside the plot.
+#' @param labels Character variable that specifies the labels to be used in the current plot
 #' @param additional.args A list with additional arguments
 #' @return
 #' This function returns a ggplot2 object with the Durov plot.
@@ -192,10 +193,11 @@ add_labels_ternary <- function(vars, middle = TRUE, color = NULL, Size = NULL){
 #' Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 #' @family ternary functions
 #' @importFrom ggplot2 geom_point scale_color_gradientn scale_color_discrete
+#' @importFrom ggrepel geom_label_repel
 #' @export
 plot_ternary <- function(x, measure = c('conc', 'meql'),
                          vars = NULL, color = NULL,
-                         Size = NULL, 
+                         Size = NULL, labels = NULL,
                          additional.args = NULL){
   gdata <- x
   p <- NULL
@@ -232,6 +234,14 @@ plot_ternary <- function(x, measure = c('conc', 'meql'),
                                     gdata$dataset[,pos[3]])
   }
   #
+  ID.samples.df <- NULL
+  if(!is.null(labels)){
+    print(names(ternary.df))
+    ID.samples.df <- data.frame(x = ternary.df$xc, y = ternary.df$yc,
+                                labels = unname(gdata$dataset[labels]))
+    print(ID.samples.df)
+  }
+  #
   p <- ggplot_ternary() + add_grid_lines_ternary() + add_labels_ternary(vars)
   if(is.null(color)){
     if(is.null(Size)){
@@ -266,7 +276,10 @@ plot_ternary <- function(x, measure = c('conc', 'meql'),
     }
   }
   p <- p + coord_fixed()
-
+  if(!is.null(labels)){
+    p <- p + geom_label_repel(aes(x = x, y = y, label = labels), 
+                              data= ID.samples.df)
+  }
   if(!is.null(color)){
     tmp <- gdata$dataset[color]
     if(class(tmp[,1]) == "numeric"){

@@ -272,6 +272,7 @@ calculate_convervative_mixing <- function(gdata, fresh.water = NULL, sea.water =
 #' are already defined. Used only for compatibility with the plot function.
 #' @param color Character variable that specifies the variable to color the data inside the plot.
 #' @param Size Character variable that specifies the variable to define the size of the data inside the plot.
+#' @param labels Character variable that specifies the labels to be used in the current plot
 #' @return
 #' This function returns a ggplot2 object with the corresponding hydrogeochemical plot.
 #' @author
@@ -288,12 +289,13 @@ plot.geochemical_dataset <- function(x, y = NULL, ..., type = c('piper',
                                      measure = c('conc', 'meql'),
                                      vars = NULL,
                                      color = NULL,
-                                     Size = NULL){
+                                     Size = NULL, 
+                                     labels = NULL){
   base_cmd <- "plot_"
   current.cmd <- paste0(base_cmd, type)
   additional.args <- list(...)
   current.args <- list(x = x, measure = measure, vars = vars, color = color,
-                       Size = Size, additional.args = additional.args)
+                       Size = Size, labels = labels, additional.args = additional.args)
   p <- do.call(current.cmd, args = current.args)
   return(p)
 }
@@ -306,6 +308,7 @@ plot.geochemical_dataset <- function(x, y = NULL, ..., type = c('piper',
 #' @param vars variables
 #' @param color color
 #' @param Size  size
+#' @param labels Character variable that specifies the labels to be used in the current plot
 #' @return
 #' A ggplot2 object with the corresponding Schoeller plot
 #' @author
@@ -314,7 +317,7 @@ plot.geochemical_dataset <- function(x, y = NULL, ..., type = c('piper',
 #' @importFrom ggplot2 ggplot scale_x_discrete scale_y_log10
 plot_schoeller <- function(x, measure = c('conc', 'meql'),
                            vars = NULL, color = NULL,
-                           Size = NULL){
+                           Size = NULL, labels = NULL){
   gdata <- x
   conc_ions <- colnames(gdata$dataset)
   meql_ions <- c("Ca", "Mg", "Na", "K", "HCO3", "CO3", "Cl", "SO4")

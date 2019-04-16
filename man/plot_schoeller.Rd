@@ -5,7 +5,7 @@
 \title{plot_schoeller}
 \usage{
 plot_schoeller(x, measure = c("conc", "meql"), vars = NULL,
-  color = NULL, Size = NULL)
+  color = NULL, Size = NULL, labels = NULL)
 }
 \arguments{
 \item{x}{A geochemical dataset}
@@ -17,6 +17,8 @@ plot_schoeller(x, measure = c("conc", "meql"), vars = NULL,
 \item{color}{color}
 
 \item{Size}{size}
+
+\item{labels}{Character variable that specifies the labels to be used in the current plot}
 }
 \value{
 A ggplot2 object with the corresponding Schoeller plot

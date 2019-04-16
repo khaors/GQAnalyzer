@@ -385,6 +385,7 @@ add_labels_piper <- function(labels, middle = TRUE,  color = NULL,
 #' are already defined. Used only for compatibility with the plot function.
 #' @param color Character variable that specifies the variable to color the data inside the plot.
 #' @param Size Character variable that specifies the variable to define the size of the data inside the plot.
+#' @param labels Character variable that specifies the labels to be used in the current plot
 #' @param additional.args A list with additional arguments
 #' @return
 #' This function returns a ggplot2 object with the Durov plot.
@@ -392,11 +393,12 @@ add_labels_piper <- function(labels, middle = TRUE,  color = NULL,
 #' Oscar Garcia-Cabrejo, \email{khaors@gmail.com}
 #' @family piper functions
 #' @importFrom ggplot2 ggplot geom_point coord_fixed scale_color_gradientn scale_colour_gradientn scale_color_discrete aes_string
-#' @importFrom grDevices rainbow
+#' @importFrom grDevices rainbow 
+#' @importFrom ggrepel geom_label_repel
 #' @export
 plot_piper <- function(x, measure = c('conc', 'meql'),
                        vars = NULL, color = NULL,
-                       Size = NULL, 
+                       Size = NULL, labels = NULL,
                        additional.args = NULL){
   gdata <- x
   conc_ions <- colnames(gdata$dataset)
@@ -415,6 +417,16 @@ plot_piper <- function(x, measure = c('conc', 'meql'),
   an_y <- NULL
   d_x <- NULL
   d_y <- NULL
+  x <- NULL
+  y <- NULL
+  # Labels
+  ID.samples.df <- NULL
+  if(!is.null(labels)){
+    ID.samples.df <- data.frame(x = piper.df$d_x, y = piper.df$d_y,
+                                labels = unname(gdata$dataset[labels]))
+    #print(ID.samples.df)
+  }
+  #
   if(is.null(color)){
     if(is.null(Size)){
       p <- p + geom_point(aes(x = 100*cat_x, y = 100*cat_y), data = piper.df) +
@@ -433,7 +445,8 @@ plot_piper <- function(x, measure = c('conc', 'meql'),
       else if(class(Size) == "character"){
         tmp <- gdata$dataset[Size]
         piper.df[Size] <- tmp[,1]
-        p <- p + geom_point(aes(x = 100*cat_x, y = 100*cat_y, size = Size), data = piper.df) +
+        p <- p + geom_point(aes(x = 100*cat_x, y = 100*cat_y, size = Size), 
+                            data = piper.df) +
           geom_point(aes(x = 100*an_x, y = 100*an_y, size = Size), data = piper.df) +
           geom_point(aes(x = 100*d_x, y = 100*d_y, size = Size), data = piper.df)
       }
@@ -445,8 +458,10 @@ plot_piper <- function(x, measure = c('conc', 'meql'),
     if(is.null(Size)){
       p <- p + geom_point(aes_string(x = "100*cat_x", y = "100*cat_y", color = color),
                           data = piper.df, size = 3) +
-        geom_point(aes_string(x = "100*an_x", y = "100*an_y", color = color), data= piper.df, size = 3) +
-        geom_point(aes_string(x = "100*d_x", y = "100*d_y", color = color), data = piper.df, size = 3)
+        geom_point(aes_string(x = "100*an_x", y = "100*an_y", color = color), 
+                   data= piper.df, size = 3) +
+        geom_point(aes_string(x = "100*d_x", y = "100*d_y", color = color), 
+                   data = piper.df, size = 3)
     }
     else{
       if(class(Size) == "numeric"){
@@ -475,6 +490,11 @@ plot_piper <- function(x, measure = c('conc', 'meql'),
   }
   #
   p <- p + coord_fixed()
+  #
+  if(!is.null(labels)){
+    p <- p + geom_label_repel(aes(x = 100*x, y = 100*y, label = labels), 
+                              data= ID.samples.df)
+  }
   #
   if(!is.null(color)){
     tmp <- gdata$dataset[color]

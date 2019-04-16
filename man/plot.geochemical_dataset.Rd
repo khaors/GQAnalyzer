@@ -7,7 +7,7 @@
 \method{plot}{geochemical_dataset}(x, y = NULL, ..., type = c("piper",
   "ternary", "durov", "schoeller", "stiff", "multirectangular", "radial"),
   measure = c("conc", "meql"), vars = NULL, color = NULL,
-  Size = NULL)
+  Size = NULL, labels = NULL)
 }
 \arguments{
 \item{x, y}{A geochemical_dataset object}
@@ -40,6 +40,8 @@ are already defined. Used only for compatibility with the plot function.}
 \item{color}{Character variable that specifies the variable to color the data inside the plot.}
 
 \item{Size}{Character variable that specifies the variable to define the size of the data inside the plot.}
+
+\item{labels}{Character variable that specifies the labels to be used in the current plot}
 }
 \value{
 This function returns a ggplot2 object with the corresponding hydrogeochemical plot.

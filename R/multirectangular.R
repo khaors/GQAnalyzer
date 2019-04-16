@@ -153,6 +153,7 @@ add_labels_multirectangular <- function(color = NULL,
 #' are already defined. Used only for compatibility with the plot function.
 #' @param color Character variable that specifies the variable to color the data inside the plot.
 #' @param Size Character variable that specifies the variable to define the size of the data inside the plot.
+#' @param labels Character variable that specifies the labels to be used in the current plot
 #' @param additional.args A list with additional arguments 
 #' @return
 #' This function returns a ggplot2 object with the Multirectangular plot.
@@ -161,23 +162,33 @@ add_labels_multirectangular <- function(color = NULL,
 #' @family multirectangular functions
 #' @importFrom ggplot2 ggplot geom_point coord_fixed scale_color_gradientn scale_colour_gradientn scale_color_discrete aes_string
 #' @importFrom grDevices rainbow
+#' @importFrom ggrepel geom_label_repel
 #' @export
 #' @references
 #' Ahmad, N., Sen, Z., & Ahmad, M. (2003). Ground Water Quality Assessment Using Multi-Rectangular Diagrams.
 #' Ground Water, 41(6), 828–832. http://doi.org/10.1111/j.1745-6584.2003.tb02423.x
 plot_multirectangular <- function(x, measure = c('conc', 'meql'),
                                   vars = NULL, color = NULL,
-                                  Size = NULL, 
+                                  Size = NULL,
+                                  labels = NULL,
                                   additional.args = NULL){
   gdata <- x
   cx <- NULL
   cy <- NULL
+  x <- NULL
+  y <- NULL
   conc_ions <- colnames(gdata$dataset)
   meql_ions <- c("Ca", "Mg", "Na", "K", "HCO3", "CO3", "Cl", "SO4")
   if(class(gdata) != "geochemical_dataset"){
     stop('ERROR: A geochemical_dataset is required as input')
   }
   multirec.df <- multirectangular_transform(gdata)
+  ID.samples.df <- NULL
+  if(!is.null(labels)){
+    ID.samples.df <- data.frame(x = multirec.df$cx, y = multirec.df$cy,
+                                labels = unname(gdata$dataset[labels]))
+    #print(ID.samples.df)
+  }
   p <- ggplot_multirectangular() + add_labels_multirectangular()
   if(is.null(color)){
     if(is.null(Size)){
@@ -215,6 +226,11 @@ plot_multirectangular <- function(x, measure = c('conc', 'meql'),
                             size = Size), data = multirec.df)
       }
     }
+  }
+  #
+  if(!is.null(labels)){
+    p <- p + geom_label_repel(aes(x = x, y = y, label = labels), 
+                              data= ID.samples.df)
   }
   #
   if(!is.null(color)){

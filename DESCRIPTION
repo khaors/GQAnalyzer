@@ -21,6 +21,7 @@ Imports:
   DT, 
   shinyalert,
   gridExtra,
-  sp
+  sp,
+  ggrepel
 URL: https://github.com/khaors/GQAnalyzer
 BugReports: https://github.com/khaors/GQAnalyzer/issues

@@ -131,6 +131,7 @@ ggplot_maucha <- function(){
 #' are already defined. Used only for compatibility with the plot function.
 #' @param color Character variable that specifies the variable to color the data inside the plot.
 #' @param Size Character variable that specifies the variable to define the size of the data inside the plot.
+#' @param labels Character variable that specifies the labels to be used in the current plot
 #' @param additional.args A list with additional arguments
 #' @return
 #' This function returns a ggplot2 object with the Durov plot.
@@ -141,7 +142,7 @@ ggplot_maucha <- function(){
 #' @export
 plot_maucha <- function(x, measure = c('conc', 'meql'),
                         vars = NULL, color = NULL,
-                        Size = NULL, 
+                        Size = NULL, labels = NULL,
                         additional.args = NULL){
   gdata <- x
   if(class(gdata) != "geochemical_dataset"){
