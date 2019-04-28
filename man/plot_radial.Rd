@@ -5,7 +5,7 @@
 \title{plot_radial}
 \usage{
 plot_radial(x, measure = c("conc", "meql"), vars = NULL,
-  color = NULL, Size = NULL)
+  color = NULL, Size = NULL, labels = NULL, additional.args = NULL)
 }
 \arguments{
 \item{x}{A geochemical_dataset object}
@@ -23,6 +23,10 @@ are already defined. Used only for compatibility with the plot function.}
 \item{color}{Character variable that specifies the variable to color the data inside the plot.}
 
 \item{Size}{Character variable that specifies the variable to define the size of the data inside the plot.}
+
+\item{labels}{Character variable that specifies the labels to be used in the current plot}
+
+\item{additional.args}{A list with additional arguments}
 }
 \value{
 This function returns a ggplot2 object with the Durov plot.
